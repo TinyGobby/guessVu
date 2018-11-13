@@ -34,10 +34,11 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+
 
 io.on('connection', function (client) {
   console.log('Client connected...');
+  client.emit('reply', "This is a message from the server")
   client.on('blabla', function (data) {
     console.log(data);
   })  
@@ -48,3 +49,4 @@ io.on('connection', function (client) {
 })
 
 server.listen(port, () => console.log(`app listening on port ${port}`))
+module.exports = app;
