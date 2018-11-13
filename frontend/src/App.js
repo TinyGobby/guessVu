@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import socket from './index';
+import DisplayMessages from './displayMessages';
 
 class App extends Component {
   constructor(props) {
@@ -28,9 +29,6 @@ class App extends Component {
       console.log(data);
     })
     socket.emit('blabla', 'Hello World from client');
-  }
-
-  componentWillUpdate(){
     const that = this;
     socket.on('listOfMessages', function (data) {
       that.setState({
@@ -38,6 +36,16 @@ class App extends Component {
       })
     })
   }
+
+  // componentWillUpdate(){
+   
+  // }
+
+  // displayMessages(){
+  //   this.state.messages.forEach(function (element) {
+  //     console.log(element.message);
+  //   })
+  // }
 
   render() {
     return (
@@ -50,9 +58,7 @@ class App extends Component {
           <button type='submit'>Submit!</button>
           </form>
           <div>
-            <ul id="messagelist" >
-
-            </ul>
+            <DisplayMessages messages={this.state.messages} />
           </div>
         </div>
       </div>

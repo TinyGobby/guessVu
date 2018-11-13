@@ -46,8 +46,6 @@ io.on('connection', function (client) {
     console.log(data);
   })  
   client.on('inputMessage', function (data) {
-    console.log('in input test')
-    console.log(typeof data);
     messages.saveMessage("1", "realname", "fakename", data)
     console.log(messages)
     client.emit('listOfMessages', messages.messageList)
