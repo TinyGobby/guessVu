@@ -1,4 +1,5 @@
 const createError = require('http-errors');
+
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -6,6 +7,8 @@ const logger = require('morgan');
 const port = process.env.PORT || 3001;
 
 const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -33,4 +36,15 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-app.listen(port, () => console.log(`app listening on port ${port}`))
+io.on('connection', function (client) {
+  console.log('Client connected...');
+  client.on('blabla', function (data) {
+    console.log(data);
+  })  
+  client.on('inputTest', function (data) {
+    console.log('in input test')
+    console.log(data);
+  })
+})
+
+server.listen(port, () => console.log(`app listening on port ${port}`))
