@@ -6,13 +6,24 @@ import './App.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { fakeName: null }
+    this.setFakeName = this.setFakeName.bind(this);
+  }
+
+  setFakeName(fakeName) {
+    this.setState({
+      fakeName: fakeName
+    })
+  }
 
   render() {
     return (
       <Router>
         <div className="App">
-          <Route exact path="/" component={Home} />
-          <Route path="/chatroom" component={ChatRoom} />
+          <Route exact path="/" render={() => <Home setFakeName={this.setFakeName} />} />
+          <Route path="/chatroom" render={() => <ChatRoom fakeName={this.state.fakeName} />}/>
         </div>
       </Router>
     );
