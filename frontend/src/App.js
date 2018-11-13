@@ -6,7 +6,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      input: ''
+      input: '',
+      messages: []
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -19,18 +20,23 @@ class App extends Component {
   handleSubmit(e){
     const that = this;
     e.preventDefault();
-    console.log('test2');
-    
-    console.log(this.state.input);
-    socket.emit('inputTest', that.state.input);
+    socket.emit('inputMessage', that.state.input);
   }
 
   componentDidMount() {
-    console.log('test');
     socket.on('reply', function (data) {
       console.log(data);
     })
     socket.emit('blabla', 'Hello World from client');
+  }
+
+  componentWillUpdate(){
+    const that = this;
+    socket.on('listOfMessages', function (data) {
+      that.setState({
+        messages: data
+      })
+    })
   }
 
   render() {
@@ -43,6 +49,11 @@ class App extends Component {
             <input value={this.state.input} onChange={this.handleChange} />
           <button type='submit'>Submit!</button>
           </form>
+          <div>
+            <ul id="messagelist" >
+
+            </ul>
+          </div>
         </div>
       </div>
     );

@@ -1,3 +1,4 @@
+const messagesclass = require('./models/messages')
 const createError = require('http-errors');
 
 const express = require('express');
@@ -35,16 +36,21 @@ app.use(function(err, req, res, next) {
 });
 
 
-
+const messages = new messagesclass();
 io.on('connection', function (client) {
+  
+  console.log(messages)
   console.log('Client connected...');
   client.emit('reply', "This is a message from the server")
   client.on('blabla', function (data) {
     console.log(data);
   })  
-  client.on('inputTest', function (data) {
+  client.on('inputMessage', function (data) {
     console.log('in input test')
-    console.log(data);
+    console.log(typeof data);
+    messages.saveMessage("1", "realname", "fakename", data)
+    console.log(messages)
+    client.emit('listOfMessages', messages.messageList)
   })
 })
 
