@@ -23,12 +23,16 @@ describe("Guess Vu", () => {
     await page.waitForSelector('.Form');
     await page.click("input[name=fakeName]");
     await page.type("input[name=fakeName]", "unicorn42");
+    await page.click("input[name=realName]");
+    await page.type("input[name=realName]", "Vu Le");
     await page.click("button[type=submit]");
   })
   test('redirects to chatroom after signup', async () => {
     await page.waitForSelector('.Form');
     await page.click("input[name=fakeName]");
     await page.type("input[name=fakeName]", "unicorn42");
+    await page.click("input[name=realName]");
+    await page.type("input[name=realName]", "Vu Le");
     await page.click("button[type=submit]");
     await page.waitForSelector('.ChatRoom');
     const html = await page.$eval('.ChatRoom-title', e => e.innerHTML);
@@ -39,6 +43,8 @@ describe("Guess Vu", () => {
     await page.waitForSelector('.Form');
     await page.click("input[name=fakeName]");
     await page.type("input[name=fakeName]", "unicorn42");
+    await page.click("input[name=realName]");
+    await page.type("input[name=realName]", "Vu Le");
     await page.click("button[type=submit]");
     await page.waitForSelector('.ChatRoom');
     const html = await page.$eval('.ChatRoom-title', e => e.innerHTML);

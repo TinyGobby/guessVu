@@ -9,7 +9,7 @@ class Home extends Component {
     return (
       <div>
         <h1 className="App-title">Guess Vu!</h1>
-        <Form setFakeName={this.props.setFakeName}/>
+        <Form setNames={this.props.setNames}/>
       </div>
     );
   }
