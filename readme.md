@@ -126,7 +126,7 @@ Single page app with landing page asking for real name and fake (display) name, 
 
 * **Vu Le** - [ckvuby](https://github.com/ckvuby)
 * **Seb Becker** - [sebgrebe](https://github.com/sebgrebe)
-* **Ibrahim Ezrouki** - [IvyMic](https://github.com/IvyMic)
+* **Ibrahim E** - [IvyMic](https://github.com/IvyMic)
 * **Patrick Harris** - [TinyGobby](https://github.com/TinyGobby)
 
 <!-- ## License
