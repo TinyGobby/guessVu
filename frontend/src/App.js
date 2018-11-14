@@ -1,67 +1,38 @@
 import React, { Component } from 'react';
+import Form from './form';
+import Home from './home';
+import ChatRoom from './chatroom'
 import './App.css';
 import socket from './index';
 import DisplayMessages from './displayMessages';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      input: '',
-      messages: []
+      fakeName: null,
+      realName: null,
     }
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.setNames = this.setNames.bind(this);
   }
 
-  handleChange(e){
-    this.setState({input: e.target.value})
-  }
-
-  handleSubmit(e){
-    const that = this;
-    e.preventDefault();
-    socket.emit('inputMessage', that.state.input);
-  }
-
-  componentDidMount() {
-    socket.on('reply', function (data) {
-      console.log(data);
-    })
-    socket.emit('blabla', 'Hello World from client');
-    const that = this;
-    socket.on('listOfMessages', function (data) {
-      that.setState({
-        messages: data
-      })
+  setNames(fakeName, realName) {
+    this.setState({
+      fakeName: fakeName,
+      realName: realName
     })
   }
-
-  // componentWillUpdate(){
-   
-  // }
-
-  // displayMessages(){
-  //   this.state.messages.forEach(function (element) {
-  //     console.log(element.message);
-  //   })
-  // }
 
   render() {
     return (
-
-      <div className="App">
-        Guess Vu!
-        <div>
-          <form onSubmit={this.handleSubmit}>
-            <input value={this.state.input} onChange={this.handleChange} />
-          <button type='submit'>Submit!</button>
-          </form>
-          <div>
-            <DisplayMessages messages={this.state.messages} />
-          </div>
+      <Router>
+        <div className="App">
+          <Route exact path="/"
+            render={() => <Home setNames={this.setNames} />}/>
+          <Route path="/chatroom" render={() => <ChatRoom fakeName={this.state.fakeName} />}/>
         </div>
-      </div>
+      </Router>
     );
   }
 }
