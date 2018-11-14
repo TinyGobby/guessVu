@@ -40,7 +40,7 @@ class ChatRoom extends Component {
 render() {
   return (
         <div className="ChatRoom">
-          <h1 className="ChatRoom-title">Welcome {this.props.fakeName}</h1>
+          <h1 className="ChatRoom-title">Welcome {this.props.user.fakeName}</h1>
           <form onSubmit={this.handleSubmit}>
             <input value={this.state.input} onChange={this.handleChange} />
             <button type='submit'>Submit!</button>

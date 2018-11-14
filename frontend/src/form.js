@@ -1,12 +1,26 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import axios from 'axios';
 
 class Form extends Component {
+  
   handleSubmit() {
+    var that = this;
     const fakeName = document.getElementById('fakeName').value;
     const realName = document.getElementById('realName').value;
-    this.props.setNames(fakeName, realName);
-    this.props.history.push('/chatroom');
+
+    axios.post('/api/user', {
+      fakeName: fakeName,
+      realName: realName
+    })
+    .then(function (response) {
+      const user = response.data;
+      that.props.setUser(user);
+      that.props.history.push('/chatroom');
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   render() {

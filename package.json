@@ -17,6 +17,7 @@
     "socket.io-client": "^2.1.1"
   },
   "devDependencies": {
+    "cors": "^2.8.5",
     "jest": "^23.6.0",
     "jest-cli": "^23.6.0",
     "puppeteer": "^1.10.0"

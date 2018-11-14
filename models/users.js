@@ -14,9 +14,12 @@ class Users {
 
   generateID() {
     let ids = [];
-    this.list.forEach((element) => {
-      ids.push(element.id)
+    
+    this.list.forEach((user) => {
+    
+      ids.push(user.id)
     })
+    
     if(ids.length == 0) {
       return "1";
     }
