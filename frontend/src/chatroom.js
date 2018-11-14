@@ -22,6 +22,9 @@ class ChatRoom extends Component {
     const that = this;
     e.preventDefault();
     socket.emit('inputMessage', that.state.input);
+    this.setState({
+      input: ''
+    })
   }
 
   componentDidMount() {
