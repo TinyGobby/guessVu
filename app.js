@@ -46,7 +46,7 @@ io.on('connection', function (client) {
     console.log(data);
   })  
   client.on('inputMessage', function (data) {
-    messages.saveMessage("1", "realname", "fakename", data)
+    messages.saveMessage("1", "fakename", data)
     console.log(messages)
     client.emit('listOfMessages', messages.messageList)
   })
