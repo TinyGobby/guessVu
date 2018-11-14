@@ -8,7 +8,7 @@ class ChatRoom extends Component {
     super(props)
     this.state = {
       input: '',
-      messages: [{message: "inital test"}]
+      messages: []
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -26,7 +26,10 @@ class ChatRoom extends Component {
 
   componentDidMount() {
     const that = this;
+    // allows user to see updated version of message list
+    // when joining room
     socket.emit('retrieveMessages')
+
     socket.on('listOfMessages', function (data) {
       that.setState({
         messages: data

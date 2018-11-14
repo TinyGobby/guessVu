@@ -39,11 +39,15 @@ app.use(function(err, req, res, next) {
 const messages = new messagesclass();
 io.on('connection', function (client) {
   console.log('Client connected...');
-    
-    client.on('inputMessage', function (data) {
+
+  // on receipt of new message, saves the message
+  client.on('inputMessage', function (data) {
     messages.saveMessage("1", "fakename", data)
+    // io.emit sends messageList to all users 
     io.emit('listOfMessages', messages.messageList)
   })
+  // this is so that when a user joins chatroom they immediately
+  // see the updated version of the message list
   client.on('retrieveMessages', function () {
     client.emit('listOfMessages', messages.messageList)
   })
