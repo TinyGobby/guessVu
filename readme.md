@@ -31,7 +31,7 @@ npm install
 ## Running The Server
 If changes have been made rebuild the `frontend` package:
 ```sh
-npm build
+npm run build
 ```
 
 Then run the server in the `root`:
