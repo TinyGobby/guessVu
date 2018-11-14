@@ -1,1 +1,27 @@
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# node-waf configuration
+.lock-wscript
+
+# Compiled binary addons (http://nodejs.org/api/addons.html)
+build/Release
+
+# Build directories
+# public
+dist
+
+# Dependency directory
 node_modules
+
+# Mac File System File...utterly useless to anyone but me.
+.DS_Store
+
+# VS Code settings file
+.vscode

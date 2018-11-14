@@ -31,7 +31,7 @@ npm install
 ## Running The Server
 If changes have been made rebuild the `frontend` package:
 ```sh
-npm build
+npm run build
 ```
 
 Then run the server in the `root`:
@@ -111,14 +111,13 @@ Single page app with landing page asking for real name and fake (display) name, 
 * [CSS](https://www.w3schools.com/css/css_intro.asp) - Styling language used to make everything look pretty
 * [React](https://reactjs.org/) - Frontend JavaScript library used to generate views and routing
 * [NodeJS](https://nodejs.org/en/) - Backend JavaScript runtime used to run JavaScript on the server
+* [express.js](https://expressjs.com/) - Server framework for NodeJS
 * [socket.io](https://socket.io/) - WebSocket framework allowing bi-directional communication between web clients and servers
 * [Jest](https://jestjs.io/en/) - Testing library used to automate both frontend and unit tests
 * [Puppeteer](https://pptr.dev/) - Feature testing API used to automate UI testing
 * [Chromium](https://www.chromium.org/) - Run in headless mode by Puppeteer for feature tests
 * [webpack](https://webpack.js.org/) - Module bundler and build tool
 * [npm](https://www.npmjs.com/) - Package manager and command line interface
-* [Trello](https://trello.com/b/ZrjQm3jB/guessvu) - Project management tool using the kanban system. Link goes to the project Trello board.
-* [Slack](https://slack.com/) - Private channel set up for group conversations and sharing of links and code snippets
 <!-- * [TravisCI](https://travis-ci.org/first_sync) - Continuous integration tool used to test commits and pull requests, then deploy automatically if tests pass -->
 <!-- * [Heroku](https://www.heroku.com/) - Cloud platform used to deploy and host the live project -->
 

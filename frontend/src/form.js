@@ -25,20 +25,17 @@ class Form extends Component {
     .catch(function (error) {
       console.log(error);
     });
-    
   }
 
-  render() {
-    return (
-      <div class="Form">
-        <input name="fakeName" id="fakeName" placeholder="Fake Name" />
-        <input name="realName" id="realName" placeholder="Real Name" />
-        <button type="submit" onClick={() => this.handleSubmit()}>
-          Play
-        </button>
-      </div>
-    );
-  }
+  return (
+    <div class="Form">
+      <input name="fakeName" id="fakeName" placeholder="Fake Name" />
+      <input name="realName" id="realName" placeholder="Real Name" />
+      <button type="submit" onClick={() => handleSubmit()}>
+        Play
+      </button>
+    </div>
+  );
 }
 
 export default withRouter(Form);
