@@ -3,6 +3,8 @@ import Form from './form';
 import Home from './home';
 import ChatRoom from './chatroom'
 import './App.css';
+import socket from './index';
+import DisplayMessages from './displayMessages';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class App extends Component {
