@@ -18,6 +18,20 @@ describe("Users", () => {
       users.add("unicorn42", "Seb");
       expect(users.list).toContainEqual({fakeName: "unicorn42", realName: "Seb", id: "1"});
     })
+
+    it("should return success", () => {
+      expect(users.add("unicorn42", "Seb").success).toBe(true);
+    })
+
+    it("should not add a user if fakename is taken", () => {
+      users.add("unicorn42", "seb");
+      expect(users.add("unicorn42", "vu").success).toBe(false);
+    })
+
+    it("should not add a user if realname is taken", () => {
+      users.add("unicorn99", "vu");
+      expect(users.add("unicorn88", "vu").success).toBe(false);
+    })
   })
 
   describe("generateID", () => {

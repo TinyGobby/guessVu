@@ -14,13 +14,18 @@ class Form extends Component {
       realName: realName
     })
     .then(function (response) {
-      const user = response.data;
-      that.props.setUser(user);
-      that.props.history.push('/chatroom');
+      if (response.data.success) {
+        const user = response.data.user;
+        that.props.setUser(user);
+        that.props.history.push('/chatroom');
+      } else {
+        console.log(response.data.reason);
+      }
     })
     .catch(function (error) {
       console.log(error);
     });
+    
   }
 
   render() {
