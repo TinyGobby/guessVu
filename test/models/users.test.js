@@ -44,4 +44,34 @@ describe("Users", () => {
     })
   })
 
+  describe("getAllRealNames", () => {
+    it("should return all the real names of users", () => {
+      users.add("unicorn1", "seb1");
+      users.add("unicorn2", "seb2");
+      users.add("unicorn3", "seb3");
+      expect(users.getAllRealNames()).toEqual(["seb1", "seb2", "seb3"])
+    });
+  })
+
+  describe("getAllFakeNames", () => {
+    it("should return all the fake names of users", () => {
+      users.add("unicorn1", "seb1");
+      users.add("unicorn2", "seb2");
+      users.add("unicorn3", "seb3");
+      expect(users.getAllFakeNames()).toEqual(["unicorn1", "unicorn2", "unicorn3"])
+    });
+  })
+
+  describe("compareFakeReal", () => {
+    it('should return true when fake name matches real name', () => {
+      users.add("unicorn1", "seb1");
+      users.add("unicorn2", "seb2");
+      expect(users.compareFakeReal("unicorn1", "seb1")).toBe(true)
+    });
+    it('should return false when fake name does not match real name', () => {
+      users.add("unicorn1", "seb1");
+      expect(users.compareFakeReal("unicorn1", "seb2")).toBe(false)
+    });
+  })
+
 })
