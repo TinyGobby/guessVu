@@ -13,10 +13,6 @@ pids
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
-# Build directories
-# public
-dist
-
 # Dependency directory
 node_modules
 
