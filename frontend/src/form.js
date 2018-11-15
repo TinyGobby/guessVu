@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
+import Alert from './alert';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 class Form extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      signupErrorMsg: null
+    }
+  }
 
   handleSubmit() {
     var that = this;
@@ -20,7 +28,9 @@ class Form extends Component {
         that.props.setUser(user);
         that.props.history.push('/chatroom');
       } else {
-        console.log(response.data.reason);
+        that.setState({
+          signupErrorMsg: response.data.reason
+        })
       }
     })
     .catch(function (error) {
@@ -36,6 +46,10 @@ class Form extends Component {
         <button type="submit" onClick={() => this.handleSubmit()}>
           Play
         </button>
+        {this.state.signupErrorMsg && (
+            <Alert msg={this.state.signupErrorMsg}/>
+        )}
+
       </div>
     );
   }

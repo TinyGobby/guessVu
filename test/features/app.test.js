@@ -46,6 +46,18 @@ describe('Guess Vu', () => {
       const html = await page.$eval('.ChatRoom-title', e => e.innerHTML);
       expect(html).toBe('Welcome unicorn2');
     });
+
+    test('shows message when signing up with real name taken', async () => {
+      await page.waitForSelector('.Form');
+      await page.click('input[name=fakeName]');
+      await page.type('input[name=fakeName]', 'unicorn2a');
+      await page.click('input[name=realName]');
+      await page.type('input[name=realName]', 'Vu2');
+      await page.click('button[type=submit]');
+      await page.waitForSelector('.signupError');
+      const html = await page.$eval('.signupError', e => e.innerHTML);
+      expect(html).toBe('This real name is already taken. Maybe add your last name?');
+    })
   });
 
   describe('Chatroom messages input', () => {
