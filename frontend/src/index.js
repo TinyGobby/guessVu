@@ -5,7 +5,9 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import io from 'socket.io-client';
 
-const socket = io.connect('localhost:3001')
+let HOST = window.location.origin.replace(/^http:\/\//, '')
+console.log({"host" : HOST})
+const socket = io.connect(HOST)
 export default socket
 
 ReactDOM.render(<App />, document.getElementById('root'));

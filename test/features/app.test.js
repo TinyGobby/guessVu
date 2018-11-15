@@ -47,6 +47,7 @@ describe('Guess Vu', () => {
       expect(html).toBe('Welcome unicorn2');
     });
 
+
     test('shows message when signing up with real name taken', async () => {
       await page.waitForSelector('.Form');
       await page.click('input[name=fakeName]');
@@ -56,10 +57,21 @@ describe('Guess Vu', () => {
       await page.click('button[type=submit]');
       await page.waitForSelector('.signupError');
       const html = await page.$eval('.signupError', e => e.innerHTML);
-      expect(html).toBe(
-        'This real name is already taken. Maybe add your last name?'
-      );
+      expect(html).toBe('This real name is already taken. Maybe add your last name?');
+    })
+
+    test('shows error message when fake and realname equal', async () => {
+      await page.waitForSelector('.Form');
+      await page.click('input[name=fakeName]');
+      await page.type('input[name=fakeName]', 'unicorn5');
+      await page.click('input[name=realName]');
+      await page.type('input[name=realName]', 'unicorn5');
+      await page.click('button[type=submit]');
+      await page.waitForSelector('.signupError');
+      const html = await page.$eval('.signupError', e => e.innerHTML);
+      expect(html).toBe("Your fake name can't be your real name");
     });
+
   });
 
   describe('Chatroom messages input', () => {
@@ -143,7 +155,7 @@ describe('Guess Vu', () => {
       await page.click('input[name=guessFakeName]');
       await page.type('input[name=guessFakeName]', 'unicorn1');
       await page.click('input[name=guessRealName]');
-      await page.type('input[name=guessRealName]', 'wrong guess');
+      await page.type('input[name=guessRealName]', 'Wrong guess');
       await page.click('.submitGuess');
       await page.waitForSelector('.outcome');
       const html = await page.$eval('.outcome', e => e.innerHTML);
