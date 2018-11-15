@@ -1,4 +1,5 @@
-# Guess Vu!
+# Guess Vu! 
+![Logo](https://i.imgur.com/AEKKjpj.jpg)
 
 Engineering project two for Makers Apprencticeships (Weeks 11 & 12). A small  anonymous messaging app/chatroom where you try and figure out the identities of others in the chatroom
 
