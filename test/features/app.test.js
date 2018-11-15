@@ -143,7 +143,7 @@ describe('Guess Vu', () => {
       await page.click('input[name=guessFakeName]');
       await page.type('input[name=guessFakeName]', 'unicorn1');
       await page.click('input[name=guessRealName]');
-      await page.type('input[name=guessRealName]', 'Vu1');
+      await page.type('input[name=guessRealName]', 'wrong guess');
       await page.click('.submitGuess');
       await page.waitForSelector('.outcome');
       const html = await page.$eval('.outcome', e => e.innerHTML);
