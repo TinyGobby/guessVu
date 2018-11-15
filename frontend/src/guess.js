@@ -28,10 +28,11 @@ class Guess extends Component {
       })
       .then(function(response) {
         console.log('within response');
-        if (response.data === 'true') {
-          that.props.setState({ guessOutcome: 'You guessed correctly!' });
-        } else if (response.data === 'false') {
-          that.props.setState({ guessOutcome: 'Sorry, not this time!' });
+        console.log(response.data)
+        if (response.data === true) {
+          that.setState({ guessOutcome: 'You guessed correctly!' });
+        } else if (response.data === false) {
+          that.setState({ guessOutcome: 'Sorry, not this time!' });
         } else {
           console.log('No response');
         }

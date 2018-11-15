@@ -56,8 +56,10 @@ describe('Guess Vu', () => {
       await page.click('button[type=submit]');
       await page.waitForSelector('.signupError');
       const html = await page.$eval('.signupError', e => e.innerHTML);
-      expect(html).toBe('This real name is already taken. Maybe add your last name?');
-    })
+      expect(html).toBe(
+        'This real name is already taken. Maybe add your last name?'
+      );
+    });
   });
 
   describe('Chatroom messages input', () => {
@@ -126,6 +128,26 @@ describe('Guess Vu', () => {
       await page.waitForSelector('.outcome');
       const html = await page.$eval('.outcome', e => e.innerHTML);
       expect(html).toEqual(expect.stringContaining('You guessed correctly!'));
+    });
+
+    test('Incorrect guess', async () => {
+      // Needs to be changed after we reset the server for each test
+      await page.waitForSelector('.Form');
+      await page.click('input[name=fakeName]');
+      await page.type('input[name=fakeName]', 'unicorn7');
+      await page.click('input[name=realName]');
+      await page.type('input[name=realName]', 'Vu7');
+      await page.click('button[type=submit]');
+      await page.waitForSelector('.guessing');
+      await page.waitForSelector('.guessForm');
+      await page.click('input[name=guessFakeName]');
+      await page.type('input[name=guessFakeName]', 'unicorn1');
+      await page.click('input[name=guessRealName]');
+      await page.type('input[name=guessRealName]', 'Vu1');
+      await page.click('.submitGuess');
+      await page.waitForSelector('.outcome');
+      const html = await page.$eval('.outcome', e => e.innerHTML);
+      expect(html).toEqual(expect.stringContaining('Sorry, not this time!'));
     });
   });
 });

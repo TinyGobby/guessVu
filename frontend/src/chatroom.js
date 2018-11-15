@@ -11,8 +11,8 @@ class ChatRoom extends Component {
     this.state = {
       input: '',
       messages: [],
-      realNames: ['1', '2', '3'],
-      fakeNames: ['a', 'b', 'c']
+      realNames: [],
+      fakeNames: []
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
