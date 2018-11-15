@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import DisplayMessages from './displayMessages';
 import socket from './index.js';
 import ShowRealNames from './realNames';
+import ShowFakeNames from './fakeNames';
+import Guess from './guess';
 
 class ChatRoom extends Component {
   constructor(props) {
@@ -9,7 +11,8 @@ class ChatRoom extends Component {
     this.state = {
       input: '',
       messages: [],
-      realNames: []
+      realNames: ['1', '2', '3'],
+      fakeNames: ['a', 'b', 'c']
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -39,6 +42,7 @@ class ChatRoom extends Component {
     // when joining room
     socket.emit('retrieveMessages');
     // socket.emit('getRealNames');
+    // socket.emit('getFakeNames');
 
     socket.on('listOfMessages', function(data) {
       that.setState({
@@ -51,6 +55,12 @@ class ChatRoom extends Component {
         realNames: data
       });
     });
+
+    socket.on('listOfFakeNames', function(data) {
+      that.setState({
+        fakeNames: data
+      });
+    });
   }
 
   render() {
@@ -58,7 +68,15 @@ class ChatRoom extends Component {
       <div className="ChatRoom">
         <h1 className="ChatRoom-title">Welcome {this.props.user.fakeName}</h1>
         <div>
-          <ShowRealNames realNames = {this.state.realNames} />
+          <h3>Real Names</h3>
+          <ShowRealNames realNames={this.state.realNames} />
+        </div>
+        <div>
+          <h3>Fake Names</h3>
+          <ShowFakeNames fakeNames={this.state.fakeNames} />
+        </div>
+        <div>
+          <Guess guesser={this.state.user} />
         </div>
         <form onSubmit={this.handleSubmit}>
           <input
@@ -67,7 +85,9 @@ class ChatRoom extends Component {
             value={this.state.input}
             onChange={this.handleChange}
           />
-          <button type="submit">Submit!</button>
+          <button className="submitMsg" type="submit">
+            Submit!
+          </button>
         </form>
         <div className="DisplayedMessages">
           <DisplayMessages messages={this.state.messages} />
