@@ -4,6 +4,7 @@ import socket from './index.js';
 import ShowRealNames from './realNames';
 import ShowFakeNames from './fakeNames';
 import Guess from './guess';
+import axios from 'axios';
 
 class ChatRoom extends Component {
   constructor(props) {
@@ -16,6 +17,8 @@ class ChatRoom extends Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.getRealNames = this.getRealNames.bind(this);
+    this.getFakeNames = this.getFakeNames.bind(this);
   }
 
   handleChange(e) {
@@ -41,8 +44,8 @@ class ChatRoom extends Component {
     // allows user to see updated version of message list
     // when joining room
     socket.emit('retrieveMessages');
-    // socket.emit('getRealNames');
-    // socket.emit('getFakeNames');
+    this.getRealNames();
+    this.getFakeNames();
 
     socket.on('listOfMessages', function(data) {
       that.setState({
@@ -50,17 +53,32 @@ class ChatRoom extends Component {
       });
     });
 
-    socket.on('listOfRealNames', function(data) {
-      that.setState({
-        realNames: data
-      });
-    });
+  }
 
-    socket.on('listOfFakeNames', function(data) {
-      that.setState({
-        fakeNames: data
+  getRealNames() {
+    let that = this;
+    axios
+      .get('/api/user/allRealNames', {})
+      .then(function(response) {
+        console.log(response.data);
+        that.setState({ realNames: response.data });
+      })
+      .catch(function(error) {
+        console.log(error);
       });
-    });
+  }
+
+  getFakeNames() {
+    let that = this;
+    axios
+      .get('/api/user/allFakeNames', {})
+      .then(function(response) {
+        console.log(response.data);
+        that.setState({ fakeNames: response.data });
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 
   render() {

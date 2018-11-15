@@ -56,10 +56,6 @@ io.on('connection', function(client) {
     client.emit('listOfMessages', messages.messageList);
   });
 
-  // needs method name for retrieving real names
-  // client.on('getRealNames', function() {
-  //   io.emit('listOfRealNames', users.);
-  // });
 });
 
 server.listen(port, () => console.log(`app listening on port ${port}`));
