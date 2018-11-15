@@ -22,14 +22,17 @@ class ChatRoom extends Component {
     const that = this;
     e.preventDefault();
     socket.emit('inputMessage', that.state.input);
+    this.setState({
+      input: ''
+    })
   }
 
   componentDidMount() {
-    socket.on('reply', function (data) {
-      console.log(data);
-    })
-    socket.emit('blabla', 'Hello World from client');
     const that = this;
+    // allows user to see updated version of message list
+    // when joining room
+    socket.emit('retrieveMessages')
+
     socket.on('listOfMessages', function (data) {
       that.setState({
         messages: data
@@ -42,10 +45,10 @@ render() {
         <div className="ChatRoom">
           <h1 className="ChatRoom-title">Welcome {this.props.user.fakeName}</h1>
           <form onSubmit={this.handleSubmit}>
-            <input value={this.state.input} onChange={this.handleChange} />
+            <input name="message" className="MessageForm" value={this.state.input} onChange={this.handleChange} />
             <button type='submit'>Submit!</button>
           </form>
-          <div>
+          <div className="DisplayedMessages">
             <DisplayMessages messages={this.state.messages} />
           </div>
         </div>

@@ -10,7 +10,7 @@ class Messages {
     saveMessage(userID, fakeName, message){
        let user =  {
             "userid": userID,
-            "fakename": fakeName,
+            "fakeName": fakeName,
             "message": message
         }
 
