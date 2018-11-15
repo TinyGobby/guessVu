@@ -18,6 +18,32 @@ class Users {
     return {success: true, user: new_user}
   }
 
+  getAllFakeNames(){
+    let fakeNames = [];
+    this.list.map((user) => {
+      fakeNames.push(user.fakeName)
+    })
+    return fakeNames;
+  }
+
+  getAllRealNames(){
+    let realNames = [];
+    this.list.map((user) => {
+      realNames.push(user.realName)
+    })
+    return realNames;
+  }
+
+  compareFakeReal(fakeName, realName){
+    let success = false
+    this.list.forEach((user) => {
+      if (user.fakeName == fakeName && user.realName == realName){
+        success = true;
+      }
+    })
+    return success;
+  }
+
   generateID() {
     let ids = [];
     this.list.forEach((user) => {
