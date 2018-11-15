@@ -7,11 +7,10 @@ class Messages {
         return this.messageList;
     }
 
-    saveMessage(userID, realName, fakeName, message){
+    saveMessage(userID, fakeName, message){
        let user =  {
             "userid": userID,
-            "realname": realName,
-            "fakename": fakeName,
+            "fakeName": fakeName,
             "message": message
         }
 
