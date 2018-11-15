@@ -20,8 +20,13 @@ class ChatRoom extends Component {
 
   handleSubmit(e){
     const that = this;
+    let sentObj = {
+      msg: this.state.input,
+      fakeName: this.props.user.fakeName,
+      userId: this.props.user.id
+    }
     e.preventDefault();
-    socket.emit('inputMessage', that.state.input);
+    socket.emit('inputMessage', sentObj);
     this.setState({
       input: ''
     })
