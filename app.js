@@ -1,4 +1,4 @@
-const messagesclass = require('./models/messages')
+const messagesclass = require('./models/messages');
 const createError = require('http-errors');
 
 const express = require('express');
@@ -39,26 +39,28 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-
-app.use(cors({credentials: true, origin: true}))
-
-
+app.use(cors({ credentials: true, origin: true }));
 
 const messages = new messagesclass();
-io.on('connection', function (client) {
+io.on('connection', function(client) {
   console.log('Client connected...');
   // on receipt of new message, saves the message
-  client.on('inputMessage', function (data) {
-    messages.saveMessage(data.userId, data.fakeName, data.msg)
+  client.on('inputMessage', function(data) {
+    messages.saveMessage(data.userId, data.fakeName, data.msg);
     // io.emit sends messageList to all users
-    io.emit('listOfMessages', messages.messageList)
-  })
+    io.emit('listOfMessages', messages.messageList);
+  });
   // this is so that when a user joins chatroom they immediately
   // see the updated version of the message list
-  client.on('retrieveMessages', function () {
-    client.emit('listOfMessages', messages.messageList)
-  })
-})
+  client.on('retrieveMessages', function() {
+    client.emit('listOfMessages', messages.messageList);
+  });
 
-server.listen(port, () => console.log(`app listening on port ${port}`))
+  // needs method name for retrieving real names
+  // client.on('getRealNames', function() {
+  //   io.emit('listOfRealNames', users.);
+  // });
+});
+
+server.listen(port, () => console.log(`app listening on port ${port}`));
 module.exports = app;

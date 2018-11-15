@@ -64,4 +64,19 @@ describe('Guess Vu', () => {
       expect(html).toEqual(expect.stringContaining('test message'));
     });
   });
+
+  describe('Real names shown', () => {
+    test('names are displayed', async () => {
+      // Needs to be changed after we reset the server for each test
+      await page.waitForSelector('.Form');
+      await page.click('input[name=fakeName]');
+      await page.type('input[name=fakeName]', 'unicorn4');
+      await page.click('input[name=realName]');
+      await page.type('input[name=realName]', 'Vu4');
+      await page.click('button[type=submit]');
+      await page.waitForSelector('.allRealNames');
+      const html = await page.$eval('.allRealNames', e => e.innerHTML);
+      expect(html).toEqual(expect.stringContaining('Vu1')); // Already logged in
+    });
+  });
 });
