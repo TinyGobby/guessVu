@@ -67,27 +67,27 @@ describe('Guess Vu', () => {
       await page.click('input[name=realName]');
       await page.type('input[name=realName]', 'unicorn5');
       await page.click('button[type=submit]');
-      await page.waitForSelector('.Alert');
-      const html = await page.$eval('.Alert', e => e.innerHTML);
+      await page.waitForSelector('.signupError');
+      const html = await page.$eval('.signupError', e => e.innerHTML);
       expect(html).toBe("Your fake name can't be your real name");
     });
 
   });
 
-  describe('Chatroom messages input', () => {
-    test('messages are displayed once sent', async () => {
-      await page.waitForSelector('.Form');
-      await page.click('input[name=fakeName]');
-      await page.type('input[name=fakeName]', 'unicorn3');
-      await page.click('input[name=realName]');
-      await page.type('input[name=realName]', 'Vu3');
-      await page.click('button[type=submit]');
-      await page.waitForSelector('.MessageForm');
-      await page.click('input[name=message]');
-      await page.type('input[name=message]', 'test message');
-      await page.click('button[type=submit]');
-      const html = await page.$eval('.DisplayedMessages', e => e.innerHTML);
-      expect(html).toEqual(expect.stringContaining('test message'));
-    });
-  });
+  // describe('Chatroom messages input', () => {
+  //   test('messages are displayed once sent', async () => {
+  //     await page.waitForSelector('.Form');
+  //     await page.click('input[name=fakeName]');
+  //     await page.type('input[name=fakeName]', 'unicorn3');
+  //     await page.click('input[name=realName]');
+  //     await page.type('input[name=realName]', 'Vu3');
+  //     await page.click('button[type=submit]');
+  //     await page.waitForSelector('.MessageForm');
+  //     await page.click('input[name=message]');
+  //     await page.type('input[name=message]', 'test message');
+  //     await page.click('button[type=submit]');
+  //     const html = await page.$eval('.DisplayedMessages', e => e.innerHTML);
+  //     expect(html).toEqual(expect.stringContaining('test message'));
+  //   });
+  // });
 });
