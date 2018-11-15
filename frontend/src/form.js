@@ -1,12 +1,30 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import axios from 'axios';
 
-const Form = (props) => { 
-  const handleSubmit = () => {
+class Form extends Component {
+  
+  handleSubmit() {
+    var that = this;
     const fakeName = document.getElementById('fakeName').value;
     const realName = document.getElementById('realName').value;
-    props.setNames(fakeName, realName);
-    props.history.push('/chatroom');
+
+    axios.post('/api/user', {
+      fakeName: fakeName,
+      realName: realName
+    })
+    .then(function (response) {
+      if (response.data.success) {
+        const user = response.data.user;
+        that.props.setUser(user);
+        that.props.history.push('/chatroom');
+      } else {
+        console.log(response.data.reason);
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   return (

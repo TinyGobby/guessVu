@@ -3,11 +3,13 @@ const createError = require('http-errors');
 
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const port = process.env.PORT || 3001;
 
 const app = express();
+
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
@@ -18,6 +20,8 @@ app.use(cookieParser());
 
 //serve built react app as frontend
 app.use(express.static('frontend/dist'));
+
+require('./routes.js')(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -36,10 +40,13 @@ app.use(function(err, req, res, next) {
 });
 
 
+app.use(cors({credentials: true, origin: true}))
+
+
+
 const messages = new messagesclass();
 io.on('connection', function (client) {
   console.log('Client connected...');
-
   // on receipt of new message, saves the message
   client.on('inputMessage', function (data) {
     messages.saveMessage("1", "fakename", data)

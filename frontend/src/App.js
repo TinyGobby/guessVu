@@ -11,26 +11,25 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fakeName: null,
-      realName: null,
+      user: null
     }
-    this.setNames = this.setNames.bind(this);
+    this.setUser = this.setUser.bind(this);
   }
 
-  setNames(fakeName, realName) {
+  setUser(user) {
     this.setState({
-      fakeName: fakeName,
-      realName: realName
+      user: user
     })
   }
 
   render() {
+    console.log(this.state.user);
     return (
       <Router>
         <div className="App">
           <Route exact path="/"
-            render={() => <Home setNames={this.setNames} />}/>
-          <Route path="/chatroom" render={() => <ChatRoom fakeName={this.state.fakeName} />}/>
+            render={() => <Home setUser={this.setUser} />}/>
+          <Route path="/chatroom" render={() => <ChatRoom user={this.state.user} />}/>
         </div>
       </Router>
     );
