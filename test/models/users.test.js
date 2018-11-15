@@ -32,6 +32,10 @@ describe("Users", () => {
       users.add("unicorn99", "vu");
       expect(users.add("unicorn88", "vu").success).toBe(false);
     })
+
+    it("should not add a user if real name is equal to fake name", () => {
+      expect(users.add("bob", "bob").success).toBe(false)
+    })
   })
 
   describe("generateID", () => {
@@ -71,6 +75,15 @@ describe("Users", () => {
     it('should return false when fake name does not match real name', () => {
       users.add("unicorn1", "seb1");
       expect(users.compareFakeReal("unicorn1", "seb2")).toBe(false)
+    });
+  })
+
+  describe("isFakeNameRealName", () => {
+    it('should return true if real name is the same as fake name', () => {
+      expect(users.isFakeNameRealName("bob", "bob")).toBe(true);
+    });
+    it('should return false if real name isnt the same as fake name', () => {
+      expect(users.isFakeNameRealName("bob", "john")).toBe(false);
     });
   })
 

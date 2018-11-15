@@ -56,19 +56,43 @@ class Users {
     return (Math.max(...ids) + 1).toString();
   }
 
-  check(fakeName, realName) {
-    var success = true;
-    var reason = null;
+  isFakeNameRealName(fakeName, realName){
+    return fakeName == realName
+  }
+
+  isFakeNameTaken(fakeName){
+    let taken = false
     this.list.forEach((user) => {
       if (user.fakeName == fakeName) {
-        success = false
-        reason = "fakeName is already taken"
-      }
-      if (user.realName == realName) {
-        success = false
-        reason = "This real name is already taken. Maybe add your last name?"
+        taken = true 
       }
     })
+    return taken;
+  }
+  isRealNameTaken(realName){
+    let taken = false
+    this.list.forEach((user) => {
+      if (user.realName == realName) {
+        taken = true 
+      }
+    })
+    return taken
+  }
+  check(fakeName, realName) {
+    let success = true;
+    let reason = null;
+    if (this.isFakeNameTaken(fakeName)) {
+      success = false;
+      reason = "fakeName is already taken"
+    }
+    if (this.isRealNameTaken(realName)) {
+      success = false;
+      reason = "This real name is already taken. Maybe add your last name?"      
+    }
+    if (this.isFakeNameRealName(fakeName, realName)) {
+      success = false
+      reason = "Your fake name can't be your real name"
+    }
     return {success: success, reason: reason}
   }
 }
