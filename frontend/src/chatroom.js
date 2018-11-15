@@ -42,10 +42,10 @@ render() {
         <div className="ChatRoom">
           <h1 className="ChatRoom-title">Welcome {this.props.fakeName}</h1>
           <form onSubmit={this.handleSubmit}>
-            <input value={this.state.input} onChange={this.handleChange} />
+            <input name="message" className="MessageForm" value={this.state.input} onChange={this.handleChange} />
             <button type='submit'>Submit!</button>
           </form>
-          <div>
+          <div className="DisplayedMessages">
             <DisplayMessages messages={this.state.messages} />
           </div>
         </div>
