@@ -14,7 +14,7 @@ pids
 build/Release
 
 # Build directories
-public
+# public
 dist
 
 # Dependency directory
