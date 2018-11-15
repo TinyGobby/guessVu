@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 class Form extends Component {
-  
+
   handleSubmit() {
     var that = this;
     const fakeName = document.getElementById('fakeName').value;
@@ -14,6 +14,7 @@ class Form extends Component {
       realName: realName
     })
     .then(function (response) {
+      console.log("within submit")
       if (response.data.success) {
         const user = response.data.user;
         that.props.setUser(user);

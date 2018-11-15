@@ -18,7 +18,7 @@ describe('Messages', () => {
       messages.saveMessage("1", "test", "test message");
       expect(messages.getMessages()).toEqual([{
         "userid": "1",
-        "fakename": "test",
+        "fakeName": "test",
         "message": "test message"
       }])
     })

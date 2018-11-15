@@ -25,11 +25,12 @@ describe('Guess Vu', () => {
     test('redirects to chatroom after signup', async () => {
       await page.waitForSelector('.Form');
       await page.click('input[name=fakeName]');
-      await page.type('input[name=fakeName]', 'unicorn42');
+      await page.type('input[name=fakeName]', 'unicorn1');
       await page.click('input[name=realName]');
-      await page.type('input[name=realName]', 'Vu Le');
+      await page.type('input[name=realName]', 'Vu1');
       await page.click('button[type=submit]');
       await page.waitForSelector('.ChatRoom');
+
       const html = await page.$eval('.ChatRoom-title', e => e.innerHTML);
       expect(html).toEqual(expect.stringContaining('Welcome'));
     });
@@ -37,13 +38,13 @@ describe('Guess Vu', () => {
     test('redirects to chatroom after signup and greets with name', async () => {
       await page.waitForSelector('.Form');
       await page.click('input[name=fakeName]');
-      await page.type('input[name=fakeName]', 'unicorn42');
+      await page.type('input[name=fakeName]', 'unicorn2');
       await page.click('input[name=realName]');
-      await page.type('input[name=realName]', 'Vu Le');
+      await page.type('input[name=realName]', 'Vu2');
       await page.click('button[type=submit]');
       await page.waitForSelector('.ChatRoom');
       const html = await page.$eval('.ChatRoom-title', e => e.innerHTML);
-      expect(html).toBe('Welcome unicorn42');
+      expect(html).toBe('Welcome unicorn2');
     });
   });
 
@@ -51,9 +52,9 @@ describe('Guess Vu', () => {
     test('messages are displayed once sent', async () => {
       await page.waitForSelector('.Form');
       await page.click('input[name=fakeName]');
-      await page.type('input[name=fakeName]', 'unicorn42');
+      await page.type('input[name=fakeName]', 'unicorn3');
       await page.click('input[name=realName]');
-      await page.type('input[name=realName]', 'Vu Le');
+      await page.type('input[name=realName]', 'Vu3');
       await page.click('button[type=submit]');
       await page.waitForSelector('.MessageForm');
       await page.click('input[name=message]');
