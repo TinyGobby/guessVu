@@ -55,7 +55,6 @@ class ChatRoom extends Component {
         messages: data
       });
     });
-
   }
 
   getRealNames() {
@@ -99,21 +98,21 @@ class ChatRoom extends Component {
         <div>
           <Guess guesser={this.props.user} />
         </div>
+        <div className="DisplayedMessages">
+          <DisplayMessages messages={this.state.messages} />
+        </div>
         <form onSubmit={this.handleSubmit}>
           <input
             name="message"
             className={styles.messageInput}
             value={this.state.input}
             onChange={this.handleChange}
+            placeholder="Type something..."
           />
           <button className={styles.button} type="submit">
             Submit!
           </button>
         </form>
-        <div className="DisplayedMessages">
-          <DisplayMessages messages={this.state.messages} />
-        </div>
-
         <Leave user={this.props.user} />
       </div>
     );
