@@ -42,9 +42,9 @@ class Form extends Component {
   render(){
     return (
       <div className="Form">
-        <input name="fakeName" id="fakeName" placeholder="Fake Name" />
-        <input name="realName" id="realName" placeholder="Real Name" />
-        <button type="submit" onClick={() => this.handleSubmit()}>
+        <input name="fakeName" className={styles.name} placeholder="Fake Name" />
+        <input name="realName" className={styles.name} placeholder="Real Name" />
+        <button className={styles.button} type="submit" onClick={() => this.handleSubmit()}>
           Play
         </button>
         {this.state.signupErrorMsg && (
