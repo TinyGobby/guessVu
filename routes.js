@@ -2,10 +2,20 @@ const Users = require('./models/users');
 
 var users = new Users();
 
-module.exports = (app, messages) => {
+module.exports = (app, messages, io) => {
+
+    const emitAllUsers = () => {
+      const allFakeNames = users.getAllFakeNames();
+      const allRealNames = users.getAllRealNames();
+      io.emit('listOfAllUsers', {
+        allFakeNames,
+        allRealNames
+      });
+    }
     app.post('/api/user', (req, res) => {
         const result = users.add(req.body.fakeName, req.body.realName);
-        res.send(result);
+        res.send(result)
+        .then(emitAllUsers());
     })
 
     app.get('/api/user/allRealNames', (req, res) => {

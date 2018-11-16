@@ -22,8 +22,9 @@ app.use(cookieParser());
 app.use(express.static('frontend/dist'));
 
 const messages = new messagesclass();
-require('./socket.js')(app, messages, server)
-require('./routes.js')(app, messages);
+const io = require('socket.io')(server);
+require('./socket.js')(app, messages, io);
+require('./routes.js')(app, messages, io);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

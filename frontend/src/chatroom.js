@@ -42,12 +42,16 @@ class ChatRoom extends Component {
   }
 
   componentDidMount() {
+    console.log("chatroom: component did mount")
     const that = this;
     // allows user to see updated version of message list
     // when joining room
     socket.emit('retrieveMessages');
     this.getRealNames();
     this.getFakeNames();
+    socket.on('listOfAllUsers', function(data) {
+      console.log({"data": data});
+    });
 
     socket.on('listOfMessages', function(data) {
       that.setState({
