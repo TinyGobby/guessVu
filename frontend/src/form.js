@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Alert from './alert';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+import styles from '../styles/form.css'
 
 class Form extends Component {
 
