@@ -23,7 +23,7 @@ describe('Guess Vu', () => {
 
   describe('Name form', () => {
     test('redirects to chatroom after signup', async () => {
-      await page.waitForSelector('.Form');
+      await page.waitForSelector('#Form');
       await page.click('input[name=fakeName]');
       await page.type('input[name=fakeName]', 'unicorn1');
       await page.click('input[name=realName]');
@@ -36,7 +36,7 @@ describe('Guess Vu', () => {
     });
 
     test('redirects to chatroom after signup and greets with name', async () => {
-      await page.waitForSelector('.Form');
+      await page.waitForSelector('#Form');
       await page.click('input[name=fakeName]');
       await page.type('input[name=fakeName]', 'unicorn2');
       await page.click('input[name=realName]');
@@ -49,7 +49,7 @@ describe('Guess Vu', () => {
 
 
     test('shows message when signing up with real name taken', async () => {
-      await page.waitForSelector('.Form');
+      await page.waitForSelector('#Form');
       await page.click('input[name=fakeName]');
       await page.type('input[name=fakeName]', 'unicorn2a');
       await page.click('input[name=realName]');
@@ -61,7 +61,7 @@ describe('Guess Vu', () => {
     })
 
     test('shows error message when fake and realname equal', async () => {
-      await page.waitForSelector('.Form');
+      await page.waitForSelector('#Form');
       await page.click('input[name=fakeName]');
       await page.type('input[name=fakeName]', 'unicorn5');
       await page.click('input[name=realName]');
@@ -76,7 +76,7 @@ describe('Guess Vu', () => {
 
   describe('Chatroom messages input', () => {
     test('messages are displayed once sent', async () => {
-      await page.waitForSelector('.Form');
+      await page.waitForSelector('#Form');
       await page.click('input[name=fakeName]');
       await page.type('input[name=fakeName]', 'unicorn3');
       await page.click('input[name=realName]');
@@ -94,7 +94,7 @@ describe('Guess Vu', () => {
   describe('Real names shown', () => {
     test('names are displayed', async () => {
       // Needs to be changed after we reset the server for each test
-      await page.waitForSelector('.Form');
+      await page.waitForSelector('#Form');
       await page.click('input[name=fakeName]');
       await page.type('input[name=fakeName]', 'unicorn4');
       await page.click('input[name=realName]');
@@ -109,7 +109,7 @@ describe('Guess Vu', () => {
   describe('Fake names shown', () => {
     test('names are displayed', async () => {
       // Needs to be changed after we reset the server for each test
-      await page.waitForSelector('.Form');
+      await page.waitForSelector('#Form');
       await page.click('input[name=fakeName]');
       await page.type('input[name=fakeName]', 'unicorn5');
       await page.click('input[name=realName]');
@@ -124,7 +124,7 @@ describe('Guess Vu', () => {
   describe('Guessing', () => {
     test('correct guess', async () => {
       // Needs to be changed after we reset the server for each test
-      await page.waitForSelector('.Form');
+      await page.waitForSelector('#Form');
       await page.click('input[name=fakeName]');
       await page.type('input[name=fakeName]', 'unicorn6');
       await page.click('input[name=realName]');
@@ -144,7 +144,7 @@ describe('Guess Vu', () => {
 
     test('Incorrect guess', async () => {
       // Needs to be changed after we reset the server for each test
-      await page.waitForSelector('.Form');
+      await page.waitForSelector('#Form');
       await page.click('input[name=fakeName]');
       await page.type('input[name=fakeName]', 'unicorn7');
       await page.click('input[name=realName]');

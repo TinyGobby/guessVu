@@ -41,16 +41,15 @@ class Form extends Component {
 
   render(){
     return (
-      <div className={styles.form}>
-        <input name="fakeName" className={styles.name} placeholder="Fake Name" />
-        <input name="realName" className={styles.name} placeholder="Real Name" />
+      <div className={styles.form} id="Form">
+        <input name="fakeName" className={styles.name} id="fakeName" placeholder="Fake Name" />
+        <input name="realName" className={styles.name} id="realName" placeholder="Real Name" />
         <button className={styles.button} type="submit" onClick={() => this.handleSubmit()}>
           Play
         </button>
         {this.state.signupErrorMsg && (
             <Alert msg={this.state.signupErrorMsg}/>
         )}
-
       </div>
     );
   }
