@@ -38,6 +38,12 @@ describe("Users", () => {
     })
   })
 
+  describe("checkEndGame", () => {
+    it("returns true if no user left", () =>{
+      expect(users.checkEndGame()).toBe(true);
+    })
+  })
+
   describe("generateID", () => {
     it("should generate 1 when there are no users", () => {
       expect(users.generateID()).toEqual("1");
@@ -64,6 +70,14 @@ describe("Users", () => {
       users.add("unicorn3", "seb3");
       expect(users.getAllFakeNames()).toEqual(["unicorn1", "unicorn2", "unicorn3"])
     });
+  })
+
+  describe("deleteUser", () => {
+    it("should delete a given users", () => {
+      users.add("unicorn1", "seb1");
+      users.add("unicorn2", "seb2");
+      expect(users.deleteUser("1")[0].realName).toEqual("seb2");
+    })
   })
 
   describe("compareFakeReal", () => {

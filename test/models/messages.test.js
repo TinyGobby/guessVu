@@ -23,4 +23,16 @@ describe('Messages', () => {
       }])
     })
   });
+
+  describe('deleteAllMessages', () => {
+    it('should delete all messages in the list', () => {
+      messages.saveMessage("1", "test", "test message");
+      messages.saveMessage("1", "test", "test message");
+      messages.saveMessage("1", "test", "test message");
+      messages.saveMessage("1", "test", "test message");
+      
+      messages.deleteAllMessages();
+      expect(messages.getMessages().length).toEqual(0)
+    });  
+  });
 });

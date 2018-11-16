@@ -18,6 +18,15 @@ module.exports = (app) => {
         res.send(allFakeNames);
     })
 
+    app.post('/api/user/leave', (req, res) => {
+        const userID = req.body.id;
+        users.deleteUser(userID);
+        if (users.checkEndGame()) {
+            
+        }
+
+    })
+
     app.post('/api/user/solve', (req, res) => {
         const solution = req.body.solution;
         const realName = solution.realName;
