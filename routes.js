@@ -1,6 +1,6 @@
 module.exports = (app, messages, users, io) => {
 
-    
+
     app.post('/api/user', (req, res) => {
         const result = users.add(req.body.fakeName, req.body.realName);
         res.send(result)
@@ -21,9 +21,8 @@ module.exports = (app, messages, users, io) => {
         users.deleteUser(userID);
         if (users.checkEndGame()) {
             messages.deleteAllMessages();
-            res.send({ "gameOver": true });
         }
-        res.send({ "gameOver": false });
+        res.send({ "success": true });
     })
 
     app.post('/api/user/solve', (req, res) => {

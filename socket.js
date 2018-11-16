@@ -22,5 +22,9 @@ module.exports = (app, messages, users, io) => {
           });
         })
 
+        client.on('startGameServer', function() {
+          io.emit('startGameClient');
+        })
+
       });
 }
