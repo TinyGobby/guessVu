@@ -5,6 +5,8 @@ import ShowRealNames from './realNames';
 import ShowFakeNames from './fakeNames';
 import Guess from './guess';
 import axios from 'axios';
+import Leave from './leave';
+import { throws } from 'assert';
 
 class ChatRoom extends Component {
   constructor(props) {
@@ -94,7 +96,7 @@ class ChatRoom extends Component {
           <ShowFakeNames fakeNames={this.state.fakeNames} />
         </div>
         <div>
-          <Guess guesser={this.state.user} />
+          <Guess guesser={this.props.user} />
         </div>
         <form onSubmit={this.handleSubmit}>
           <input
@@ -110,6 +112,8 @@ class ChatRoom extends Component {
         <div className="DisplayedMessages">
           <DisplayMessages messages={this.state.messages} />
         </div>
+
+        <Leave user={this.props.user} />
       </div>
     );
   }
