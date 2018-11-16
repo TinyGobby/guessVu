@@ -1,0 +1,27 @@
+.msgDiv {
+  width: 90%;
+  margin: auto;
+  margin-left: 5px
+}
+
+.msgUl {
+  background-color: #E7DFDD;
+  /* border-color: #A239CA; */
+  /* border: solid 4px; */
+  border-radius: 10px;
+  padding: 5px;
+  list-style-type: none;
+}
+
+.msgFakeName {
+  color: #A239CA;
+  text-align: left;
+  font-size: x-small;
+  font-weight: bold;
+  padding: 2px;
+}
+
+.msgText {
+  color: #0E0B16;
+  padding: 2px;
+}
