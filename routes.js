@@ -1,11 +1,9 @@
-const Users = require('./models/users');
+module.exports = (app, messages, users, io) => {
 
-var users = new Users();
 
-module.exports = (app, messages) => {
     app.post('/api/user', (req, res) => {
         const result = users.add(req.body.fakeName, req.body.realName);
-        res.send(result);
+        res.send(result)
     })
 
     app.get('/api/user/allRealNames', (req, res) => {
@@ -23,9 +21,8 @@ module.exports = (app, messages) => {
         users.deleteUser(userID);
         if (users.checkEndGame()) {
             messages.deleteAllMessages();
-            res.send({ "gameOver": true });
         }
-        res.send({ "gameOver": false });
+        res.send({ "success": true });
     })
 
     app.post('/api/user/solve', (req, res) => {

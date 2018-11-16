@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Alert from './alert';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+import socket from './index';
 
 class Form extends Component {
 
@@ -26,6 +27,7 @@ class Form extends Component {
       if (response.data.success) {
         const user = response.data.user;
         that.props.setUser(user);
+        socket.emit('retrieveUsers');
         that.props.history.push('/chatroom');
       } else {
         that.setState({

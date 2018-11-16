@@ -1,4 +1,5 @@
 const messagesclass = require('./models/messages');
+const Users = require('./models/users');
 const createError = require('http-errors');
 
 const express = require('express');
@@ -22,8 +23,10 @@ app.use(cookieParser());
 app.use(express.static('frontend/dist'));
 
 const messages = new messagesclass();
-require('./socket.js')(app, messages, server)
-require('./routes.js')(app, messages);
+var users = new Users();
+const io = require('socket.io')(server);
+require('./socket.js')(app, messages, users, io);
+require('./routes.js')(app, messages, users, io);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

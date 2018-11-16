@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Form from './form';
 import Home from './home';
-import ChatRoom from './chatroom'
+import ChatRoom from './chatroom';
+import socket from './index.js';
 import './App.css';
-import socket from './index';
 import DisplayMessages from './displayMessages';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 

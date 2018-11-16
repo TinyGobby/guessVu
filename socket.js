@@ -1,7 +1,4 @@
-
-
-module.exports = (app, messages, server) => {
-    const io = require('socket.io')(server);
+module.exports = (app, messages, users, io) => {
     io.on('connection', function(client) {
         console.log('Client connected...');
         // on receipt of new message, saves the message
@@ -15,7 +12,19 @@ module.exports = (app, messages, server) => {
         client.on('retrieveMessages', function() {
           client.emit('listOfMessages', messages.messageList);
         });
-      
+
+        client.on('retrieveUsers', function () {
+            const allFakeNames = users.getAllFakeNames();
+            const allRealNames = users.getAllRealNames();
+          io.emit('listOfUsers', {
+            allFakeNames,
+            allRealNames
+          });
+        })
+
+        client.on('startGameServer', function() {
+          io.emit('startGameClient');
+        })
+
       });
 }
-
