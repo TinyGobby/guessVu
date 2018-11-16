@@ -17,5 +17,9 @@ class Messages {
         this.messageList.push(user);
     }
 
+    deleteAllMessages(){
+        this.messageList = [];
+    }
+
 }
 module.exports = Messages

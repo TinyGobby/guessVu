@@ -18,6 +18,19 @@ class Users {
     return {success: true, user: new_user}
   }
 
+  checkEndGame() {
+    return this.list.length === 0;
+  }
+
+  deleteUser(userId) {
+    this.list.forEach((user, index) => {
+      if (user.id == userId) {
+        this.list.splice(index, 1);
+      }
+    });
+    return this.list
+  }
+
   getAllFakeNames(){
     let fakeNames = [];
     this.list.map((user) => {
