@@ -8,10 +8,10 @@ class Home extends Component {
   }
   render() {
     return (
-      <div>
-        <h1 className="App-title">Guess Vu!</h1>
-        <img src={require('../styles/my-logo.png')} alt="logo" />
-        <Form setUser={this.props.setUser}/>
+      <div className={styles.homepage}>
+        <img className={styles.image} src={require('../styles/my-logo-stark.png')} alt="logo" />
+        <h1 className="App-title">Guess Vu</h1>
+        <Form setUser={this.props.setUser} />
       </div>
     );
   }

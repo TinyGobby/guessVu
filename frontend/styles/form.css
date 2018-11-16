@@ -7,13 +7,12 @@ body {
   background-color: #0E0B16;
 }
 
-/* .name {
-  border-style: solid;
-  border-width: 2px;
-  border-color: #A239CA;
-  border-radius: 4px;
-
-} */
+.form {
+  display: block;
+  margin: auto;
+  margin-bottom: 10px;
+  text-align: center;
+}
 
 .button {
   color: #E7DFDD;
@@ -22,7 +21,10 @@ body {
   border-width: 2px;
   border-radius: 4px;
   font-size: large;
-  padding: 12px 32px;
+  padding: 12px 35px;
+  margin: auto;
+  display: block;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .name {
@@ -31,18 +33,12 @@ body {
   border-radius: 4px;
   color: #E7DFDD;
   background-color: #0E0B16;
-  width: 60%;
-  padding: 12px 20px;
+  width: 26%;
+  padding: 12px 32px;
   font-size: large;
+  display: block;
+  margin: auto;
+  margin-bottom: 17px;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
 }
-
-/* #realName {
-  border: none;
-  border-bottom: 2px solid #A239CA;
-  border-radius: 4px;
-  color: #E7DFDD;
-  background-color: #0E0B16;
-  width: 60%;
-  padding: 12px 20px;
-  font-size: large;
-} */

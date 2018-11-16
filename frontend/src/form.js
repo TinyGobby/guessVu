@@ -41,7 +41,7 @@ class Form extends Component {
 
   render(){
     return (
-      <div className="Form">
+      <div className={styles.form}>
         <input name="fakeName" className={styles.name} placeholder="Fake Name" />
         <input name="realName" className={styles.name} placeholder="Real Name" />
         <button className={styles.button} type="submit" onClick={() => this.handleSubmit()}>
