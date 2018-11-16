@@ -15,12 +15,11 @@ class ChatRoom extends Component {
       input: '',
       messages: [],
       realNames: [],
-      fakeNames: []
+      fakeNames: [],
+      numberOfUsers: 0
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.getRealNames = this.getRealNames.bind(this);
-    this.getFakeNames = this.getFakeNames.bind(this);
   }
 
   handleChange(e) {
@@ -47,11 +46,6 @@ class ChatRoom extends Component {
     // allows user to see updated version of message list
     // when joining room
     socket.emit('retrieveMessages');
-    this.getRealNames();
-    this.getFakeNames();
-    socket.on('listOfAllUsers', function(data) {
-      console.log({"data": data});
-    });
 
     socket.on('listOfMessages', function(data) {
       that.setState({
@@ -59,45 +53,28 @@ class ChatRoom extends Component {
       });
     });
 
-  }
+    socket.on('listOfUsers', function(data) {
+      that.setState({ realNames: data.allRealNames });
+      that.setState({ fakeNames: data.allFakeNames });
+      that.setState({ numberOfUsers: data.allFakeNames.length})
+    });
 
-  getRealNames() {
-    let that = this;
-    axios
-      .get('/api/user/allRealNames', {})
-      .then(function(response) {
-        console.log(response.data);
-        that.setState({ realNames: response.data });
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-  }
-
-  getFakeNames() {
-    let that = this;
-    axios
-      .get('/api/user/allFakeNames', {})
-      .then(function(response) {
-        console.log(response.data);
-        that.setState({ fakeNames: response.data });
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
   }
 
   render() {
     return (
       <div className="ChatRoom">
         <h1 className="ChatRoom-title">Welcome {this.props.user.fakeName}</h1>
-        <div>
-          <h3>Real Names</h3>
-          <ShowRealNames realNames={this.state.realNames} />
-        </div>
-        <div>
-          <h3>Fake Names</h3>
-          <ShowFakeNames fakeNames={this.state.fakeNames} />
+        <div className="numberOfUsers">{this.state.numberOfUsers}</div>
+        <div className="Names">
+          <div>
+            <h3>Real Names</h3>
+            <ShowRealNames realNames={this.state.realNames} />
+          </div>
+          <div>
+            <h3>Fake Names</h3>
+            <ShowFakeNames fakeNames={this.state.fakeNames} />
+          </div>
         </div>
         <div>
           <Guess guesser={this.props.user} />
