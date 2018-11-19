@@ -5,41 +5,42 @@ import axios from 'axios';
 import styles from '../styles/form.css'
 
 class Form extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       signupErrorMsg: null
-    }
+    };
   }
 
-  handleSubmit() {
+  handleSubmit(e) {
     var that = this;
     const fakeName = document.getElementById('fakeName').value;
     const realName = document.getElementById('realName').value;
+    e.preventDefault();
 
-    axios.post('/api/user', {
-      fakeName: fakeName,
-      realName: realName
-    })
-    .then(function (response) {
-      console.log("within submit")
-      if (response.data.success) {
-        const user = response.data.user;
-        that.props.setUser(user);
-        that.props.history.push('/chatroom');
-      } else {
-        that.setState({
-          signupErrorMsg: response.data.reason
-        })
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    axios
+      .post('/api/user', {
+        fakeName: fakeName,
+        realName: realName
+      })
+      .then(function(response) {
+        console.log('within submit');
+        if (response.data.success) {
+          const user = response.data.user;
+          that.props.setUser(user);
+          that.props.history.push('/chatroom');
+        } else {
+          that.setState({
+            signupErrorMsg: response.data.reason
+          });
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 
-  render(){
+  render() {
     return (
       <div className={styles.form} id="Form">
         <input name="fakeName" className={styles.name} id="fakeName" placeholder="Fake Name" />
