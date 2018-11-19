@@ -8,7 +8,7 @@ class ShowFakeNames extends Component {
 
   render() {
     return (
-      <div className="allFakeNames">
+      <div className="allFakeNames" id="allFakeNames">
         {this.props.fakeNames.map(element => {
           return (
             <div>

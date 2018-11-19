@@ -2,7 +2,7 @@ import React from 'react';
 
 const Alert = (props) => {
   return(
-    <div className="signupError">{props.msg}</div>
+    <div className="signupError" id="signupError">{props.msg}</div>
   )
 }
 

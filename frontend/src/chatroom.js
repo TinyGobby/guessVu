@@ -81,8 +81,8 @@ class ChatRoom extends Component {
 
   render() {
     return (
-      <div className="ChatRoom">
-        <h1 className="ChatRoom-title">Welcome {this.props.user.fakeName}</h1>
+      <div className="ChatRoom" id="chatRoom">
+        <h1 className="ChatRoom-title" id="chatRoomTitle">Welcome {this.props.user.fakeName}</h1>
         <div className={styles.rightColumn}>
           <StartGame startGame={this.startGame} />
           <Leave user={this.props.user} />
@@ -103,10 +103,10 @@ class ChatRoom extends Component {
           )}
         </div>
         <div className={styles.messagesDiv}>
-          <div className={styles.displayMsgsDiv}>
+          <div className={styles.displayMsgsDiv} id="messageDisplay">
             <DisplayMessages messages={this.state.messages} />
           </div>
-          <form className={styles.inputMsg} onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit} id="messageInput">
             <input
               name="message"
               className={styles.messageInput}
@@ -114,7 +114,7 @@ class ChatRoom extends Component {
               onChange={this.handleChange}
               placeholder="Type something..."
             />
-            <button className={styles.button} type="submit">
+            <button className={styles.button} type="submit" id="messageSubmit">
               Submit!
             </button>
           </form>
