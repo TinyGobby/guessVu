@@ -30,7 +30,6 @@ module.exports = (app, game, io) => {
         users.deleteUser(userID);
         if (users.checkEndGame()) {
             game.open();
-
         }
         res.send({
           "success": true
