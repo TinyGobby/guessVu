@@ -29,3 +29,13 @@ body {
   display: inline-block;
   font-family: 'Montserrat', sans-serif;
 }
+
+.messagesDiv {
+  float: left;
+  width: 66%;
+}
+
+.namesDiv {
+  float: right;
+  width: 33%;
+}

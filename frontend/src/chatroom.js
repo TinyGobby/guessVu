@@ -7,7 +7,7 @@ import Guess from './guess';
 import axios from 'axios';
 import Leave from './leave';
 import { throws } from 'assert';
-import styles from '../styles/chatroom.css'
+import styles from '../styles/chatroom.css';
 
 class ChatRoom extends Component {
   constructor(props) {
@@ -87,33 +87,37 @@ class ChatRoom extends Component {
     return (
       <div className="ChatRoom">
         <h1 className="ChatRoom-title">Welcome {this.props.user.fakeName}</h1>
-        <div>
-          <h3>Real Names</h3>
-          <ShowRealNames realNames={this.state.realNames} />
-        </div>
-        <div>
-          <h3>Fake Names</h3>
-          <ShowFakeNames fakeNames={this.state.fakeNames} />
-        </div>
-        <div>
-          <Guess guesser={this.props.user} />
-        </div>
-        <div className="DisplayedMessages">
-          <DisplayMessages messages={this.state.messages} />
-        </div>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            name="message"
-            className={styles.messageInput}
-            value={this.state.input}
-            onChange={this.handleChange}
-            placeholder="Type something..."
-          />
-          <button className={styles.button} type="submit">
-            Submit!
-          </button>
-        </form>
         <Leave user={this.props.user} />
+        <div className={styles.namesDiv}>
+          <div>
+            <h3>Real Names</h3>
+            <ShowRealNames realNames={this.state.realNames} />
+          </div>
+          <div>
+            <h3>Fake Names</h3>
+            <ShowFakeNames fakeNames={this.state.fakeNames} />
+          </div>
+          <div>
+            <Guess guesser={this.props.user} />
+          </div>
+        </div>
+        <div className={styles.messagesDiv}>
+          <div className="DisplayedMessages">
+            <DisplayMessages messages={this.state.messages} />
+          </div>
+          <form onSubmit={this.handleSubmit}>
+            <input
+              name="message"
+              className={styles.messageInput}
+              value={this.state.input}
+              onChange={this.handleChange}
+              placeholder="Type something..."
+            />
+            <button className={styles.button} type="submit">
+              Submit!
+            </button>
+          </form>
+        </div>
       </div>
     );
   }
