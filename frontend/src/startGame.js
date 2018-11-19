@@ -1,8 +1,9 @@
 import React from 'react';
+import styles from '../styles/leave.css'
 
 const StartGame = (props) => {
   return(
-    <button className="startGame" onClick={() => props.startGame()}>Start Game</button>
+    <button className={styles.button} onClick={() => props.startGame()}>Start Game</button>
   )
 }
 

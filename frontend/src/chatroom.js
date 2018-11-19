@@ -82,23 +82,26 @@ class ChatRoom extends Component {
   render() {
     return (
       <div className="ChatRoom">
-        <Leave user={this.props.user} />
         <h1 className="ChatRoom-title">Welcome {this.props.user.fakeName}</h1>
-        {this.state.gameOpen && (
-          <div className={styles.namesDiv}>
+        <div className={styles.rightColumn}>
+          <StartGame startGame={this.startGame} />
+          <Leave user={this.props.user} />
+          {!this.state.gameOpen && (
             <div>
-              <Guess guesser={this.props.user} />
+              <div>
+                <Guess guesser={this.props.user} />
+              </div>
+              <div className={styles.singleNameDiv}>
+                <h3>Fake Names</h3>
+                <ShowFakeNames fakeNames={this.state.fakeNames} />
+              </div>
+              <div className={styles.singleNameDiv}>
+                <h3>Real Names</h3>
+                <ShowRealNames realNames={this.state.realNames} />
+              </div>
             </div>
-            <div className={styles.singleNameDiv}>
-              <h3>Fake Names</h3>
-              <ShowFakeNames fakeNames={this.state.fakeNames} />
-            </div>
-            <div className={styles.singleNameDiv}>
-              <h3>Real Names</h3>
-              <ShowRealNames realNames={this.state.realNames} />
-            </div>
-          </div>
-        )}
+          )}
+        </div>
         <div className={styles.messagesDiv}>
           <div className={styles.displayMsgsDiv}>
             <DisplayMessages messages={this.state.messages} />
