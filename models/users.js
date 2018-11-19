@@ -3,12 +3,29 @@ class Users {
     this.list = [];
   }
 
+  shuffleMyArr(arr) {
+    var currentIndex = arr.length;
+    var tempVal, randomIndex;
+
+    while (currentIndex !== 0) {
+      //pick a random element
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // swap it with current element
+      tempVal = arr[currentIndex];
+      arr[currentIndex] = arr[randomIndex]
+      arr[randomIndex] = tempVal
+    }
+    return arr
+  }
+
   add(fakeName,realName) {
     var name_check = this.check(fakeName, realName);
-    if (!name_check.success) { 
+    if (!name_check.success) {
       return name_check;
     }
-    
+
     var new_user = {
       fakeName,
       realName,
@@ -36,7 +53,7 @@ class Users {
     this.list.map((user) => {
       fakeNames.push(user.fakeName)
     })
-    return fakeNames;
+    return this.shuffleMyArr(fakeNames);
   }
 
   getAllRealNames(){
@@ -44,7 +61,7 @@ class Users {
     this.list.map((user) => {
       realNames.push(user.realName)
     })
-    return realNames;
+    return this.shuffleMyArr(realNames);
   }
 
   compareFakeReal(fakeName, realName){
@@ -62,7 +79,7 @@ class Users {
     this.list.forEach((user) => {
       ids.push(user.id)
     })
-    
+
     if(ids.length == 0) {
       return "1";
     }
@@ -77,7 +94,7 @@ class Users {
     let taken = false
     this.list.forEach((user) => {
       if (user.fakeName == fakeName) {
-        taken = true 
+        taken = true
       }
     })
     return taken;
@@ -86,7 +103,7 @@ class Users {
     let taken = false
     this.list.forEach((user) => {
       if (user.realName == realName) {
-        taken = true 
+        taken = true
       }
     })
     return taken
@@ -100,7 +117,7 @@ class Users {
     }
     if (this.isRealNameTaken(realName)) {
       success = false;
-      reason = "This real name is already taken. Maybe add your last name?"      
+      reason = "This real name is already taken. Maybe add your last name?"
     }
     if (this.isFakeNameRealName(fakeName, realName)) {
       success = false
