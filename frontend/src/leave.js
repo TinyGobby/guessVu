@@ -1,7 +1,9 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+
 import styles from '../styles/leave.css'
+import socket from './index'
 
 const Leave = (props) => {
 
@@ -11,8 +13,9 @@ const Leave = (props) => {
         axios
           .post('/api/user/leave', props.user)
           .then(function(response) {
-            console.log(response.data);
-            props.history.push('/')
+            if (response.data.success) {
+              props.history.push('/');
+            }
           })
           .catch(function(error) {
             console.log(error);

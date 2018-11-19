@@ -3,6 +3,7 @@ import DisplayMessages from './displayMessages';
 import socket from './index.js';
 import ShowRealNames from './realNames';
 import ShowFakeNames from './fakeNames';
+import StartGame from './startGame';
 import Guess from './guess';
 import axios from 'axios';
 import Leave from './leave';
@@ -14,14 +15,46 @@ class ChatRoom extends Component {
     super(props);
     this.state = {
       input: '',
+      gameOpen: true,
       messages: [],
       realNames: [],
-      fakeNames: []
+      fakeNames: [],
+      numberOfUsers: 0
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.getRealNames = this.getRealNames.bind(this);
-    this.getFakeNames = this.getFakeNames.bind(this);
+    this.startGame = this.startGame.bind(this);
+  }
+
+  componentWillReceiveProps(props, nextProps) {
+    console.log('will receive props')
+    console.log(props);
+    console.log(nextProps);
+    if (props.gameOpen !== nextProps.gameOpen) {
+      this.setState({
+        gameOpen: nextProps.gameOpen
+      })
+    }
+  }
+
+  componentDidMount() {
+    const that = this;
+    // allows user to see updated version of message list
+    // when joining room
+    socket.emit('retrieveMessages');
+
+    socket.on('listOfMessages', function(data) {
+      that.setState({
+        messages: data
+      });
+    });
+
+    socket.on('listOfUsers', function(data) {
+      that.setState({ realNames: data.allRealNames });
+      that.setState({ fakeNames: data.allFakeNames });
+      that.setState({ numberOfUsers: data.allFakeNames.length})
+    });
+
   }
 
   handleChange(e) {
@@ -42,45 +75,8 @@ class ChatRoom extends Component {
     });
   }
 
-  componentDidMount() {
-    const that = this;
-    // allows user to see updated version of message list
-    // when joining room
-    socket.emit('retrieveMessages');
-    this.getRealNames();
-    this.getFakeNames();
-
-    socket.on('listOfMessages', function(data) {
-      that.setState({
-        messages: data
-      });
-    });
-  }
-
-  getRealNames() {
-    let that = this;
-    axios
-      .get('/api/user/allRealNames', {})
-      .then(function(response) {
-        console.log(response.data);
-        that.setState({ realNames: response.data });
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-  }
-
-  getFakeNames() {
-    let that = this;
-    axios
-      .get('/api/user/allFakeNames', {})
-      .then(function(response) {
-        console.log(response.data);
-        that.setState({ fakeNames: response.data });
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+  startGame() {
+    socket.emit('startGameServer');
   }
 
   render() {
@@ -88,6 +84,7 @@ class ChatRoom extends Component {
       <div className="ChatRoom">
         <Leave user={this.props.user} />
         <h1 className="ChatRoom-title">Welcome {this.props.user.fakeName}</h1>
+
         <div className={styles.namesDiv}>
           <div>
             <Guess guesser={this.props.user} />

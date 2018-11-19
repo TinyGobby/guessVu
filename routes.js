@@ -1,11 +1,18 @@
-const Users = require('./models/users');
+module.exports = (app, game, io) => {
 
-var users = new Users();
+    const users = game.users;
+    const messages = game.messages;
 
-module.exports = (app, messages) => {
     app.post('/api/user', (req, res) => {
-        const result = users.add(req.body.fakeName, req.body.realName);
-        res.send(result);
+        if (game.isOpen) {
+          const result = users.add(req.body.fakeName, req.body.realName);
+          res.send(result)
+        } else {
+          res.send({
+            success: false,
+            reason: 'Sorry, you cannot join, the game has started.'
+          })
+        }
     })
 
     app.get('/api/user/allRealNames', (req, res) => {
@@ -22,10 +29,11 @@ module.exports = (app, messages) => {
         const userID = req.body.id;
         users.deleteUser(userID);
         if (users.checkEndGame()) {
-            messages.deleteAllMessages();
-            res.send({ "gameOver": true });
+            game.open();
         }
-        res.send({ "gameOver": false });
+        res.send({
+          "success": true
+        })
     })
 
     app.post('/api/user/solve', (req, res) => {

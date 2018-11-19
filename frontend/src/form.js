@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import Alert from './alert';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+
 import styles from '../styles/form.css';
+
+import socket from './index';
 
 class Form extends Component {
   constructor(props) {
@@ -19,27 +22,26 @@ class Form extends Component {
     var that = this;
     const fakeName = document.getElementById('fakeName').value;
     const realName = document.getElementById('realName').value;
-    console.log('im in handle submit');
-    axios
-      .post('/api/user', {
-        fakeName: fakeName,
-        realName: realName
-      })
-      .then(function(response) {
-        console.log('within submit');
-        if (response.data.success) {
-          const user = response.data.user;
-          that.props.setUser(user);
-          that.props.history.push('/chatroom');
-        } else {
-          that.setState({
-            signupErrorMsg: response.data.reason
-          });
-        }
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    axios.post('/api/user', {
+      fakeName: fakeName,
+      realName: realName
+    })
+    .then(function (response) {
+      console.log("within submit")
+      if (response.data.success) {
+        const user = response.data.user;
+        that.props.setUser(user);
+        socket.emit('retrieveUsers');
+        that.props.history.push('/chatroom');
+      } else {
+        that.setState({
+          signupErrorMsg: response.data.reason
+        })
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   render() {
