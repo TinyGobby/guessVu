@@ -85,20 +85,20 @@ class ChatRoom extends Component {
         <div className="numberOfUsers">Number of players: {this.state.numberOfUsers}</div>
         <StartGame startGame={this.startGame} />
         { !this.state.gameOpen && (
-          <div className="Names">
-            <div>
-              <h3>Real Names</h3>
-              <ShowRealNames realNames={this.state.realNames} />
+          <div>
+            <div className="Names">
+              <div>
+                <h3>Real Names</h3>
+                <ShowRealNames realNames={this.state.realNames} />
+              </div>
+              <div>
+                <h3>Fake Names</h3>
+                <ShowFakeNames fakeNames={this.state.fakeNames} />
+              </div>
             </div>
-            <div>
-              <h3>Fake Names</h3>
-              <ShowFakeNames fakeNames={this.state.fakeNames} />
-            </div>
+            <Guess guesser={this.props.user} />
           </div>
         )}
-        <div>
-          <Guess guesser={this.props.user} />
-        </div>
         <form onSubmit={this.handleSubmit}>
           <input
             name="message"
