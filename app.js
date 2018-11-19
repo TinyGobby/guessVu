@@ -1,5 +1,6 @@
-const messagesclass = require('./models/messages');
+const Messages = require('./models/messages');
 const Users = require('./models/users');
+const Game = require('./models/game');
 const createError = require('http-errors');
 
 const express = require('express');
@@ -22,11 +23,12 @@ app.use(cookieParser());
 //serve built react app as frontend
 app.use(express.static('frontend/dist'));
 
-const messages = new messagesclass();
-var users = new Users();
+const game = new Game(Users, Messages);
+// const messages = new Messages();
+// var users = new Users();
 const io = require('socket.io')(server);
-require('./socket.js')(app, messages, users, io);
-require('./routes.js')(app, messages, users, io);
+require('./socket.js')(app, game, io);
+require('./routes.js')(app, game, io);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

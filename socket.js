@@ -1,4 +1,6 @@
-module.exports = (app, messages, users, io) => {
+module.exports = (app, game, io) => {
+    const messages = game.messages;
+    const users = game.users;
     io.on('connection', function(client) {
         console.log('Client connected...');
         // on receipt of new message, saves the message
@@ -23,6 +25,7 @@ module.exports = (app, messages, users, io) => {
         })
 
         client.on('startGameServer', function() {
+          game.close();
           io.emit('startGameClient');
         })
 

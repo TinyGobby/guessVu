@@ -2,7 +2,7 @@ import React from 'react';
 
 const StartGame = (props) => {
   return(
-    <button onClick={() => props.startGame()}>Start Game</button>
+    <button className="startGame" onClick={() => props.startGame()}>Start Game</button>
   )
 }
 
