@@ -134,7 +134,7 @@ describe('Guess Vu', () => {
   });
 
   describe('Start game', () => {
-    test('fake and real names are displayed', async () => {
+    test('Displays: fake names, real names, guess button', async () => {
       // Needs to be changed after we reset the server for each test
       await page.waitForSelector('.Form');
       await page.click('input[name=fakeName]');
@@ -149,6 +149,8 @@ describe('Guess Vu', () => {
       expect(htmlRealNames).toEqual(expect.stringContaining('Vu4'));
       const htmlFakeNames = await page.$eval('.allFakeNames', e => e.innerHTML);
       expect(htmlFakeNames).toEqual(expect.stringContaining('unicorn4'));
+      const htmlGuessing = await page.$eval('.guessing', e => e.innerHTML);
+      expect(htmlGuessing).toEqual(expect.stringContaining('Guess!'));
     });
 
     test('Cannot join if the game has started', async () => {
