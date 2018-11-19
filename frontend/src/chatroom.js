@@ -86,23 +86,23 @@ class ChatRoom extends Component {
   render() {
     return (
       <div className="ChatRoom">
-        <h1 className="ChatRoom-title">Welcome {this.props.user.fakeName}</h1>
         <Leave user={this.props.user} />
+        <h1 className="ChatRoom-title">Welcome {this.props.user.fakeName}</h1>
         <div className={styles.namesDiv}>
-          <div>
-            <h3>Real Names</h3>
-            <ShowRealNames realNames={this.state.realNames} />
-          </div>
-          <div>
+          <div className={styles.singleNameDiv}>
             <h3>Fake Names</h3>
             <ShowFakeNames fakeNames={this.state.fakeNames} />
+          </div>
+          <div className={styles.singleNameDiv}>
+            <h3>Real Names</h3>
+            <ShowRealNames realNames={this.state.realNames} />
           </div>
           <div>
             <Guess guesser={this.props.user} />
           </div>
         </div>
         <div className={styles.messagesDiv}>
-          <div className="DisplayedMessages">
+          <div className={styles.displayMsgsDiv}>
             <DisplayMessages messages={this.state.messages} />
           </div>
           <form onSubmit={this.handleSubmit}>

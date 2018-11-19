@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import ResultOfGuess from './resultOfGuess';
+import styles from '../styles/guess.css';
 
 class Guess extends Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class Guess extends Component {
       })
       .then(function(response) {
         console.log('within response');
-        console.log(response.data)
+        console.log(response.data);
         if (response.data === true) {
           that.setState({ guessOutcome: 'You guessed correctly!' });
         } else if (response.data === false) {
@@ -44,20 +45,22 @@ class Guess extends Component {
 
   render() {
     return (
-      <div className="guessing">
+      <div className={styles.guesserDiv}>
         <div className="guessForm">
           <input
             name="guessFakeName"
+            className={styles.guessName}
             id="guessFakeName"
             placeholder="Fake Name"
           />
           <input
             name="guessRealName"
+            className={styles.guessName}
             id="guessRealName"
             placeholder="Real Name"
           />
           <button
-            className="submitGuess"
+            className={styles.button}
             type="submit"
             onClick={() => this.handleSubmit()}
           >

@@ -1,13 +1,13 @@
 .msgDiv {
   width: 90%;
   margin: auto;
-  margin-left: 5px
+  margin-left: 5px;
+  height: auto;
+  overflow: auto;
 }
 
 .msgUl {
   background-color: #E7DFDD;
-  /* border-color: #A239CA; */
-  /* border: solid 4px; */
   border-radius: 10px;
   padding: 5px;
   list-style-type: none;

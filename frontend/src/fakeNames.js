@@ -1,5 +1,5 @@
-// endpoint /api//user/allfakenames
 import React, { Component } from 'react';
+import styles from '../styles/names.css';
 
 class ShowFakeNames extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class ShowFakeNames extends Component {
           return (
             <div>
               <ul>
-                <li className="fakeName">{element}</li>
+                <li className={styles.names}>{element}</li>
               </ul>
             </div>
           );

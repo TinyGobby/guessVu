@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+import styles from '../styles/leave.css'
 
 const Leave = (props) => {
 
@@ -19,9 +20,8 @@ const Leave = (props) => {
     }
 
     return (
-        <button onClick={handleClick} className="leaveBtn">Leave game</button>
+        <button onClick={handleClick} className={styles.button}>Leave game</button>
     )
 }
-
 
 export default withRouter(Leave);
