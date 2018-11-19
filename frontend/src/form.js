@@ -2,22 +2,26 @@ import React, { Component } from 'react';
 import Alert from './alert';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
+
+import styles from '../styles/form.css';
+
 import socket from './index';
 
 class Form extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       signupErrorMsg: null
-    }
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit() {
+  handleSubmit(event) {
+    event.preventDefault();
+
     var that = this;
     const fakeName = document.getElementById('fakeName').value;
     const realName = document.getElementById('realName').value;
-
     axios.post('/api/user', {
       fakeName: fakeName,
       realName: realName
@@ -40,19 +44,30 @@ class Form extends Component {
     });
   }
 
-  render(){
+  render() {
     return (
-      <div className="Form">
-        <input name="fakeName" id="fakeName" placeholder="Fake Name" />
-        <input name="realName" id="realName" placeholder="Real Name" />
-        <button type="submit" onClick={() => this.handleSubmit()}>
+      <form
+        className={styles.form}
+        id="Form"
+        onSubmit={e => this.handleSubmit(e)}
+      >
+        <input
+          name="fakeName"
+          className={styles.name}
+          id="fakeName"
+          placeholder="Fake Name"
+        />
+        <input
+          name="realName"
+          className={styles.name}
+          id="realName"
+          placeholder="Real Name"
+        />
+        <button className={styles.button} type="submit">
           Play
         </button>
-        {this.state.signupErrorMsg && (
-            <Alert msg={this.state.signupErrorMsg}/>
-        )}
-
-      </div>
+        {this.state.signupErrorMsg && <Alert msg={this.state.signupErrorMsg} />}
+      </form>
     );
   }
 }

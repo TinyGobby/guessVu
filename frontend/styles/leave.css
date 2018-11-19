@@ -1,0 +1,12 @@
+.button {
+  color: #E7DFDD;
+  background-color: #0E0B16;
+  border-color: #A239CA;
+  border-width: 2px;
+  border-radius: 12px;
+  font-size: large;
+  padding: 12px 35px;
+  margin: auto;
+  display: inline-block;
+  float: right;
+}

@@ -73,7 +73,7 @@ describe('Guess Vu', () => {
 
   describe('Name form', () => {
     test('redirects to chatroom after signup', async () => {
-      await page.waitForSelector('.Form');
+      await page.waitForSelector('#Form');
       await page.click('input[name=fakeName]');
       await page.type('input[name=fakeName]', 'unicorn1');
       await page.click('input[name=realName]');
@@ -90,7 +90,7 @@ describe('Guess Vu', () => {
     });
 
     test('redirects to chatroom after signup and greets with name', async () => {
-      await page.waitForSelector('.Form');
+      await page.waitForSelector('#Form');
       await page.click('input[name=fakeName]');
       await page.type('input[name=fakeName]', 'unicorn2');
       await page.click('input[name=realName]');
@@ -107,7 +107,7 @@ describe('Guess Vu', () => {
     });
 
     test('shows error message when fake and realname equal', async () => {
-      await page.waitForSelector('.Form');
+      await page.waitForSelector('#Form');
       await page.click('input[name=fakeName]');
       await page.type('input[name=fakeName]', 'unicorn5');
       await page.click('input[name=realName]');
@@ -122,7 +122,6 @@ describe('Guess Vu', () => {
     //Pending because this cannot work if noone has signed up under real name.
     //But we cannot leave users signed in because that breaks other tests.
     xtest('shows message when signing up with real name taken', async () => {
-      await page.goto('http://localhost:3001/');
       await page.waitForSelector('.Form');
       await page.click('input[name=fakeName]');
       await page.type('input[name=fakeName]', 'unicorn2a');
@@ -193,7 +192,6 @@ describe('Guess Vu', () => {
       const html = await page.$eval('.outcome', e => e.innerHTML);
       expect(html).toEqual(expect.stringContaining('You guessed correctly!'));
     });
-
   });
 
   describe('Start game2', () => {

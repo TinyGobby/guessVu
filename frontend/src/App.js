@@ -5,6 +5,7 @@ import ChatRoom from './chatroom';
 import socket from './index.js';
 import './App.css';
 import DisplayMessages from './displayMessages';
+import styles from '../styles/app.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class App extends Component {
@@ -42,7 +43,7 @@ class App extends Component {
     console.log(this.state.user);
     return (
       <Router>
-        <div className="App">
+        <div className={styles.container}>
           <Route exact path="/"
             render={() => <Home setUser={this.setUser} />}/>
           <Route path="/chatroom" render={() => <ChatRoom user={this.state.user} gameOpen={this.state.gameOpen} closeGame={this.closeGame} />}/>

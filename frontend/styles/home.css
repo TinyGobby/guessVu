@@ -1,0 +1,19 @@
+.homepage {
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  text-align: center;
+}
+
+.image {
+  display: block;
+  width: 75%;
+  margin: auto;
+}
+
+h1 {
+  color: #E7DFDD;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+}

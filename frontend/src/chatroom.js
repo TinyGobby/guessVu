@@ -8,6 +8,7 @@ import Guess from './guess';
 import axios from 'axios';
 import Leave from './leave';
 import { throws } from 'assert';
+import styles from '../styles/chatroom.css';
 
 class ChatRoom extends Component {
   constructor(props) {
@@ -81,40 +82,39 @@ class ChatRoom extends Component {
   render() {
     return (
       <div className="ChatRoom">
+        <Leave user={this.props.user} />
         <h1 className="ChatRoom-title">Welcome {this.props.user.fakeName}</h1>
-        <div className="numberOfUsers">Number of players: {this.state.numberOfUsers}</div>
-        <StartGame startGame={this.startGame} />
-        { !this.state.gameOpen && (
+
+        <div className={styles.namesDiv}>
           <div>
-            <div className="Names">
-              <div>
-                <h3>Real Names</h3>
-                <ShowRealNames realNames={this.state.realNames} />
-              </div>
-              <div>
-                <h3>Fake Names</h3>
-                <ShowFakeNames fakeNames={this.state.fakeNames} />
-              </div>
-            </div>
             <Guess guesser={this.props.user} />
           </div>
-        )}
-        <form onSubmit={this.handleSubmit}>
-          <input
-            name="message"
-            className="MessageForm"
-            value={this.state.input}
-            onChange={this.handleChange}
-          />
-          <button className="submitMsg" type="submit">
-            Submit!
-          </button>
-        </form>
-        <div className="DisplayedMessages">
-          <DisplayMessages messages={this.state.messages} />
+          <div className={styles.singleNameDiv}>
+            <h3>Fake Names</h3>
+            <ShowFakeNames fakeNames={this.state.fakeNames} />
+          </div>
+          <div className={styles.singleNameDiv}>
+            <h3>Real Names</h3>
+            <ShowRealNames realNames={this.state.realNames} />
+          </div>
         </div>
-
-        <Leave user={this.props.user}/>
+        <div className={styles.messagesDiv}>
+          <div className={styles.displayMsgsDiv}>
+            <DisplayMessages messages={this.state.messages} />
+          </div>
+          <form className={styles.inputMsg} onSubmit={this.handleSubmit}>
+            <input
+              name="message"
+              className={styles.messageInput}
+              value={this.state.input}
+              onChange={this.handleChange}
+              placeholder="Type something..."
+            />
+            <button className={styles.button} type="submit">
+              Submit!
+            </button>
+          </form>
+        </div>
       </div>
     );
   }
