@@ -25,7 +25,9 @@ module.exports = (app, game, io) => {
         })
 
         client.on('startGameServer', function() {
+          console.log('received startgameserver')
           game.close();
+          console.log('close game')
           io.emit('startGameClient');
         })
 
