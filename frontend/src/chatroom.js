@@ -89,6 +89,9 @@ class ChatRoom extends Component {
         <Leave user={this.props.user} />
         <h1 className="ChatRoom-title">Welcome {this.props.user.fakeName}</h1>
         <div className={styles.namesDiv}>
+          <div>
+            <Guess guesser={this.props.user} />
+          </div>
           <div className={styles.singleNameDiv}>
             <h3>Fake Names</h3>
             <ShowFakeNames fakeNames={this.state.fakeNames} />
@@ -97,15 +100,12 @@ class ChatRoom extends Component {
             <h3>Real Names</h3>
             <ShowRealNames realNames={this.state.realNames} />
           </div>
-          <div>
-            <Guess guesser={this.props.user} />
-          </div>
         </div>
         <div className={styles.messagesDiv}>
           <div className={styles.displayMsgsDiv}>
             <DisplayMessages messages={this.state.messages} />
           </div>
-          <form onSubmit={this.handleSubmit}>
+          <form className={styles.inputMsg} onSubmit={this.handleSubmit}>
             <input
               name="message"
               className={styles.messageInput}

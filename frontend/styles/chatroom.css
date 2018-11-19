@@ -9,7 +9,8 @@ body {
   border-radius: 4px;
   color: #E7DFDD;
   background-color: #0E0B16;
-  width: 51vw;
+  height: 50px;
+  width: 60%;
   padding: 12px 32px;
   font-size: large;
   display: inline-block;
@@ -26,20 +27,24 @@ body {
   font-size: large;
   padding: 12px 35px;
   margin: auto;
+  height: 50px;
+  line-height: 25px;
   display: inline-block;
 }
 
 .messagesDiv {
-  float: left;
-  width: 66%;
+  width: 60%;
+  height: 90vh;
+  left: 20px;
+  bottom: 10px;
 }
 
 .displayMsgsDiv {
-  height: 81vh;
-  overflow: auto;
   border: #A239CA solid 2px;
   border-radius: 12px;
   margin: 8px 1px;
+  height: 70vh;
+  overflow: scroll;
 }
 
 .namesDiv {
