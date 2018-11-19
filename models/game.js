@@ -8,6 +8,11 @@ class Game {
   close() {
     this.isOpen = false;
   }
+
+  open() {
+    this.isOpen = true;
+    this.messages.deleteAllMessages();
+  }
 }
 
 module.exports = Game;

@@ -35,4 +35,15 @@ describe('Game', () => {
     })
   })
 
+  describe('open', () => {
+    it('sets isOpen to true', () => {
+      game.open();
+      expect(game.isOpen).toBe(true);
+    })
+    it('delets all messages', () => {
+      game.open();
+      expect(game.messages.deleteAllMessages).toBeCalled();
+    })
+  })
+
 })

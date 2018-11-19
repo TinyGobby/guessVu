@@ -30,7 +30,7 @@ module.exports = (app, game, io) => {
         const userID = req.body.id;
         users.deleteUser(userID);
         if (users.checkEndGame()) {
-            messages.deleteAllMessages();
+            game.open();
         }
         res.send({ "success": true });
     })
