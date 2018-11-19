@@ -3,17 +3,15 @@ const puppeteer = require('puppeteer');
 let browser, page;
 
 beforeEach(async done => {
-  browser = await puppeteer.launch({
-    headless: false
-  });
+  browser = await puppeteer.launch();
   page = await browser.newPage();
   await page.goto('http://localhost:3001/');
   done();
 });
 
-// afterAll(() => {
-//   browser.close();
-// });
+afterEach(() => {
+  browser.close();
+});
 
 describe('Guess Vu', () => {
   describe('Homepage', () => {
@@ -66,9 +64,6 @@ describe('Guess Vu', () => {
       await page.waitForSelector('.leaveBtn');
       await page.click('.leaveBtn');
 
-      await page.screenshot({path: 'buddy-screenshot.png'});
-      
-
       expect(htmlRealNames).toEqual(expect.stringContaining('Vu4'));
       expect(htmlFakeNames).toEqual(expect.stringContaining('unicorn4'));
       expect(htmlGuessing).toEqual(expect.stringContaining('Guess!'));
@@ -85,153 +80,134 @@ describe('Guess Vu', () => {
       await page.type('input[name=realName]', 'Vu1');
       await page.click('button[type=submit]');
       await page.waitForSelector('.ChatRoom');
-
       const html = await page.$eval('.ChatRoom-title', e => e.innerHTML);
+
+      // user leaving so that next tests can run
+      await page.waitForSelector('.leaveBtn');
+      await page.click('.leaveBtn');
+
       expect(html).toEqual(expect.stringContaining('Welcome'));
     });
 
-    // test('redirects to chatroom after signup and greets with name', async () => {
-    //   // last user leaving so that tests can run
-    //   await page.waitForSelector('.leaveBtn');
-    //   await page.click('.leaveBtn');
-    //
-    //   await page.waitForSelector('.Form');
-    //   await page.click('input[name=fakeName]');
-    //   await page.type('input[name=fakeName]', 'unicorn2');
-    //   await page.click('input[name=realName]');
-    //   await page.type('input[name=realName]', 'Vu2');
-    //   await page.click('button[type=submit]');
-    //   await page.waitForSelector('.ChatRoom');
-    //   const html = await page.$eval('.ChatRoom-title', e => e.innerHTML);
-    //   expect(html).toBe('Welcome unicorn2');
-    // });
-    //
-    // test('shows error message when fake and realname equal', async () => {
-    //   // last user leaving so that tests can run
-    //   await page.waitForSelector('.leaveBtn');
-    //   await page.click('.leaveBtn');
-    //
-    //   await page.waitForSelector('.Form');
-    //   await page.click('input[name=fakeName]');
-    //   await page.type('input[name=fakeName]', 'unicorn5');
-    //   await page.click('input[name=realName]');
-    //   await page.type('input[name=realName]', 'unicorn5');
-    //   await page.click('button[type=submit]');
-    //   await page.waitForSelector('.signupError');
-    //   const html = await page.$eval('.signupError', e => e.innerHTML);
-    //   expect(html).toBe("Your fake name can't be your real name");
-    // });
-    //
-    // //No test after this can be dependent on there being no users yet
-    // test('shows message when signing up with real name taken', async () => {
-    //
-    //   //signup first person
-    //   await page.waitForSelector('.Form');
-    //   await page.click('input[name=fakeName]');
-    //   await page.type('input[name=fakeName]', 'unicorn2');
-    //   await page.click('input[name=realName]');
-    //   await page.type('input[name=realName]', 'Vu2');
-    //   await page.click('button[type=submit]');
-    //
-    //   //signup second person with first person's real name
-    //   await page.goto('http://localhost:3001/');
-    //   await page.waitForSelector('.Form');
-    //   await page.click('input[name=fakeName]');
-    //   await page.type('input[name=fakeName]', 'unicorn2a');
-    //   await page.click('input[name=realName]');
-    //   await page.type('input[name=realName]', 'Vu2');
-    //   await page.click('button[type=submit]');
-    //   await page.waitForSelector('.signupError');
-    //   const html = await page.$eval('.signupError', e => e.innerHTML);
-    //   expect(html).toBe('This real name is already taken. Maybe add your last name?');
-    // })
+    test('redirects to chatroom after signup and greets with name', async () => {
+      await page.waitForSelector('.Form');
+      await page.click('input[name=fakeName]');
+      await page.type('input[name=fakeName]', 'unicorn2');
+      await page.click('input[name=realName]');
+      await page.type('input[name=realName]', 'Vu2');
+      await page.click('button[type=submit]');
+      await page.waitForSelector('.ChatRoom');
+      const html = await page.$eval('.ChatRoom-title', e => e.innerHTML);
+
+      // user leaving so that next tests can run
+      await page.waitForSelector('.leaveBtn');
+      await page.click('.leaveBtn');
+
+      expect(html).toBe('Welcome unicorn2');
+    });
+
+    test('shows error message when fake and realname equal', async () => {
+      await page.waitForSelector('.Form');
+      await page.click('input[name=fakeName]');
+      await page.type('input[name=fakeName]', 'unicorn5');
+      await page.click('input[name=realName]');
+      await page.type('input[name=realName]', 'unicorn5');
+      await page.click('button[type=submit]');
+      await page.waitForSelector('.signupError');
+      const html = await page.$eval('.signupError', e => e.innerHTML);
+
+      expect(html).toBe("Your fake name can't be your real name");
+    });
+
+    //Pending because this cannot work if noone has signed up under real name.
+    //But we cannot leave users signed in because that breaks other tests.
+    xtest('shows message when signing up with real name taken', async () => {
+      await page.goto('http://localhost:3001/');
+      await page.waitForSelector('.Form');
+      await page.click('input[name=fakeName]');
+      await page.type('input[name=fakeName]', 'unicorn2a');
+      await page.click('input[name=realName]');
+      await page.type('input[name=realName]', 'Vu6');
+      await page.click('button[type=submit]');
+      await page.waitForSelector('.signupError');
+      const html = await page.$eval('.signupError', e => e.innerHTML);
+      expect(html).toBe('This real name is already taken. Maybe add your last name?');
+    })
 
   });
 
   describe('Guessing', () => {
+    test('Incorrect guess', async () => {
+      await page.waitForSelector('.Form');
+      await page.click('input[name=fakeName]');
+      await page.type('input[name=fakeName]', 'unicorn7');
+      await page.click('input[name=realName]');
+      await page.type('input[name=realName]', 'Vu7');
+      await page.click('button[type=submit]');
+      await page.waitForSelector('.startGame');
+      await page.click('.startGame');
+      await page.waitForSelector('.guessing');
+      await page.waitForSelector('.guessForm');
+      await page.click('input[name=guessFakeName]');
+      await page.type('input[name=guessFakeName]', 'unicorn1');
+      await page.click('input[name=guessRealName]');
+      await page.type('input[name=guessRealName]', 'Wrong guess');
+      await page.click('.submitGuess');
+      await page.waitForSelector('.outcome');
+      const html = await page.$eval('.outcome', e => e.innerHTML);
 
-    // test('Incorrect guess', async () => {
-    //   await page.waitForSelector('.Form');
-    //   await page.click('input[name=fakeName]');
-    //   await page.type('input[name=fakeName]', 'unicorn7');
-    //   await page.click('input[name=realName]');
-    //   await page.type('input[name=realName]', 'Vu7');
-    //   await page.click('button[type=submit]');
-    //   await page.waitForSelector('.startGame');
-    //   await page.click('.startGame');
-    //   await page.waitForSelector('.guessing');
-    //   await page.waitForSelector('.guessForm');
-    //   await page.click('input[name=guessFakeName]');
-    //   await page.type('input[name=guessFakeName]', 'unicorn1');
-    //   await page.click('input[name=guessRealName]');
-    //   await page.type('input[name=guessRealName]', 'Wrong guess');
-    //   await page.click('.submitGuess');
-    //   await page.waitForSelector('.outcome');
-    //   const html = await page.$eval('.outcome', e => e.innerHTML);
-    //   expect(html).toEqual(expect.stringContaining('Sorry, not this time!'));
-    //
-    //   // leave again so that other tests can run
-    //   await page.waitForSelector('.leaveBtn');
-    //   await page.click('.leaveBtn');
-    // });
-    //
-    // test('correct guess', async () => {
-    //   //signup first person
-    //   await page.waitForSelector('.Form');
-    //   await page.click('input[name=fakeName]');
-    //   await page.type('input[name=fakeName]', 'unicorn2');
-    //   await page.click('input[name=realName]');
-    //   await page.type('input[name=realName]', 'Vu2');
-    //   await page.click('button[type=submit]');
-    //
-    //   //signup second who guesses first
-    //   await page.goto('http://localhost:3001/');
-    //   await page.waitForSelector('.Form');
-    //   await page.click('input[name=fakeName]');
-    //   await page.type('input[name=fakeName]', 'unicorn6');
-    //   await page.click('input[name=realName]');
-    //   await page.type('input[name=realName]', 'Vu6');
-    //   await page.click('button[type=submit]');
-    //   await page.waitForSelector('.startGame');
-    //   await page.click('.startGame');
-    //   await page.waitForSelector('.guessing');
-    //   await page.waitForSelector('.guessForm');
-    //   await page.click('input[name=guessFakeName]');
-    //   await page.type('input[name=guessFakeName]', 'unicorn2');
-    //   await page.click('input[name=guessRealName]');
-    //   await page.type('input[name=guessRealName]', 'Vu2');
-    //   await page.click('.submitGuess');
-    //   await page.waitForSelector('.outcome');
-    //   const html = await page.$eval('.outcome', e => e.innerHTML);
-    //   expect(html).toEqual(expect.stringContaining('You guessed correctly!'));
-    //
-    //   // leave again so that other tests can run
-    //   await page.waitForSelector('.leaveBtn');
-    //   await page.click('.leaveBtn');
-    // });
+      // leave again so that other tests can run
+      await page.waitForSelector('.leaveBtn');
+      await page.click('.leaveBtn');
+
+      expect(html).toEqual(expect.stringContaining('Sorry, not this time!'));
+    });
+
+    test('correct guess', async () => {
+      //signup first person
+      await page.waitForSelector('.Form');
+      await page.click('input[name=fakeName]');
+      await page.type('input[name=fakeName]', 'unicorn2');
+      await page.click('input[name=realName]');
+      await page.type('input[name=realName]', 'Vu2');
+      await page.click('button[type=submit]');
+
+      //signup second who guesses first
+      await page.goto('http://localhost:3001/');
+      await page.waitForSelector('.Form');
+      await page.click('input[name=fakeName]');
+      await page.type('input[name=fakeName]', 'unicorn6');
+      await page.click('input[name=realName]');
+      await page.type('input[name=realName]', 'Vu6');
+      await page.click('button[type=submit]');
+      await page.waitForSelector('.startGame');
+      await page.click('.startGame');
+      await page.waitForSelector('.guessing');
+      await page.waitForSelector('.guessForm');
+      await page.click('input[name=guessFakeName]');
+      await page.type('input[name=guessFakeName]', 'unicorn2');
+      await page.click('input[name=guessRealName]');
+      await page.type('input[name=guessRealName]', 'Vu2');
+      await page.click('.submitGuess');
+      await page.waitForSelector('.outcome');
+      const html = await page.$eval('.outcome', e => e.innerHTML);
+      expect(html).toEqual(expect.stringContaining('You guessed correctly!'));
+    });
 
   });
 
-  //need to split up start game tests, otherwise other tests break
-  // describe('Start game2', () => {
-  //   test('Cannot join if the game has started', async () => {
-  //     await page.goto('http://localhost:3001/');
-  //     await page.waitForSelector('.Form');
-  //     await page.click('input[name=fakeName]');
-  //     await page.type('input[name=fakeName]', 'unicorn9');
-  //     await page.click('input[name=realName]');
-  //     await page.type('input[name=realName]', 'Vu9');
-  //     await page.click('button[type=submit]');
-  //     await page.waitForSelector('.signupError');
-  //     console.log('signupError shows');
-  //     const html = await page.$eval('.signupError', e => e.innerHTML);
-  //     expect(html).toEqual(expect.stringContaining('Sorry, you cannot join, the game has started.'));
-  //
-  //     // leave again so that other tests can run
-  //     await page.waitForSelector('.leaveBtn');
-  //     await page.click('.leaveBtn');
-  //   })
-  // });
-
-
+  describe('Start game2', () => {
+    test('Cannot join if the game has started', async () => {
+      await page.waitForSelector('.Form');
+      await page.click('input[name=fakeName]');
+      await page.type('input[name=fakeName]', 'unicorn9');
+      await page.click('input[name=realName]');
+      await page.type('input[name=realName]', 'Vu9');
+      await page.click('button[type=submit]');
+      await page.waitForSelector('.signupError');
+      console.log('signupError shows');
+      const html = await page.$eval('.signupError', e => e.innerHTML);
+      expect(html).toEqual(expect.stringContaining('Sorry, you cannot join, the game has started.'));
+    })
+  });
 });
