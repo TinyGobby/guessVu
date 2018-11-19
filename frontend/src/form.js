@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Alert from './alert';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-import styles from '../styles/form.css'
+import styles from '../styles/form.css';
 
 class Form extends Component {
   constructor(props) {
@@ -10,14 +10,16 @@ class Form extends Component {
     this.state = {
       signupErrorMsg: null
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(e) {
+  handleSubmit(event) {
+    event.preventDefault();
+
     var that = this;
     const fakeName = document.getElementById('fakeName').value;
     const realName = document.getElementById('realName').value;
-    e.preventDefault();
-
+    console.log('im in handle submit');
     axios
       .post('/api/user', {
         fakeName: fakeName,
@@ -42,16 +44,28 @@ class Form extends Component {
 
   render() {
     return (
-      <div className={styles.form} id="Form">
-        <input name="fakeName" className={styles.name} id="fakeName" placeholder="Fake Name" />
-        <input name="realName" className={styles.name} id="realName" placeholder="Real Name" />
-        <button className={styles.button} type="submit" onClick={() => this.handleSubmit()}>
+      <form
+        className={styles.form}
+        id="Form"
+        onSubmit={e => this.handleSubmit(e)}
+      >
+        <input
+          name="fakeName"
+          className={styles.name}
+          id="fakeName"
+          placeholder="Fake Name"
+        />
+        <input
+          name="realName"
+          className={styles.name}
+          id="realName"
+          placeholder="Real Name"
+        />
+        <button className={styles.button} type="submit">
           Play
         </button>
-        {this.state.signupErrorMsg && (
-            <Alert msg={this.state.signupErrorMsg}/>
-        )}
-      </div>
+        {this.state.signupErrorMsg && <Alert msg={this.state.signupErrorMsg} />}
+      </form>
     );
   }
 }
