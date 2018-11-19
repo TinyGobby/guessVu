@@ -47,7 +47,7 @@ body {
   overflow: scroll;
 }
 
-.namesDiv {
+.rightColumn {
   float: right;
   width: 33%;
   font-size: large;
