@@ -13,8 +13,8 @@ class ChatRoom extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      gameActive: false,
       input: '',
+      gameOpen: true,
       messages: [],
       realNames: [],
       fakeNames: [],
@@ -23,11 +23,20 @@ class ChatRoom extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.startGame = this.startGame.bind(this);
-    this.toggleGame = this.toggleGame.bind(this);
+  }
+
+  componentWillReceiveProps(props, nextProps) {
+    console.log('will receive props')
+    console.log(props);
+    console.log(nextProps);
+    if (props.gameOpen !== nextProps.gameOpen) {
+      this.setState({
+        gameOpen: nextProps.gameOpen
+      })
+    }
   }
 
   componentDidMount() {
-    console.log("chatroom: component did mount")
     const that = this;
     // allows user to see updated version of message list
     // when joining room
@@ -43,10 +52,6 @@ class ChatRoom extends Component {
       that.setState({ realNames: data.allRealNames });
       that.setState({ fakeNames: data.allFakeNames });
       that.setState({ numberOfUsers: data.allFakeNames.length})
-    });
-
-    socket.on('startGameClient', function(data) {
-      that.toggleGame();
     });
 
   }
@@ -73,19 +78,13 @@ class ChatRoom extends Component {
     socket.emit('startGameServer');
   }
 
-  toggleGame() {
-    this.setState({
-      gameActive: (this.state.gameActive ? false : true)
-    })
-  }
-
   render() {
     return (
       <div className="ChatRoom">
         <h1 className="ChatRoom-title">Welcome {this.props.user.fakeName}</h1>
         <div className="numberOfUsers">Number of players: {this.state.numberOfUsers}</div>
         <StartGame startGame={this.startGame} />
-        { this.state.gameActive && (
+        { !this.state.gameOpen && (
           <div className="Names">
             <div>
               <h3>Real Names</h3>
@@ -115,7 +114,7 @@ class ChatRoom extends Component {
           <DisplayMessages messages={this.state.messages} />
         </div>
 
-        <Leave user={this.props.user} toggleGame={this.toggleGame} />
+        <Leave user={this.props.user}/>
       </div>
     );
   }

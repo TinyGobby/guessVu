@@ -91,36 +91,6 @@ describe('Guess Vu', () => {
     });
   });
 
-  describe('Real names shown', () => {
-    test('names are displayed', async () => {
-      // Needs to be changed after we reset the server for each test
-      await page.waitForSelector('.Form');
-      await page.click('input[name=fakeName]');
-      await page.type('input[name=fakeName]', 'unicorn4');
-      await page.click('input[name=realName]');
-      await page.type('input[name=realName]', 'Vu4');
-      await page.click('button[type=submit]');
-      await page.waitForSelector('.allRealNames');
-      const html = await page.$eval('.allRealNames', e => e.innerHTML);
-      expect(html).toEqual(expect.stringContaining('Vu1')); // Already logged in
-    });
-  });
-
-  describe('Fake names shown', () => {
-    test('names are displayed', async () => {
-      // Needs to be changed after we reset the server for each test
-      await page.waitForSelector('.Form');
-      await page.click('input[name=fakeName]');
-      await page.type('input[name=fakeName]', 'unicorn5');
-      await page.click('input[name=realName]');
-      await page.type('input[name=realName]', 'Vu5');
-      await page.click('button[type=submit]');
-      await page.waitForSelector('.allFakeNames');
-      const html = await page.$eval('.allFakeNames', e => e.innerHTML);
-      expect(html).toEqual(expect.stringContaining('unicorn1')); // Already logged in
-    });
-  });
-
   describe('Guessing', () => {
     test('correct guess', async () => {
       // Needs to be changed after we reset the server for each test
@@ -162,4 +132,38 @@ describe('Guess Vu', () => {
       expect(html).toEqual(expect.stringContaining('Sorry, not this time!'));
     });
   });
+
+  describe('Start game', () => {
+    test('fake and real names are displayed', async () => {
+      // Needs to be changed after we reset the server for each test
+      await page.waitForSelector('.Form');
+      await page.click('input[name=fakeName]');
+      await page.type('input[name=fakeName]', 'unicorn4');
+      await page.click('input[name=realName]');
+      await page.type('input[name=realName]', 'Vu4');
+      await page.click('button[type=submit]');
+      await page.waitForSelector('.startGame');
+      await page.click('.startGame');
+      await page.waitForSelector('.allRealNames');
+      const htmlRealNames = await page.$eval('.allRealNames', e => e.innerHTML)
+      expect(htmlRealNames).toEqual(expect.stringContaining('Vu4'));
+      const htmlFakeNames = await page.$eval('.allFakeNames', e => e.innerHTML);
+      expect(htmlFakeNames).toEqual(expect.stringContaining('unicorn4'));
+    });
+
+    test('Cannot join if the game has started', async () => {
+      await page.waitForSelector('.Form');
+      await page.click('input[name=fakeName]');
+      await page.type('input[name=fakeName]', 'unicorn9');
+      await page.click('input[name=realName]');
+      await page.type('input[name=realName]', 'Vu9');
+      await page.click('button[type=submit]');
+      await page.waitForSelector('.signupError');
+      console.log('signupError shows');
+      const html = await page.$eval('.signupError', e => e.innerHTML);
+      expect(html).toEqual(expect.stringContaining('Sorry, you cannot join, the game has started.'));
+    })
+
+  });
+
 });

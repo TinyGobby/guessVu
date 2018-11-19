@@ -11,8 +11,9 @@ const Leave = (props) => {
         axios
           .post('/api/user/leave', props.user)
           .then(function(response) {
-              socket.emit('retrieveUsers');
+            if (response.data.success) {
               props.history.push('/');
+            }
           })
           .catch(function(error) {
             console.log(error);
