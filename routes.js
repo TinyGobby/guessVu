@@ -13,7 +13,6 @@ module.exports = (app, game, io) => {
             reason: 'Sorry, you cannot join, the game has started.'
           })
         }
-
     })
 
     app.get('/api/user/allRealNames', (req, res) => {
@@ -31,8 +30,11 @@ module.exports = (app, game, io) => {
         users.deleteUser(userID);
         if (users.checkEndGame()) {
             game.open();
+
         }
-        res.send({ "success": true });
+        res.send({
+          "success": true
+        })
     })
 
     app.post('/api/user/solve', (req, res) => {
