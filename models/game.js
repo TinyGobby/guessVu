@@ -1,7 +1,9 @@
 class Game {
   constructor(usersClass, messagesClass) {
     this.users = new usersClass();
+    this.usersClass = usersClass;
     this.messages = new messagesClass();
+    this.messagesClass = messagesClass;
     this.isOpen = true;
   }
 
@@ -12,6 +14,12 @@ class Game {
   open() {
     this.isOpen = true;
     this.messages.deleteAllMessages();
+  }
+
+  startNew() {
+    this.users = new this.usersClass();
+    this.messages = new this.messagesClass();
+    this.isOpen = true;
   }
 }
 

@@ -12,6 +12,7 @@ import { throws } from 'assert';
 import styles from '../styles/chatroom.css';
 import Discovered from './discovered';
 import Alert from './alert.js'
+import StartNewGame from './startNewGame';
 
 class ChatRoom extends Component {
   constructor(props) {
@@ -96,11 +97,10 @@ class ChatRoom extends Component {
   }
 
   render() {
-    console.log({"props in chatroom": this.props});
-    console.log({"state in chatroom": this.state});
     return (
       <div className="ChatRoom" id="chatRoom">
         <h1 className="ChatRoom-title" id="chatRoomTitle">Welcome {this.props.user.fakeName}</h1>
+        <StartNewGame />
           {this.props.user.discovered && <Discovered />}
           {this.state.winner && <GameWon winner={this.state.winner} />}
         <div className={styles.rightColumn}>
