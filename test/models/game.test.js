@@ -28,6 +28,10 @@ describe('Game', () => {
     expect(game.isOpen).toBe(true);
   })
 
+  it('On initialising Game, max wrong guesses defaults to 0', () => {
+    expect(game.maxWrongGuesses).toEqual(0);
+  })
+
   describe('close', () => {
     it('sets isOpen to false', () => {
       game.close();

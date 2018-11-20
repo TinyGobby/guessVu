@@ -3,6 +3,7 @@ class Game {
     this.users = new usersClass();
     this.messages = new messagesClass();
     this.isOpen = true;
+    this.maxWrongGuesses = 0;
   }
 
   close() {
