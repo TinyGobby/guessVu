@@ -27,7 +27,6 @@ class App extends Component {
     });
 
     socket.on('discoverClient', function(data){
-      console.log('receiving discoverClient');
       let user = that.state.user
       if (data.fakeName == user.fakeName) {
         user.discovered = true
