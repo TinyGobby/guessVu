@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import style from '../styles/GameWon.css'
 
 class Discovered extends Component {
     constructor(props) {
@@ -6,9 +7,7 @@ class Discovered extends Component {
       };
       render() {
           return (
-            <div>
-                <h1>You have been discovered</h1>
-            </div>
+                <h2 class={style.title}>You have been discovered</h2>
         )
     }
 }

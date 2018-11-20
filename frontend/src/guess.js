@@ -10,7 +10,6 @@ class Guess extends Component {
     this.state = {
       guessOutcome: ''
     };
-
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -18,11 +17,10 @@ class Guess extends Component {
     var that = this;
     const guessFakeName = document.getElementById('guessFakeName').value;
     const guessRealName = document.getElementById('guessRealName').value;
-    console.log('within guess');
 
     axios
       .post('/api/user/solve', {
-        guesser: this.state.guesser,
+        guesser: that.props.guesser,
         solution: {
           fakeName: guessFakeName,
           realName: guessRealName
@@ -30,7 +28,7 @@ class Guess extends Component {
       })
       .then(function(response) {
         if (response.data.success === true) {
-           that.setState({ guessOutcome: 'You guessed correctly!' });
+          that.setState({ guessOutcome: 'You guessed correctly!' });
           socket.emit('discoverServer', {fakeName: guessFakeName})
           that.setState({ guessOutcome: 'You guessed correctly!' });
         } else if (response.data.success === false) {
@@ -39,7 +37,10 @@ class Guess extends Component {
           console.log('No response');
         }
         if (response.data.win) {
-          // implement logic for winning
+          socket.emit('winServer', {
+            fakeName: that.props.guesser.fakeName,
+            realName: that.props.guesser.realName
+          });
         }
       })
       .catch(function(error) {
