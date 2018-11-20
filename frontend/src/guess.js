@@ -29,13 +29,17 @@ class Guess extends Component {
         }
       })
       .then(function(response) {
-        if (response.data === true) {
-          that.setState({ guessOutcome: 'You guessed correctly!' });
+        if (response.data.success === true) {
+           that.setState({ guessOutcome: 'You guessed correctly!' });
           socket.emit('discoverServer', {fakeName: guessFakeName})
-        } else if (response.data === false) {
+          that.setState({ guessOutcome: 'You guessed correctly!' });
+        } else if (response.data.success === false) {
           that.setState({ guessOutcome: 'Sorry, not this time!' });
         } else {
           console.log('No response');
+        }
+        if (response.data.win) {
+          // implement logic for winning
         }
       })
       .catch(function(error) {
