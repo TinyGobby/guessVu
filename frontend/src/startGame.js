@@ -3,7 +3,7 @@ import styles from '../styles/leave.css'
 
 const StartGame = (props) => {
   return(
-    <button className={styles.button} id='startGame' onClick={() => props.startGame()}>Start Game</button>
+    <button className={styles.rightColumnBtn} id='startGame' onClick={() => props.startGame()}>Start Game</button>
   )
 }
 

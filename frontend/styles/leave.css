@@ -1,4 +1,4 @@
-.button {
+/* .button {
   color: #E7DFDD;
   background-color: #0E0B16;
   border-color: #A239CA;
@@ -9,4 +9,17 @@
   margin: auto;
   display: inline-block;
   float: right;
+} */
+
+.rightColumnBtn {
+  display: inline-block;
+  color: #E7DFDD;
+  background-color: #0E0B16;
+  border-color: #A239CA;
+  border-width: 2px;
+  border-radius: 12px;
+  font-size: 15px;
+  padding: 12px 3px;
+  float: none;
+  width: 45%;
 }

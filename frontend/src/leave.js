@@ -23,7 +23,7 @@ const Leave = (props) => {
     }
 
     return (
-        <button onClick={handleClick} className={styles.button} id="leaveBtn">Leave game</button>
+        <button onClick={handleClick} className={styles.rightColumnBtn} id="leaveBtn">Leave game</button>
     )
 }
 
