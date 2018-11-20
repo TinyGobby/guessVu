@@ -62,13 +62,19 @@ class ChatRoom extends Component {
   }
 
   handleSubmit(e) {
+    e.preventDefault();
     const that = this;
     let sentObj = {
-      msg: this.state.input,
-      fakeName: this.props.user.fakeName,
-      userId: this.props.user.id
+      msg: this.state.input
     };
-    e.preventDefault();
+
+    if (this.state.gameOpen) {
+      sentObj.fakeName = "anonymous";
+      sentObj.userId = "0"
+    } else {
+      sentObj.fakeName = this.props.user.fakeName,
+      sentObj.userId = this.props.user.id
+    }
     socket.emit('inputMessage', sentObj);
     this.setState({
       input: ''
