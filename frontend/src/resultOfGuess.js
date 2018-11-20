@@ -1,15 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import style from '../styles/guess.css'
 
-class ResultOfGuess extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
+const ResultOfGuess = (props) => {
+  if (props.guessResult == null) {
+    return null
+  } else {
     return (
       <div>
-        <div className={style.result} id="guessResult">{this.props.guessResult}</div>
+        <div className={style.result} id="guessResult">{props.guessResult}</div>
       </div>
     );
   }

@@ -28,6 +28,10 @@ describe('Game', () => {
     expect(game.isOpen).toBe(true);
   })
 
+  it('On initialising Game, max wrong guesses defaults to 0', () => {
+    expect(game.maxWrongGuesses).toEqual(0);
+  })
+
   describe('close', () => {
     it('sets isOpen to false', () => {
       game.close();
@@ -43,6 +47,19 @@ describe('Game', () => {
     it('delets all messages', () => {
       game.open();
       expect(game.messages.deleteAllMessages).toBeCalled();
+    })
+  })
+
+  describe('calculateMaxWrongGuesses', () => {
+    it('should be 1 if there are 4 players', () => {
+      expect(game.calculateMaxWrongGuesses(4)).toEqual(1);
+    })
+  })
+
+  describe('setMaxWrongGuesses', () => {
+    it('sets it to 3 if you pass in 3', () => {
+      game.setMaxWrongGuesses(3);
+      expect(game.maxWrongGuesses).toEqual(3);
     })
   })
 

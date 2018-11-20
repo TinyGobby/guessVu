@@ -5,6 +5,11 @@ class Game {
     this.messages = new messagesClass();
     this.messagesClass = messagesClass;
     this.isOpen = true;
+    this.maxWrongGuesses = 0;
+  }
+
+  calculateMaxWrongGuesses(numberOfPlayers) {
+    return numberOfPlayers - 3;
   }
 
   close() {
@@ -14,6 +19,11 @@ class Game {
   open() {
     this.isOpen = true;
     this.messages.deleteAllMessages();
+  }
+
+
+  setMaxWrongGuesses(num) {
+    this.maxWrongGuesses = num;
   }
 
   startNew() {

@@ -4,6 +4,35 @@ class Users {
     this.discovered = false;
   }
 
+  add(fakeName,realName) {
+    var name_check = this.check(fakeName, realName);
+    if (!name_check.success) {
+      return name_check;
+    }
+
+    var new_user = {
+      discovered: false,
+      fakeName,
+      realName,
+      id: this.generateID(),
+      wrongGuesses: 0,
+      eliminated: false
+    }
+    this.list.push(new_user);
+    return {success: true, user: new_user}
+  }
+
+  getUser(userId) {
+    let userFound = null;
+    this.list.forEach((user) => {
+      if (user.id == userId) {
+        userFound = user;
+      }
+    })
+    return userFound;
+  }
+
+
   shuffleMyArr(arr) {
     var currentIndex = arr.length;
     var tempVal, randomIndex;
@@ -19,22 +48,6 @@ class Users {
       arr[randomIndex] = tempVal
     }
     return arr
-  }
-
-  add(fakeName,realName) {
-    var name_check = this.check(fakeName, realName);
-    if (!name_check.success) {
-      return name_check;
-    }
-
-    var new_user = {
-      discovered: false,
-      fakeName,
-      realName,
-      id: this.generateID()
-    }
-    this.list.push(new_user);
-    return {success: true, user: new_user}
   }
 
   checkEndGame() {
@@ -125,6 +138,20 @@ class Users {
     return taken
   }
 
+  isUserAboveMaxGuesses(maxGuesses, userId) {
+    let result = false;
+    let user = this.getUser(userId);
+    if (user.wrongGuesses > maxGuesses) { result = true };
+    return result;
+  }
+
+  eliminateUser(userId) {
+    let user = this.getUser(userId);
+    user.eliminated = true;
+    this.deleteUser(userId);
+    this.list.push(user);
+  }
+
   check(fakeName, realName) {
     let success = true;
     let reason = null;
@@ -143,10 +170,16 @@ class Users {
     return {success: success, reason: reason}
   }
 
+  incrementWrongGuesses(userId) {
+    let user = this.getUser(userId);
+    this.deleteUser(userId);
+    user.wrongGuesses += 1;
+    this.list.push(user);
+  }
+
   undiscoveredUsers() {
     let total = 0;
     this.list.forEach((user) => {
-      console.log(user);
       if (!user.discovered) {
         total += 1;
       }

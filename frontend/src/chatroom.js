@@ -11,26 +11,33 @@ import Leave from './leave';
 import { throws } from 'assert';
 import styles from '../styles/chatroom.css';
 import Discovered from './discovered';
-import Alert from './alert.js'
+
+import Alert from './alert.js';
+import ResultOfGuess from './resultOfGuess';
+
+
 import StartNewGame from './startNewGame';
 import { withRouter } from 'react-router-dom';
-
 
 class ChatRoom extends Component {
   constructor(props) {
     super(props);
     this.state = {
       alertVisible: false,
+      guessVisible: true,
       input: '',
       numberOfUsers: 0,
       messages: [],
       fakeNames: [],
       realNames: [],
-      winner: null
+      guessResult: null,
+      winner: null,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.startGame = this.startGame.bind(this);
+    this.hideGuessing = this.hideGuessing.bind(this);
+    this.setGuessResult = this.setGuessResult.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -39,6 +46,9 @@ class ChatRoom extends Component {
       this.setState({
         alertVisible: true
       })
+    }
+    if (this.props.user.discovered !== prevProps.user.discovered) {
+      this.hideGuessing();
     }
   }
 
@@ -85,7 +95,7 @@ class ChatRoom extends Component {
       msg: this.state.input
     };
 
-    if (this.state.gameOpen) {
+    if (this.props.gameState.open) {
       sentObj.fakeName = "anonymous";
       sentObj.userId = "0"
     } else {
@@ -96,6 +106,18 @@ class ChatRoom extends Component {
     this.setState({
       input: ''
     });
+  }
+
+  hideGuessing() {
+    this.setState({
+      guessVisible: false
+    })
+  }
+
+  setGuessResult(result) {
+    this.setState({
+      guessResult: result
+    })
   }
 
   startGame() {
@@ -115,10 +137,18 @@ class ChatRoom extends Component {
             <Leave user={this.props.user} />
           </div>
           {this.state.alertVisible && <Alert msg={this.props.errorMsg} />}
-          {!this.props.gameOpen && (
+          {!this.props.gameState.open && (
             <div>
               <div>
-                {!this.props.user.discovered && <Guess guesser={this.props.user} />}
+                {this.state.guessVisible &&
+                  <div>
+                    <Guess guesser={this.props.user} hideGuessing={this.hideGuessing} setGuessResult={this.setGuessResult}/>
+                    <div className={styles.guessWarning}>Careful: You can only have {this.props.gameState.maxWrongGuesses} wrong guesses.</div>
+                  </div>
+                }
+                <div className="resultOfGuess">
+                  <ResultOfGuess guessResult={this.state.guessResult} />
+                </div>
               </div>
               <div className={styles.singleNameDiv}>
                 <h3>Fake Names</h3>

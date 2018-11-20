@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import ResultOfGuess from './resultOfGuess';
 import styles from '../styles/guess.css';
 import socket from './index.js';
 
@@ -27,6 +26,7 @@ class Guess extends Component {
         }
       })
       .then(function(response) {
+        console.log(response);
         if (response.data.success === true) {
           socket.emit('discoverServer', {fakeName: guessFakeName})
         }
@@ -36,9 +36,10 @@ class Guess extends Component {
             realName: that.props.guesser.realName
           });
         }
-        that.setState({
-          guessResult: response.data.msg
-        })
+        if (response.data.eliminated) {
+          that.props.hideGuessing();
+        }
+        that.props.setGuessResult(response.data.msg)
       })
       .catch(function(error) {
         console.log(error);
@@ -46,6 +47,7 @@ class Guess extends Component {
   }
 
   render() {
+    console.log({"props in guess": this.props})
     return (
       <div className={styles.guesserDiv} id='guessing'>
         <div className="guessForm" id="guessForm">
@@ -69,9 +71,6 @@ class Guess extends Component {
           >
             Guess!
           </button>
-        </div>
-        <div className="resultOfGuess">
-          <ResultOfGuess guessResult={this.state.guessResult} />
         </div>
       </div>
     );

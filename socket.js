@@ -27,15 +27,19 @@ module.exports = (app, game, io) => {
         client.on('startGameServer', function() {
           let success = true;
           let reason = null;
+          let maxWrongGuesses = null;
           if (game.users.list.length < 3) {
             success = false;
             reason = "You need at least three players to play."
           } else {
             game.close();
+            maxWrongGuesses = game.calculateMaxWrongGuesses(users.list.length);
+            game.setMaxWrongGuesses(maxWrongGuesses);
           }
           io.emit('startGameClient', {
             success,
-            reason
+            reason,
+            maxWrongGuesses
           });
         })
 
