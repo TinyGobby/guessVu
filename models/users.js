@@ -1,6 +1,7 @@
 class Users {
   constructor() {
     this.list = [];
+    this.discovered = false;
   }
 
   shuffleMyArr(arr) {
@@ -27,6 +28,7 @@ class Users {
     }
 
     var new_user = {
+      discovered: false,
       fakeName,
       realName,
       id: this.generateID()
@@ -46,6 +48,10 @@ class Users {
       }
     });
     return this.list
+  }
+
+  discover() {
+
   }
 
   getAllFakeNames(){

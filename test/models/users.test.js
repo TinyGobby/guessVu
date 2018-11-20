@@ -16,7 +16,7 @@ describe("Users", () => {
   describe("add", () => {
     it("should add new user", () => {
       users.add("unicorn42", "Seb");
-      expect(users.list).toContainEqual({fakeName: "unicorn42", realName: "Seb", id: "1"});
+      expect(users.list).toContainEqual({fakeName: "unicorn42", realName: "Seb", id: "1", discovered: false});
     })
 
     it("should return success", () => {
@@ -59,7 +59,7 @@ describe("Users", () => {
       users.add("unicorn1", "seb1");
       users.add("unicorn2", "seb2");
       users.add("unicorn3", "seb3");
-      expect(users.getAllRealNames()).toEqual(["seb1", "seb2", "seb3"])
+      expect(users.getAllRealNames()).toEqual(expect.arrayContaining(["seb1", "seb2", "seb3"]))
     });
   })
 
@@ -68,7 +68,7 @@ describe("Users", () => {
       users.add("unicorn1", "seb1");
       users.add("unicorn2", "seb2");
       users.add("unicorn3", "seb3");
-      expect(users.getAllFakeNames()).toEqual(["unicorn1", "unicorn2", "unicorn3"])
+      expect(users.getAllFakeNames()).toEqual(expect.arrayContaining(["unicorn1", "unicorn2", "unicorn3"]))
     });
   })
 
