@@ -1,3 +1,16 @@
+.button {
+  color: #E7DFDD;
+  background-color: #0E0B16;
+  border-color: #A239CA;
+  border-width: 2px;
+  border-radius: 4px;
+  font-size: large;
+  padding: 12px 35px;
+  margin: auto;
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+}
+
 .guessName {
   border: none;
   border-bottom: 2px solid #A239CA;
@@ -15,15 +28,6 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-.button {
-  color: #E7DFDD;
-  background-color: #0E0B16;
-  border-color: #A239CA;
-  border-width: 2px;
-  border-radius: 4px;
-  font-size: large;
-  padding: 12px 35px;
-  margin: auto;
-  display: block;
-  font-family: 'Montserrat', sans-serif;
+.result {
+  font-size: 20px;
 }
