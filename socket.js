@@ -25,7 +25,18 @@ module.exports = (app, game, io) => {
         })
 
         client.on('startGameServer', function() {
-          io.emit('startGameClient');
+          let success = true;
+          let reason = null;
+          if (game.users.list.length < 3) {
+            success = false;
+            reason = "You need at least three players to play."
+          } else {
+            game.close();
+          }
+          io.emit('startGameClient', {
+            success,
+            reason
+          });
         })
 
         client.on('discoverServer', function(data) {
