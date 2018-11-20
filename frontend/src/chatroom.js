@@ -11,17 +11,18 @@ import Leave from './leave';
 import { throws } from 'assert';
 import styles from '../styles/chatroom.css';
 import Discovered from './discovered';
+import Alert from './alert.js'
 
 class ChatRoom extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      alertVisible: false,
       input: '',
-      gameOpen: true,
-      messages: [],
-      realNames: [],
-      fakeNames: [],
       numberOfUsers: 0,
+      messages: [],
+      fakeNames: [],
+      realNames: [],
       winner: null
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,13 +30,11 @@ class ChatRoom extends Component {
     this.startGame = this.startGame.bind(this);
   }
 
-  componentWillReceiveProps(props, nextProps) {
-    console.log('will receive props')
-    console.log(props);
-    console.log(nextProps);
-    if (props.gameOpen !== nextProps.gameOpen) {
+  componentDidUpdate(prevProps) {
+    if (this.props.errorMsg !== prevProps.errorMsg) {
+      console.log('prevProps and current differ')
       this.setState({
-        gameOpen: nextProps.gameOpen
+        alertVisible: true
       })
     }
   }
@@ -66,7 +65,6 @@ class ChatRoom extends Component {
         }
       })
     })
-
   }
 
   handleChange(e) {
@@ -98,7 +96,8 @@ class ChatRoom extends Component {
   }
 
   render() {
-    console.log(this.state.winner);
+    console.log({"props in chatroom": this.props});
+    console.log({"state in chatroom": this.state});
     return (
       <div className="ChatRoom" id="chatRoom">
         <h1 className="ChatRoom-title" id="chatRoomTitle">Welcome {this.props.user.fakeName}</h1>
@@ -108,8 +107,9 @@ class ChatRoom extends Component {
         <div>
           <StartGame startGame={this.startGame} />
           <Leave user={this.props.user} />
-        </div>
-          {!this.state.gameOpen && (
+
+          {this.state.alertVisible && <Alert msg={this.props.errorMsg} />}
+          {!this.props.gameOpen && (
             <div>
               <div>
                 {!this.props.user.discovered && <Guess guesser={this.props.user} />}

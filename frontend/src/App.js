@@ -13,7 +13,8 @@ class App extends Component {
     super(props);
     this.state = {
       user: null,
-      gameOpen: true
+      gameOpen: true,
+      chatErrorMsg: null
     }
     this.setUser = this.setUser.bind(this);
     this.closeGame = this.closeGame.bind(this);
@@ -22,8 +23,13 @@ class App extends Component {
   componentDidMount() {
     const that = this;
     socket.on('startGameClient', function(data) {
-      console.log('received start game');
-      that.closeGame();
+      if (data.success) {
+        that.closeGame();
+      } else {
+        that.setState({
+          chatErrorMsg: data.reason
+        })
+      }
     });
 
     socket.on('discoverClient', function(data){
@@ -53,7 +59,7 @@ class App extends Component {
         <div className={styles.container}>
           <Route exact path="/"
             render={() => <Home setUser={this.setUser} />}/>
-          <Route path="/chatroom" render={() => <ChatRoom user={this.state.user} gameOpen={this.state.gameOpen} closeGame={this.closeGame} />}/>
+          <Route path="/chatroom" render={() => <ChatRoom user={this.state.user} gameOpen={this.state.gameOpen} closeGame={this.closeGame} errorMsg={this.state.chatErrorMsg}/>}/>
         </div>
       </Router>
     );

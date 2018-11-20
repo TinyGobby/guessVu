@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import style from '../styles/guess.css'
 
 class ResultOfGuess extends Component {
   constructor(props) {
@@ -8,7 +9,7 @@ class ResultOfGuess extends Component {
   render() {
     return (
       <div>
-        <h1 className="outcome" id="guessResult">{this.props.guessOutcome}</h1>
+        <div className={style.result} id="guessResult">{this.props.guessResult}</div>
       </div>
     );
   }

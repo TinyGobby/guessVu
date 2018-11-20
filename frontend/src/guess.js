@@ -8,7 +8,7 @@ class Guess extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      guessOutcome: ''
+      guessResult: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -28,13 +28,7 @@ class Guess extends Component {
       })
       .then(function(response) {
         if (response.data.success === true) {
-          that.setState({ guessOutcome: 'You guessed correctly!' });
           socket.emit('discoverServer', {fakeName: guessFakeName})
-          that.setState({ guessOutcome: 'You guessed correctly!' });
-        } else if (response.data.success === false) {
-          that.setState({ guessOutcome: 'Sorry, not this time!' });
-        } else {
-          console.log('No response');
         }
         if (response.data.win) {
           socket.emit('winServer', {
@@ -42,6 +36,9 @@ class Guess extends Component {
             realName: that.props.guesser.realName
           });
         }
+        that.setState({
+          guessResult: response.data.msg
+        })
       })
       .catch(function(error) {
         console.log(error);
@@ -74,7 +71,7 @@ class Guess extends Component {
           </button>
         </div>
         <div className="resultOfGuess">
-          <ResultOfGuess guessOutcome={this.state.guessOutcome} />
+          <ResultOfGuess guessResult={this.state.guessResult} />
         </div>
       </div>
     );
