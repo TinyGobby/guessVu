@@ -6,6 +6,10 @@ class Game {
     this.maxWrongGuesses = 0;
   }
 
+  calculateMaxWrongGuesses(numberOfPlayers) {
+    return numberOfPlayers - 3;
+  }
+
   close() {
     this.isOpen = false;
   }
@@ -13,6 +17,10 @@ class Game {
   open() {
     this.isOpen = true;
     this.messages.deleteAllMessages();
+  }
+
+  setMaxWrongGuesses(num) {
+    this.maxWrongGuesses = num;
   }
 }
 

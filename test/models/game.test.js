@@ -50,4 +50,17 @@ describe('Game', () => {
     })
   })
 
+  describe('calculateMaxWrongGuesses', () => {
+    it('should be 1 if there are 4 players', () => {
+      expect(game.calculateMaxWrongGuesses(4)).toEqual(1);
+    })
+  })
+
+  describe('setMaxWrongGuesses', () => {
+    it('sets it to 3 if you pass in 3', () => {
+      game.setMaxWrongGuesses(3);
+      expect(game.maxWrongGuesses).toEqual(3);
+    })
+  })
+
 })

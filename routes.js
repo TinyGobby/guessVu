@@ -39,6 +39,7 @@ module.exports = (app, game, io) => {
     app.post('/api/user/solve', (req, res) => {
         let win = false;
         let success = false;
+        let eliminated = false;
         let msg = "Sorry, not this time!";
         const realName = req.body.solution.realName;
         const fakeName = req.body.solution.fakeName;
@@ -52,11 +53,18 @@ module.exports = (app, game, io) => {
           users.discover(fakeName);
           msg = "You're right!"
           if (users.undiscoveredUsers() === 1) { win = true };
+        } else {
+          users.incrementWrongGuesses(guesser.id);
+          if (users.isUserAboveMaxGuesses() {
+            users.eliminate(guesser.id)
+            eliminated = true
+          })
         }
         res.send({
+          eliminated,
+          msg,
           success,
           win,
-          msg
         });
     })
 }

@@ -16,7 +16,7 @@ describe("Users", () => {
   describe("add", () => {
     it("should add new user", () => {
       users.add("unicorn42", "Seb");
-      expect(users.list).toContainEqual({fakeName: "unicorn42", realName: "Seb", id: "1", discovered: false});
+      expect(users.list).toContainEqual({fakeName: "unicorn42", realName: "Seb", id: "1", discovered: false, wrongGuesses: 0, eliminated: false});
     })
 
     it("should return success", () => {
@@ -35,6 +35,13 @@ describe("Users", () => {
 
     it("should not add a user if real name is equal to fake name", () => {
       expect(users.add("bob", "bob").success).toBe(false)
+    })
+  })
+
+  describe('getUser', () => {
+    it('retrieves user by Id', () => {
+      users.add("unicorn1", "vu1");
+      expect(users.getUser("1").fakeName).toEqual("unicorn1");
     })
   })
 
@@ -101,6 +108,22 @@ describe("Users", () => {
     });
   })
 
+  describe('isUserAboveMaxGuesses', () => {
+    it('returns true if user is above wrong guesses', () => {
+      users.add("unicorn1", "seb1");
+      users.incrementWrongGuesses("1");
+      expect(users.isUserAboveMaxGuesses(0,"1")).toBe(true);
+    })
+  })
+
+  describe('eliminates user', () => {
+    it('sets eliminate on user to true', () => {
+      users.add("unicorn1", "seb1");
+      users.eliminateUser("1");
+      expect(users.list[0].eliminated).toBe(true);
+    })
+  })
+
   describe("discover", () =>{
     it('changes discovered to true', () => {
       users.add("unicorn1", "seb1");
@@ -121,6 +144,14 @@ describe("Users", () => {
       users.add("unicorn2", "seb2");
       users.discover("unicorn1");
       expect(users.undiscoveredUsers()).toEqual(1);
+    })
+  })
+
+  describe('incrementWrongGuesses', () => {
+    it('incremenets wrongGuesses by 1', () => {
+      users.add("unicorn1", "seb1");
+      users.incrementWrongGuesses("1");
+      expect(users.list[0].wrongGuesses).toEqual(1);
     })
   })
 
