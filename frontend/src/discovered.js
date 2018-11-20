@@ -7,7 +7,7 @@ class Discovered extends Component {
       render() {
           return (
             <div>
-                <h1>You have been discovered</h1>
+                <h2>You have been discovered</h2>
             </div>
         )
     }
