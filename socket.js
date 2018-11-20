@@ -37,8 +37,8 @@ module.exports = (app, game, io) => {
           });
         })
 
-        client.on('winServer', function(){
-          io.emit('winClient')
+        client.on('winServer', function(data){
+          io.emit('winClient', data)
         })
 
       });
