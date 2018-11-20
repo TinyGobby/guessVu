@@ -19,12 +19,19 @@ class ChatRoom extends Component {
       messages: [],
       realNames: [],
       fakeNames: [],
-      numberOfUsers: 0
+      numberOfUsers: 0,
+      isHidden: true
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.startGame = this.startGame.bind(this);
+    this.toggleVisibility.bind(this);
+
   }
+
+  toggleVisibility() {
+    this.setState({isHidden: false})
+}
 
   componentWillReceiveProps(props, nextProps) {
     console.log('will receive props')
@@ -89,6 +96,7 @@ class ChatRoom extends Component {
     return (
       <div className="ChatRoom" id="chatRoom">
         <h1 className="ChatRoom-title" id="chatRoomTitle">Welcome {this.props.user.fakeName}</h1>
+          {!this.props.user.discovered && <Discovered />}
         <div className={styles.rightColumn}>
           <StartGame startGame={this.startGame} />
           <Leave user={this.props.user} />
