@@ -45,8 +45,8 @@ class Guess extends Component {
 
   render() {
     return (
-      <div className={styles.guesserDiv}>
-        <div className="guessForm">
+      <div className={styles.guesserDiv} id='guessing'>
+        <div className="guessForm" id="guessForm">
           <input
             name="guessFakeName"
             className={styles.guessName}
@@ -62,6 +62,7 @@ class Guess extends Component {
           <button
             className={styles.button}
             type="submit"
+            id="guessSubmit"
             onClick={() => this.handleSubmit()}
           >
             Guess!

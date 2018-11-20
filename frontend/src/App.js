@@ -40,7 +40,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.user);
     return (
       <Router>
         <div className={styles.container}>
