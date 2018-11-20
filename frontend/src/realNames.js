@@ -11,7 +11,7 @@ class ShowRealNames extends Component {
       <div className="allRealNames" id='allRealNames'>
         {this.props.realNames.map(element => {
           return (
-            <div>
+            <div className={styles.namesDiv}>
               <ul>
                 <li className={styles.names}>{element}</li>
               </ul>

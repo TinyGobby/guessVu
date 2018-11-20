@@ -1,7 +1,9 @@
 class Game {
   constructor(usersClass, messagesClass) {
     this.users = new usersClass();
+    this.usersClass = usersClass;
     this.messages = new messagesClass();
+    this.messagesClass = messagesClass;
     this.isOpen = true;
     this.maxWrongGuesses = 0;
   }
@@ -19,8 +21,15 @@ class Game {
     this.messages.deleteAllMessages();
   }
 
+
   setMaxWrongGuesses(num) {
     this.maxWrongGuesses = num;
+  }
+
+  startNew() {
+    this.users = new this.usersClass();
+    this.messages = new this.messagesClass();
+    this.isOpen = true;
   }
 }
 
