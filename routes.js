@@ -38,16 +38,25 @@ module.exports = (app, game, io) => {
 
     app.post('/api/user/solve', (req, res) => {
         let win = false;
-        const solution = req.body.solution;
-        const realName = solution.realName;
-        const fakeName = solution.fakeName;
+        let success = false;
+        let msg = "Sorry, not this time!";
+        const realName = req.body.solution.realName;
+        const fakeName = req.body.solution.fakeName;
         const guesser = req.body.guesser;
-        const success = users.compareFakeReal(fakeName, realName);
-        if (success) { users.discover(fakeName) };
-        if (users.undiscoveredUsers() === 1) { win = true };
+        if (guesser.fakeName == fakeName) {
+          msg = "Know thyself indeed! But you cannot guess yourself..."
+        } else {
+          success = users.compareFakeReal(fakeName, realName);
+        }
+        if (success) {
+          users.discover(fakeName);
+          msg = "You're right!"
+          if (users.undiscoveredUsers() === 1) { win = true };
+        }
         res.send({
           success,
-          win
+          win,
+          msg
         });
     })
 }

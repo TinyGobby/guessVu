@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import style from '../style/guess.css'
+import style from '../styles/guess.css'
 
 class ResultOfGuess extends Component {
   constructor(props) {
