@@ -29,7 +29,6 @@ class Guess extends Component {
         }
       })
       .then(function(response) {
-        console.log('within response');
         if (response.data === true) {
           that.setState({ guessOutcome: 'You guessed correctly!' });
           socket.emit('discoverServer', {fakeName: guessFakeName})
