@@ -101,4 +101,12 @@ describe("Users", () => {
     });
   })
 
+  describe("discover", () =>{
+    it('changes discovered to true', () => {
+      users.add("unicorn1", "seb1");
+      users.discover("unicorn1");
+      expect(users.list[0].discovered).toBe(true);
+    })
+  })
+
 })

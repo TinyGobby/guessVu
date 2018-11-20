@@ -50,8 +50,17 @@ class Users {
     return this.list
   }
 
-  discover() {
-
+  discover(fakeName) {
+    let success = false;
+    this.list.forEach((user) => {
+      if (user.fakeName == fakeName) {
+        user.discovered = true;
+        this.deleteUser(user.id);
+        this.list.push(user);
+        success = true;
+      }
+    })
+    return {success: true}
   }
 
   getAllFakeNames(){
