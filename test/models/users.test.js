@@ -109,4 +109,12 @@ describe("Users", () => {
     })
   })
 
+  describe("undiscoveredUsers", () => {
+    it("should return 2 when two users sign up", () => {
+      users.add("unicorn1", "seb1");
+      users.add("unicorn2", "seb2");
+      expect(users.undiscoveredUsers()).toEqual(2);
+    })
+  })
+
 })
