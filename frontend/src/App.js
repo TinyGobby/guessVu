@@ -12,9 +12,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null,
-      gameOpen: true,
-      chatErrorMsg: null
+      chatErrorMsg: null,
+      gameState: {
+        open: true,
+        maxWrongGuesses: null
+      },
+      user: null
     }
     this.setUser = this.setUser.bind(this);
     this.closeGame = this.closeGame.bind(this);
@@ -24,7 +27,7 @@ class App extends Component {
     const that = this;
     socket.on('startGameClient', function(data) {
       if (data.success) {
-        that.closeGame();
+        that.closeGame(data.maxWrongGuesses);
       } else {
         that.setState({
           chatErrorMsg: data.reason
@@ -41,9 +44,13 @@ class App extends Component {
     })
   }
 
-  closeGame() {
+  closeGame(maxWrongGuesses) {
+    let gameState = {
+      open: false,
+      maxWrongGuesses
+    };
     this.setState({
-      gameOpen: false
+      gameState
     })
   }
 
@@ -54,12 +61,13 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <Router>
         <div className={styles.container}>
           <Route exact path="/"
             render={() => <Home setUser={this.setUser} />}/>
-          <Route path="/chatroom" render={() => <ChatRoom user={this.state.user} gameOpen={this.state.gameOpen} closeGame={this.closeGame} errorMsg={this.state.chatErrorMsg}/>}/>
+          <Route path="/chatroom" render={() => <ChatRoom user={this.state.user} gameState={this.state.gameState} closeGame={this.closeGame} errorMsg={this.state.chatErrorMsg}/>}/>
         </div>
       </Router>
     );

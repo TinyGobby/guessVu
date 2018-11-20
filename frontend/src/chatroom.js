@@ -78,7 +78,7 @@ class ChatRoom extends Component {
       msg: this.state.input
     };
 
-    if (this.state.gameOpen) {
+    if (this.props.gameState.open) {
       sentObj.fakeName = "anonymous";
       sentObj.userId = "0"
     } else {
@@ -109,10 +109,15 @@ class ChatRoom extends Component {
             <Leave user={this.props.user} />
           </div>
           {this.state.alertVisible && <Alert msg={this.props.errorMsg} />}
-          {!this.props.gameOpen && (
+          {!this.props.gameState.open && (
             <div>
               <div>
-                {!this.props.user.discovered && <Guess guesser={this.props.user} />}
+                {!this.props.user.discovered &&
+                  <div>
+                    <Guess guesser={this.props.user} />
+                    <div className={styles.guessWarning}>Careful: You can only have {this.props.gameState.maxWrongGuesses} wrong guesses.</div>
+                  </div>
+                  }
               </div>
               <div className={styles.singleNameDiv}>
                 <h3>Fake Names</h3>
