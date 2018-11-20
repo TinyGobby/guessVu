@@ -27,6 +27,7 @@ const game = new Game(Users, Messages);
 // const messages = new Messages();
 // var users = new Users();
 const io = require('socket.io')(server);
+io.set("store", new require('socket.io').RedisStore);
 require('./socket.js')(app, game, io);
 require('./routes.js')(app, game, io);
 
