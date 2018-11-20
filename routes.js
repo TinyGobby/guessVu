@@ -37,11 +37,17 @@ module.exports = (app, game, io) => {
     })
 
     app.post('/api/user/solve', (req, res) => {
+        let win = false;
         const solution = req.body.solution;
         const realName = solution.realName;
         const fakeName = solution.fakeName;
         const guesser = req.body.guesser;
-        const result = users.compareFakeReal(fakeName, realName);
-        res.send(result);
+        const success = users.compareFakeReal(fakeName, realName);
+        if (success) { users.discover(fakeName) };
+        if (users.undiscoveredUsers() === 1) { win = true };
+        res.send({
+          success,
+          win
+        });
     })
 }
