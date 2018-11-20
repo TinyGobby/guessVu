@@ -114,6 +114,7 @@ class Users {
     })
     return taken;
   }
+
   isRealNameTaken(realName){
     let taken = false
     this.list.forEach((user) => {
@@ -123,6 +124,7 @@ class Users {
     })
     return taken
   }
+
   check(fakeName, realName) {
     let success = true;
     let reason = null;
@@ -139,6 +141,17 @@ class Users {
       reason = "Your fake name can't be your real name"
     }
     return {success: success, reason: reason}
+  }
+
+  undiscoveredUsers() {
+    let total = 0;
+    this.list.forEach((user) => {
+      console.log(user);
+      if (!user.discovered) {
+        total += 1;
+      }
+    })
+    return total;
   }
 }
 

@@ -28,14 +28,15 @@ class Guess extends Component {
         }
       })
       .then(function(response) {
-        console.log('within response');
-        console.log(response.data);
-        if (response.data === true) {
+        if (response.data.success === true) {
           that.setState({ guessOutcome: 'You guessed correctly!' });
-        } else if (response.data === false) {
+        } else if (response.data.success === false) {
           that.setState({ guessOutcome: 'Sorry, not this time!' });
         } else {
           console.log('No response');
+        }
+        if (response.data.win) {
+          // implement logic for winning
         }
       })
       .catch(function(error) {
