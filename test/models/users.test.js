@@ -115,6 +115,13 @@ describe("Users", () => {
       users.add("unicorn2", "seb2");
       expect(users.undiscoveredUsers()).toEqual(2);
     })
+
+    it("should return 2 when two users sign up and one is discovered", () => {
+      users.add("unicorn1", "seb1");
+      users.add("unicorn2", "seb2");
+      users.discover("unicorn1");
+      expect(users.undiscoveredUsers()).toEqual(1);
+    })
   })
 
 })
