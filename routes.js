@@ -55,10 +55,11 @@ module.exports = (app, game, io) => {
           if (users.undiscoveredUsers() === 1) { win = true };
         } else {
           users.incrementWrongGuesses(guesser.id);
-          if (users.isUserAboveMaxGuesses() {
-            users.eliminate(guesser.id)
+          if (users.isUserAboveMaxGuesses(game.maxWrongGuesses, guesser.id)) {
+            users.eliminateUser(guesser.id)
+            msg = "You used up your guesses. You're eliminated."
             eliminated = true
-          })
+          }
         }
         res.send({
           eliminated,
