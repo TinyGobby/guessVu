@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ResultOfGuess from './resultOfGuess';
 import styles from '../styles/guess.css';
+import socket from './index.js';
 
 class Guess extends Component {
   constructor(props) {
@@ -29,10 +30,9 @@ class Guess extends Component {
       })
       .then(function(response) {
         console.log('within response');
-        console.log(response.data);
         if (response.data === true) {
           that.setState({ guessOutcome: 'You guessed correctly!' });
-          socket.emit('discoverServer', {FakeName: guessFakeName})
+          socket.emit('discoverServer', {fakeName: guessFakeName})
         } else if (response.data === false) {
           that.setState({ guessOutcome: 'Sorry, not this time!' });
         } else {

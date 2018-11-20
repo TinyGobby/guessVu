@@ -9,6 +9,7 @@ import axios from 'axios';
 import Leave from './leave';
 import { throws } from 'assert';
 import styles from '../styles/chatroom.css';
+import Discovered from './discovered';
 
 class ChatRoom extends Component {
   constructor(props) {
@@ -20,7 +21,6 @@ class ChatRoom extends Component {
       realNames: [],
       fakeNames: [],
       numberOfUsers: 0,
-      isHidden: true
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -96,14 +96,14 @@ class ChatRoom extends Component {
     return (
       <div className="ChatRoom" id="chatRoom">
         <h1 className="ChatRoom-title" id="chatRoomTitle">Welcome {this.props.user.fakeName}</h1>
-          {!this.props.user.discovered && <Discovered />}
+          {this.props.user.discovered && <Discovered />}
         <div className={styles.rightColumn}>
           <StartGame startGame={this.startGame} />
           <Leave user={this.props.user} />
           {!this.state.gameOpen && (
             <div>
               <div>
-                <Guess guesser={this.props.user} />
+                {!this.props.user.discovered && <Guess guesser={this.props.user} />}
               </div>
               <div className={styles.singleNameDiv}>
                 <h3>Fake Names</h3>

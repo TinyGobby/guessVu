@@ -26,9 +26,9 @@ class App extends Component {
       that.closeGame();
     });
 
-    socket.on('discoverServer', function(data){
-      console.log('receiving discoverServer');
-      user = that.state.user
+    socket.on('discoverClient', function(data){
+      console.log('receiving discoverClient');
+      let user = that.state.user
       if (data.fakeName == user.fakeName) {
         user.discovered = true
         that.setState({ user: user })
@@ -49,6 +49,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <Router>
         <div className={styles.container}>

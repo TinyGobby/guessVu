@@ -32,10 +32,11 @@ module.exports = (app, game, io) => {
         })
 
         client.on('discoverServer', function(data) {
+          console.log({"data": data});
           let discoveredUser = data.fakeName;
           users.discover(discoveredUser);
           io.emit('discoverClient', {
-            fakeName: discoveredUser
+            "fakeName": discoveredUser
           });
         })
 
