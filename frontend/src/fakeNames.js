@@ -11,7 +11,7 @@ class ShowFakeNames extends Component {
       <div className="allFakeNames" id="allFakeNames">
         {this.props.fakeNames.map(element => {
           return (
-            <div>
+            <div className={styles.namesDiv}>
               <ul>
                 <li className={styles.names}>{element}</li>
               </ul>
