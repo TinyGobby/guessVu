@@ -25,13 +25,7 @@ class ChatRoom extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.startGame = this.startGame.bind(this);
-    this.toggleVisibility.bind(this);
-
   }
-
-  toggleVisibility() {
-    this.setState({isHidden: false})
-}
 
   componentWillReceiveProps(props, nextProps) {
     console.log('will receive props')
