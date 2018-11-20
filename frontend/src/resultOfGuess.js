@@ -9,7 +9,7 @@ class ResultOfGuess extends Component {
   render() {
     return (
       <div>
-        <div className={style.result} id="guessResult">{this.props.guessOutcome}</div>
+        <div className={style.result} id="guessResult">{this.props.guessResult}</div>
       </div>
     );
   }
