@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import styles from '../styles/chatroom.css';
+import socket from './index.js';
 
 
 
@@ -18,10 +19,8 @@ class StartNewGame extends Component {
               
         })
         .then(function(response) {
-            console.log("response of startnewgame - received response from backend")
-            console.log(response)
             if (response.data.success == true) {
-                console.log("inside true of response of startnewgame")
+                socket.emit('startNewGame')
                 that.props.history.push('/');
             }
         })

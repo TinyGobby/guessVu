@@ -13,6 +13,8 @@ import styles from '../styles/chatroom.css';
 import Discovered from './discovered';
 import Alert from './alert.js'
 import StartNewGame from './startNewGame';
+import { withRouter } from 'react-router-dom';
+
 
 class ChatRoom extends Component {
   constructor(props) {
@@ -45,6 +47,10 @@ class ChatRoom extends Component {
     // allows user to see updated version of message list
     // when joining room
     socket.emit('retrieveMessages');
+
+    socket.on('newGameForAll', function() {
+      that.props.history.push('/');
+    })
 
     socket.on('listOfMessages', function(data) {
       that.setState({
@@ -147,4 +153,4 @@ class ChatRoom extends Component {
   }
 }
 
-export default ChatRoom;
+export default withRouter(ChatRoom);
