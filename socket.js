@@ -25,9 +25,7 @@ module.exports = (app, game, io) => {
         })
 
         client.on('startGameServer', function() {
-          console.log('received startgameserver')
           game.close();
-          console.log('close game')
           io.emit('startGameClient');
         })
 
@@ -35,7 +33,7 @@ module.exports = (app, game, io) => {
           let discoveredUser = data.fakeName;
           users.discover(discoveredUser);
           io.emit('discoverClient', {
-            fakeName: discoveredUser
+            "fakeName": discoveredUser
           });
         })
 

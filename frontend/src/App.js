@@ -25,6 +25,14 @@ class App extends Component {
       console.log('received start game');
       that.closeGame();
     });
+
+    socket.on('discoverClient', function(data){
+      let user = that.state.user
+      if (data.fakeName == user.fakeName) {
+        user.discovered = true
+        that.setState({ user: user })
+      }
+    })
   }
 
   closeGame() {
