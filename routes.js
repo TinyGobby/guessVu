@@ -3,6 +3,11 @@ module.exports = (app, game, io) => {
     const users = game.users;
     const messages = game.messages;
 
+    app.post('/api/game/startnew', (req, res) => {
+      game.startNew();
+      res.send({ success: true })
+    })
+
     app.post('/api/user', (req, res) => {
         if (game.isOpen) {
           const result = users.add(req.body.fakeName, req.body.realName);

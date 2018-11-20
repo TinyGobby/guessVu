@@ -51,5 +51,9 @@ module.exports = (app, game, io) => {
           io.emit('winClient', data)
         })
 
+        client.on('startNewGame', function(){
+          io.emit('newGameForAll')
+        })
+
       });
 }
