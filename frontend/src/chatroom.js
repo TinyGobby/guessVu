@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import DisplayMessages from './displayMessages';
 import GameWon from './gameWon';
 import socket from './index.js';
-import ShowRealNames from './realNames';
-import ShowFakeNames from './fakeNames';
+import ShowRealNames from './showRealNames';
+import ShowFakeNames from './showFakeNames';
 import StartGame from './startGame';
 import Guess from './guess';
 import axios from 'axios';
 import Leave from './leave';
 import { throws } from 'assert';
 import styles from '../styles/chatroom.css';
+import nameStyles from '../styles/names.css';
 import KnockedOutMessage from './knockedOutMessage';
 import EndGame from './endGame';
 
@@ -31,7 +32,8 @@ class ChatRoom extends Component {
       realNames: [],
       usersLeft: 0,
       guessResult: null,
-      winner: null
+      winner: null,
+      guessFormHide: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -80,7 +82,8 @@ class ChatRoom extends Component {
         winner: {
           fakeName: data.fakeName,
           realName: data.realName
-        }
+        },
+        guessFormHide: true
       });
     });
 
@@ -140,7 +143,7 @@ class ChatRoom extends Component {
 
       <div className="ChatRoom" id="chatRoom">
         <h1 className="ChatRoom-title" id="chatRoomTitle">
-          Welcome {this.props.user.fakeName}
+          Welcome {this.props.user.realName}
         </h1>
 
 
@@ -168,7 +171,7 @@ class ChatRoom extends Component {
                 {this.props.user.discovered && (
                   <KnockedOutMessage message="You have been discovered" />
                 )}
-                {!this.props.user.eliminated && !this.props.user.discovered && (
+                {!this.props.user.eliminated && !this.props.user.discovered && !this.state.guessFormHide && (
                   <div>
                     <Guess
                       guesser={this.props.user}
@@ -193,12 +196,12 @@ class ChatRoom extends Component {
                   There are {this.state.usersLeft} players left in the game.
                 </div>
               </div>
-              <div className={styles.singleNameDiv}>
-                <h3>Fake Names</h3>
+              <div className={nameStyles.container}>
+                <div className={nameStyles.heading}>Fake Names</div>
                 <ShowFakeNames fakeNames={this.state.fakeNames} />
               </div>
-              <div className={styles.singleNameDiv}>
-                <h3>Real Names</h3>
+              <div className={nameStyles.container}>
+                <div className={nameStyles.heading}>Real Names</div>
                 <ShowRealNames realNames={this.state.realNames} />
               </div>
             </div>
