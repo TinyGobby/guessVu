@@ -38,8 +38,8 @@ class Guess extends Component {
         }
         if (response.data.win) {
           socket.emit('winServer', {
-            fakeName: that.props.guesser.fakeName,
-            realName: that.props.guesser.realName
+            fakeName: response.data.winner.fakeName,
+            realName: response.data.winner.realName
           });
         }
         if (response.data.eliminated) {

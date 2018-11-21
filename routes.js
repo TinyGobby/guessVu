@@ -42,6 +42,7 @@ module.exports = (app, game, io) => {
         let win = false;
         let success = false;
         let eliminated = false;
+        let winner = '';
         let msg = "Sorry, not this time!";
         const realName = req.body.solution.realName;
         const fakeName = req.body.solution.fakeName;
@@ -54,7 +55,6 @@ module.exports = (app, game, io) => {
         if (success) {
           game.users.discover(fakeName);
           msg = "You're right!"
-          if (game.users.undiscoveredUsers() === 1) { win = true };
         } else {
           game.users.incrementWrongGuesses(guesser.id);
           if (game.users.isUserAboveMaxGuesses(game.maxWrongGuesses, guesser.id)) {
@@ -63,11 +63,17 @@ module.exports = (app, game, io) => {
             eliminated = true
           }
         }
+        console.log(game.users.left());
+        if (game.users.left() === 1) {
+          win = true;
+          winner = game.users.list[0];
+        };
         res.send({
           eliminated,
           msg,
           success,
           win,
+          winner
         });
     })
 }
