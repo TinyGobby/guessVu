@@ -152,7 +152,12 @@ class ChatRoom extends Component {
         <div className={styles.rightColumn}>
           <div>
             {this.props.gameState.open && (
-              <StartGame startGame={this.startGame} />
+              <div>
+                <div className={styles.guessWarning}>
+                  There are {this.state.fakeNames.length} players in the chatroom
+                </div>
+                <StartGame startGame={this.startGame} />
+              </div>
             )}
             <Leave user={this.props.user} />
           </div>
