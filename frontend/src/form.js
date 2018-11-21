@@ -22,26 +22,32 @@ class Form extends Component {
     var that = this;
     const fakeName = document.getElementById('fakeName').value;
     const realName = document.getElementById('realName').value;
-    axios.post('/api/user', {
-      fakeName: fakeName,
-      realName: realName
-    })
-    .then(function (response) {
-      console.log(response)
-      if (response.data.success) {
-        const user = response.data.user;
-        that.props.setUser(user);
-        socket.emit('retrieveUsers');
-        that.props.history.push('/chatroom');
-      } else {
-        that.setState({
-          signupErrorMsg: response.data.reason
-        })
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    if (fakeName.length == 0 || realName.length == 0) {
+      that.setState({
+        signupErrorMsg: "You cannot enter empty names"
+      })
+    } else {
+      axios.post('/api/user', {
+        fakeName: fakeName,
+        realName: realName
+      })
+      .then(function (response) {
+        console.log(response)
+        if (response.data.success) {
+          const user = response.data.user;
+          that.props.setUser(user);
+          socket.emit('retrieveUsers');
+          that.props.history.push('/chatroom');
+        } else {
+          that.setState({
+            signupErrorMsg: response.data.reason
+          })
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
   }
 
   render() {
