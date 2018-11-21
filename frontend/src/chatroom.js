@@ -143,7 +143,7 @@ class ChatRoom extends Component {
 
       <div className="ChatRoom" id="chatRoom">
         <h1 className="ChatRoom-title" id="chatRoomTitle">
-          Welcome {this.props.user.fakeName}
+          Welcome {this.props.user.realName}
         </h1>
 
 
