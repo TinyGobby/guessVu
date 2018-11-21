@@ -4,6 +4,18 @@ import styles from '../styles/displayMessages.css';
 class DisplayMessages extends Component {
   constructor(props) {
     super(props);
+    this.scrollToBottom = this.scrollToBottom.bind(this);
+  }
+
+  scrollToBottom(){
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  }
+  componentDidMount() {
+    // this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
   }
 
   render() {
@@ -19,6 +31,8 @@ class DisplayMessages extends Component {
             </div>
           );
         })}
+        <div ref={(el) => { this.messagesEnd = el; }}>
+        </div>
       </div>
     );
   }
