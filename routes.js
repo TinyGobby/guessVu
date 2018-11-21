@@ -63,7 +63,6 @@ module.exports = (app, game, io) => {
             eliminated = true
           }
         }
-        console.log(game.users.left());
         if (game.users.left() === 1) {
           win = true;
           winner = game.users.list[0];
@@ -72,6 +71,7 @@ module.exports = (app, game, io) => {
           eliminated,
           msg,
           success,
+          usersLeft: game.users.left(),
           win,
           winner
         });
