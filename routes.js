@@ -51,10 +51,12 @@ module.exports = (app, game, io) => {
           msg = "Know thyself indeed! But you cannot guess yourself..."
         } else {
           success = game.users.compareFakeReal(fakeName, realName);
+          console.log("success: " + success)
           if (success) {
             game.users.discover(fakeName);
             msg = "You're right!"
-            if (game.users.undiscoveredUsers() === 1) { win = true };
+            if (game.users.left() === 1) { win = true };
+            console.log("gets to after check for undiscoveredUsers")
           } else {
             game.users.incrementWrongGuesses(guesser.id);
             if (game.users.isUserAboveMaxGuesses(game.maxWrongGuesses, guesser.id)) {

@@ -29,6 +29,10 @@
   font-family: 'Montserrat', sans-serif;
 }
 
+.guessRealName {
+    float: right;
+}
+
 /* .name {
   color:  #0E0B16;
 } */
@@ -44,8 +48,3 @@
   display: inline-block;
   width: 90%;
 }
-
-#realNameSelector {
-  float: right;
-}
-

@@ -169,7 +169,8 @@ class ChatRoom extends Component {
                       guesser={this.props.user}
                       setUser={this.props.setUser}
                       setGuessResult={this.setGuessResult}
-
+                      fakeNames = {this.state.fakeNames}
+                      realNames = {this.state.realNames}
                     />
                     <div className={styles.guessWarning}>
                       <div>

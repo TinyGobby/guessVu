@@ -58,13 +58,13 @@ class Guess extends Component {
     return (
       <div className={styles.container} id="guessing">
         <div id="guessForm">
-          <select className={styles.guessName} id={styles.fakeNameSelector}>
+          <select className={styles.guessName} id="guessFakeName">
           <option value="" disabled selected>Fake Name</option>
             {this.props.fakeNames.map(fakeName => (
               <option className={styles.name} value={fakeName}>{fakeName}</option>
             ))}
           </select>
-          <select className={styles.guessName} id={styles.realNameSelector}>
+          <select className={styles.guessName + " " + styles.guessRealName} id="guessRealName">
           <option value="" disabled selected>Real Name</option>
             {this.props.realNames.map(realName => (
               <option className={styles.name} value={realName}>{realName}</option>
