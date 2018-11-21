@@ -10,7 +10,7 @@ import axios from 'axios';
 import Leave from './leave';
 import { throws } from 'assert';
 import styles from '../styles/chatroom.css';
-import Discovered from './discovered';
+import KnockedOutMessage from './knockedOutMessage';
 import EndGame from './endGame';
 
 import Alert from './alert.js';
@@ -23,7 +23,7 @@ class ChatRoom extends Component {
     super(props);
     this.state = {
       alertVisible: false,
-      guessVisible: true,
+      eliminated: false,
       input: '',
       numberOfUsers: 0,
       messages: [],
@@ -36,7 +36,7 @@ class ChatRoom extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.startGame = this.startGame.bind(this);
-    this.hideGuessing = this.hideGuessing.bind(this);
+    this.setEliminatedTrue = this.setEliminatedTrue.bind(this);
     this.setGuessResult = this.setGuessResult.bind(this);
   }
 
@@ -118,10 +118,9 @@ class ChatRoom extends Component {
     });
   }
 
-  hideGuessing() {
-    console.log('Hide guessing');
+  setEliminatedTrue() {
     this.setState({
-      guessVisible: false
+      eliminated: true
     });
   }
 
@@ -146,7 +145,6 @@ class ChatRoom extends Component {
 
 
         <EndGame />
-        {this.props.user.discovered && <Discovered />}
         {this.state.winner && <GameWon winner={this.state.winner} />}
         <div className={styles.rightColumn}>
           <div>
@@ -159,11 +157,17 @@ class ChatRoom extends Component {
           {!this.props.gameState.open && (
             <div>
               <div>
-                {this.state.guessVisible && !this.props.user.discovered && (
+                {this.props.user.eliminated && (
+                  <KnockedOutMessage message="Too many incorrect guesses, you're eliminated!" />
+                )}
+                {this.props.user.discovered && (
+                  <KnockedOutMessage message="You have been discovered" />
+                )}
+                {!this.props.user.eliminated && !this.props.user.discovered && (
                   <div>
                     <Guess
                       guesser={this.props.user}
-                      hideGuessing={this.hideGuessing}
+                      setUser={this.props.setUser}
                       setGuessResult={this.setGuessResult}
 
                     />

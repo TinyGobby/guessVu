@@ -67,7 +67,7 @@ class App extends Component {
         <div className={styles.container}>
           <Route exact path="/"
             render={() => <Home setUser={this.setUser} />}/>
-          <Route path="/chatroom" render={() => <ChatRoom user={this.state.user} gameState={this.state.gameState} closeGame={this.closeGame} errorMsg={this.state.chatErrorMsg}/>}/>
+          <Route path="/chatroom" render={() => <ChatRoom user={this.state.user} gameState={this.state.gameState} closeGame={this.closeGame} errorMsg={this.state.chatErrorMsg} setUser={this.setUser}/>}/>
         </div>
       </Router>
     );

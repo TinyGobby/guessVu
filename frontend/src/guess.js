@@ -17,8 +17,6 @@ class Guess extends Component {
     const fakeNameSelector = document.getElementById('guessFakeName');
     const guessFakeName =
       fakeNameSelector.options[fakeNameSelector.selectedIndex].value;
-    console.log(guessFakeName);
-
     const realNameSelector = document.getElementById('guessRealName');
     const guessRealName =
       realNameSelector.options[realNameSelector.selectedIndex].value;
@@ -43,12 +41,13 @@ class Guess extends Component {
           });
         }
         if (response.data.eliminated) {
-          that.props.hideGuessing();
+          let user = that.props.guesser;
+          user.eliminated = true
+          that.props.setUser(user);
+        } else {
+          that.props.setGuessResult(response.data.msg);
         }
-        that.props.setGuessResult(response.data.msg);
-
         socket.emit('usersLeftServer', response.data.usersLeft);
-
       })
       .catch(function(error) {
         console.log(error);
@@ -56,7 +55,6 @@ class Guess extends Component {
   }
 
   render() {
-    console.log({ 'props in guess': this.props });
     return (
       <div className={styles.container} id="guessing">
         <div id="guessForm">
@@ -72,7 +70,6 @@ class Guess extends Component {
               <option className={styles.name} value={realName}>{realName}</option>
             ))}
           </select>
-
           <button
             className={styles.button}
             type="submit"
