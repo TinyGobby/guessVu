@@ -17,6 +17,10 @@ body {
   display: inline-block;
 }
 
+.endGameDiv {
+  display: inline-block;
+}
+
 
 .displayMsgsDiv {
   border: #A239CA solid 2px;
@@ -34,7 +38,7 @@ body {
 
 .messagesDiv {
   width: 60%;
-  height: 90vh;
+  height: 80vh;
   left: 20px;
   bottom: 10px;
 }
@@ -56,6 +60,8 @@ body {
 }
 
 .rightColumn {
+  height: 80vh;
+  font-size: medium;
   float: right;
   width: 33%;
   font-size: large;

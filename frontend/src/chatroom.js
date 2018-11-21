@@ -82,6 +82,8 @@ class ChatRoom extends Component {
     });
   }
 
+
+
   handleChange(e) {
     this.setState({ input: e.target.value });
   }
@@ -126,10 +128,9 @@ class ChatRoom extends Component {
   render() {
     console.log({ state: this.state });
     return (
-      <div className="ChatRoom" id="chatRoom">
-        <h1 className="ChatRoom-title" id="chatRoomTitle">
-          Welcome {this.props.user.fakeName}
-        </h1>
+
+      <div id="chatRoom">
+        <h1 className="ChatRoom-title" id="chatRoomTitle">Welcome {this.props.user.fakeName}</h1>
         <EndGame />
         {this.props.user.discovered && <Discovered />}
         {this.state.winner && <GameWon winner={this.state.winner} />}
@@ -174,7 +175,7 @@ class ChatRoom extends Component {
         </div>
         <div className={styles.messagesDiv}>
           <div className={styles.displayMsgsDiv} id="messageDisplay">
-            <DisplayMessages messages={this.state.messages} />
+            <DisplayMessages messages={this.state.messages}/>
           </div>
           <form onSubmit={this.handleSubmit} id="messageInput">
             <input
