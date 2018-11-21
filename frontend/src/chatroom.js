@@ -30,7 +30,7 @@ class ChatRoom extends Component {
       fakeNames: [],
       realNames: [],
       guessResult: null,
-      winner: null,
+      winner: null
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -41,10 +41,10 @@ class ChatRoom extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.errorMsg !== prevProps.errorMsg) {
-      console.log('prevProps and current differ')
+      console.log('prevProps and current differ');
       this.setState({
         alertVisible: true
-      })
+      });
     }
   }
 
@@ -59,6 +59,7 @@ class ChatRoom extends Component {
       window.location.reload();
     })
 
+
     socket.on('listOfMessages', function(data) {
       that.setState({
         messages: data
@@ -68,7 +69,7 @@ class ChatRoom extends Component {
     socket.on('listOfUsers', function(data) {
       that.setState({ realNames: data.allRealNames });
       that.setState({ fakeNames: data.allFakeNames });
-      that.setState({ numberOfUsers: data.allFakeNames.length})
+      that.setState({ numberOfUsers: data.allFakeNames.length });
     });
 
     socket.on('winClient', function(data) {
@@ -77,8 +78,8 @@ class ChatRoom extends Component {
           fakeName: data.fakeName,
           realName: data.realName
         }
-      })
-    })
+      });
+    });
   }
 
   handleChange(e) {
@@ -93,11 +94,11 @@ class ChatRoom extends Component {
     };
 
     if (this.props.gameState.open) {
-      sentObj.fakeName = "anonymous";
-      sentObj.userId = "0"
+      sentObj.fakeName = 'anonymous';
+      sentObj.userId = '0';
     } else {
-      sentObj.fakeName = this.props.user.fakeName,
-      sentObj.userId = this.props.user.id
+      (sentObj.fakeName = this.props.user.fakeName),
+        (sentObj.userId = this.props.user.id);
     }
     socket.emit('inputMessage', sentObj);
     this.setState({
@@ -106,16 +107,16 @@ class ChatRoom extends Component {
   }
 
   hideGuessing() {
-    console.log("Hide guessing")
+    console.log('Hide guessing');
     this.setState({
       guessVisible: false
-    })
+    });
   }
 
   setGuessResult(result) {
     this.setState({
       guessResult: result
-    })
+    });
   }
 
   startGame() {
@@ -123,13 +124,15 @@ class ChatRoom extends Component {
   }
 
   render() {
-    console.log({"state": this.state});
+    console.log({ state: this.state });
     return (
       <div className="ChatRoom" id="chatRoom">
-        <h1 className="ChatRoom-title" id="chatRoomTitle">Welcome {this.props.user.fakeName}</h1>
+        <h1 className="ChatRoom-title" id="chatRoomTitle">
+          Welcome {this.props.user.fakeName}
+        </h1>
         <EndGame />
-          {this.props.user.discovered && <Discovered />}
-          {this.state.winner && <GameWon winner={this.state.winner} />}
+        {this.props.user.discovered && <Discovered />}
+        {this.state.winner && <GameWon winner={this.state.winner} />}
         <div className={styles.rightColumn}>
           <div>
             <StartGame startGame={this.startGame} />
@@ -139,12 +142,21 @@ class ChatRoom extends Component {
           {!this.props.gameState.open && (
             <div>
               <div>
-                {this.state.guessVisible && !this.props.user.discovered &&
+                {this.state.guessVisible && !this.props.user.discovered && (
                   <div>
-                    <Guess guesser={this.props.user} hideGuessing={this.hideGuessing} setGuessResult={this.setGuessResult}/>
-                    <div className={styles.guessWarning}>Careful: You can only have {this.props.gameState.maxWrongGuesses} wrong guesses.</div>
+                    <Guess
+                      guesser={this.props.user}
+                      hideGuessing={this.hideGuessing}
+                      setGuessResult={this.setGuessResult}
+                      fakeNames={this.state.fakeNames}
+                      realNames={this.state.realNames}
+                    />
+                    <div className={styles.guessWarning}>
+                      Careful: You can only have{' '}
+                      {this.props.gameState.maxWrongGuesses} wrong guesses.
+                    </div>
                   </div>
-                }
+                )}
                 <div className="resultOfGuess">
                   <ResultOfGuess guessResult={this.state.guessResult} />
                 </div>
