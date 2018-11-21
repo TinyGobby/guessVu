@@ -64,8 +64,19 @@ module.exports = (app, game, io) => {
             }
           }
         }
-        res.send({eliminated, msg, success, win});
 
+        if (game.users.left() === 1) {
+          win = true;
+          winner = game.users.list[0];
+        };
+        res.send({
+          eliminated,
+          msg,
+          success,
+          usersLeft: game.users.left(),
+          win,
+          winner
+        });
 
     })
 }
