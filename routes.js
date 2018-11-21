@@ -42,6 +42,7 @@ module.exports = (app, game, io) => {
         let win = false;
         let success = false;
         let eliminated = false;
+        let winner = '';
         let msg = "Sorry, not this time!";
         const realName = req.body.solution.realName;
         const fakeName = req.body.solution.fakeName;
@@ -50,24 +51,21 @@ module.exports = (app, game, io) => {
           msg = "Know thyself indeed! But you cannot guess yourself..."
         } else {
           success = game.users.compareFakeReal(fakeName, realName);
-        }
-        if (success) {
-          game.users.discover(fakeName);
-          msg = "You're right!"
-          if (game.users.undiscoveredUsers() === 1) { win = true };
-        } else {
-          game.users.incrementWrongGuesses(guesser.id);
-          if (game.users.isUserAboveMaxGuesses(game.maxWrongGuesses, guesser.id)) {
-            game.users.eliminateUser(guesser.id)
-            msg = "You used up your guesses. You're eliminated."
-            eliminated = true
+          if (success) {
+            game.users.discover(fakeName);
+            msg = "You're right!"
+            if (game.users.undiscoveredUsers() === 1) { win = true };
+          } else {
+            game.users.incrementWrongGuesses(guesser.id);
+            if (game.users.isUserAboveMaxGuesses(game.maxWrongGuesses, guesser.id)) {
+              game.users.eliminateUser(guesser.id)
+              msg = "You used up your guesses. You're eliminated."
+              eliminated = true
+            }
           }
         }
-        res.send({
-          eliminated,
-          msg,
-          success,
-          win,
-        });
+        res.send({eliminated, msg, success, win});
+
+
     })
 }
