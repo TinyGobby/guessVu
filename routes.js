@@ -30,7 +30,7 @@ module.exports = (app, game, io) => {
     app.post('/api/user/leave', (req, res) => {
         const userID = req.body.id;
         game.users.deleteUser(userID);
-        if (users.checkEndGame()) {
+        if (game.users.checkEndGame()) {
             game.open();
         }
         res.send({
@@ -54,10 +54,10 @@ module.exports = (app, game, io) => {
         if (success) {
           game.users.discover(fakeName);
           msg = "You're right!"
-          if (users.undiscoveredUsers() === 1) { win = true };
+          if (game.users.undiscoveredUsers() === 1) { win = true };
         } else {
           game.users.incrementWrongGuesses(guesser.id);
-          if (users.isUserAboveMaxGuesses(game.maxWrongGuesses, guesser.id)) {
+          if (game.users.isUserAboveMaxGuesses(game.maxWrongGuesses, guesser.id)) {
             game.users.eliminateUser(guesser.id)
             msg = "You used up your guesses. You're eliminated."
             eliminated = true
