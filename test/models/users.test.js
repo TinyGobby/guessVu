@@ -132,18 +132,25 @@ describe("Users", () => {
     })
   })
 
-  describe("undiscoveredUsers", () => {
+  describe("left", () => {
     it("should return 2 when two users sign up", () => {
       users.add("unicorn1", "seb1");
       users.add("unicorn2", "seb2");
-      expect(users.undiscoveredUsers()).toEqual(2);
+      expect(users.left()).toEqual(2);
     })
 
     it("should return 1 when two users sign up and one is discovered", () => {
       users.add("unicorn1", "seb1");
       users.add("unicorn2", "seb2");
       users.discover("unicorn1");
-      expect(users.undiscoveredUsers()).toEqual(1);
+      expect(users.left()).toEqual(1);
+    })
+
+    it("should return 1 when two users sign up and one is eliminated", () => {
+      users.add("unicorn1", "seb1");
+      users.add("unicorn2", "seb2");
+      users.eliminateUser("1");
+      expect(users.left()).toEqual(1);
     })
   })
 
