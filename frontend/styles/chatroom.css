@@ -69,11 +69,11 @@ body {
 }
 
 .singleNameDiv {
-  height: 27vh;
+  height: 20vh;
   color: #E7DFDD;
   font-size: large;
   border: #A239CA solid 2px;
   border-radius: 12px;
   margin: 8px 1px;
-  padding: 10px;
+  padding: 2px;
 }
