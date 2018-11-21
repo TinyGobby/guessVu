@@ -17,6 +17,10 @@ body {
   display: inline-block;
 }
 
+.endGameDiv {
+  display: inline-block;
+}
+
 
 .displayMsgsDiv {
   border: #A239CA solid 2px;
@@ -56,6 +60,8 @@ body {
 }
 
 .rightColumn {
+  height: 80vh;
+  font-size: medium;
   float: right;
   width: 33%;
   font-size: large;
