@@ -128,7 +128,6 @@ class Users {
   }
 
   isRealNameTaken(realName){
-    console.log({"isRealNameTaken": this.list});
     let taken = false
     this.list.forEach((user) => {
       if (user.realName == realName) {
