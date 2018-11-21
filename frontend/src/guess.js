@@ -28,7 +28,7 @@ class Guess extends Component {
       .then(function(response) {
         console.log(response);
         if (response.data.success === true) {
-          socket.emit('discoverServer', {fakeName: guessFakeName})
+          socket.emit('discoverServer', { fakeName: guessFakeName });
         }
         if (response.data.win) {
           socket.emit('winServer', {
@@ -37,7 +37,9 @@ class Guess extends Component {
           });
         }
         if (response.data.eliminated) {
-          that.props.hideGuessing();
+          let user = that.props.guesser;
+          user.eliminated = true
+          that.props.setUser(user);
         } else {
           that.props.setGuessResult(response.data.msg);
         }
@@ -49,9 +51,9 @@ class Guess extends Component {
   }
 
   render() {
-    console.log({"props in guess": this.props})
+    console.log({ 'props in guess': this.props });
     return (
-      <div className={styles.guesserDiv} id='guessing'>
+      <div className={styles.guesserDiv} id="guessing">
         <div className="guessForm" id="guessForm">
           <input
             name="guessFakeName"
