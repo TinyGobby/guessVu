@@ -51,29 +51,21 @@ module.exports = (app, game, io) => {
           msg = "Know thyself indeed! But you cannot guess yourself..."
         } else {
           success = game.users.compareFakeReal(fakeName, realName);
-        }
-        if (success) {
-          game.users.discover(fakeName);
-          msg = "You're right!"
-        } else {
-          game.users.incrementWrongGuesses(guesser.id);
-          if (game.users.isUserAboveMaxGuesses(game.maxWrongGuesses, guesser.id)) {
-            game.users.eliminateUser(guesser.id)
-            msg = "You used up your guesses. You're eliminated."
-            eliminated = true
+          if (success) {
+            game.users.discover(fakeName);
+            msg = "You're right!"
+            if (game.users.undiscoveredUsers() === 1) { win = true };
+          } else {
+            game.users.incrementWrongGuesses(guesser.id);
+            if (game.users.isUserAboveMaxGuesses(game.maxWrongGuesses, guesser.id)) {
+              game.users.eliminateUser(guesser.id)
+              msg = "You used up your guesses. You're eliminated."
+              eliminated = true
+            }
           }
         }
-        console.log(game.users.left());
-        if (game.users.left() === 1) {
-          win = true;
-          winner = game.users.list[0];
-        };
-        res.send({
-          eliminated,
-          msg,
-          success,
-          win,
-          winner
-        });
+        res.send({eliminated, msg, success, win});
+
+
     })
 }
