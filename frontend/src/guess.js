@@ -58,16 +58,18 @@ class Guess extends Component {
   render() {
     console.log({ 'props in guess': this.props });
     return (
-      <div className={styles.guesserDiv} id="guessing">
-        <div className="guessForm" id="guessForm">
-          <select className={styles.guessName} id="guessFakeName">
+      <div className={styles.container} id="guessing">
+        <div id="guessForm">
+          <select className={styles.guessName} id={styles.fakeNameSelector}>
+          <option value="" disabled selected>Fake Name</option>
             {this.props.fakeNames.map(fakeName => (
-              <option value={fakeName}>{fakeName}</option>
+              <option className={styles.name} value={fakeName}>{fakeName}</option>
             ))}
           </select>
-          <select className={styles.guessName} id="guessRealName">
+          <select className={styles.guessName} id={styles.realNameSelector}>
+          <option value="" disabled selected>Real Name</option>
             {this.props.realNames.map(realName => (
-              <option value={realName}>{realName}</option>
+              <option className={styles.name} value={realName}>{realName}</option>
             ))}
           </select>
 
