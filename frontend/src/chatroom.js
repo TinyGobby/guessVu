@@ -11,12 +11,11 @@ import Leave from './leave';
 import { throws } from 'assert';
 import styles from '../styles/chatroom.css';
 import Discovered from './discovered';
+import EndGame from './endGame';
 
 import Alert from './alert.js';
 import ResultOfGuess from './resultOfGuess';
 
-
-import StartNewGame from './startNewGame';
 import { withRouter } from 'react-router-dom';
 
 class ChatRoom extends Component {
@@ -128,7 +127,7 @@ class ChatRoom extends Component {
     return (
       <div className="ChatRoom" id="chatRoom">
         <h1 className="ChatRoom-title" id="chatRoomTitle">Welcome {this.props.user.fakeName}</h1>
-        <StartNewGame />
+        <EndGame />
           {this.props.user.discovered && <Discovered />}
           {this.state.winner && <GameWon winner={this.state.winner} />}
         <div className={styles.rightColumn}>

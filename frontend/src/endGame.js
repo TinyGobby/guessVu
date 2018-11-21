@@ -6,7 +6,7 @@ import socket from './index.js';
 
 
 
-class StartNewGame extends Component {
+class EndGame extends Component {
     constructor(props){
         super(props)
         this.startNewGame = this.startNewGame.bind(this)
@@ -16,7 +16,7 @@ class StartNewGame extends Component {
         var that = this
         axios
         .post('/api/game/startnew', {
-              
+
         })
         .then(function(response) {
             if (response.data.success == true) {
@@ -33,7 +33,7 @@ class StartNewGame extends Component {
         return(
             <div>
                 <button onClick={this.startNewGame} className={styles.button}>
-                    Start new game
+                    End game
                 </button>
             </div>
         )
@@ -41,4 +41,4 @@ class StartNewGame extends Component {
 
 }
 
-export default withRouter(StartNewGame);
+export default withRouter(EndGame);
