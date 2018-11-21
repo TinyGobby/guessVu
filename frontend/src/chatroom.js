@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import DisplayMessages from './displayMessages';
 import GameWon from './gameWon';
 import socket from './index.js';
-import ShowRealNames from './realNames';
-import ShowFakeNames from './fakeNames';
+import ShowRealNames from './showRealNames';
+import ShowFakeNames from './showFakeNames';
 import StartGame from './startGame';
 import Guess from './guess';
 import axios from 'axios';
 import Leave from './leave';
 import { throws } from 'assert';
 import styles from '../styles/chatroom.css';
+import nameStyles from '../styles/names.css';
 import KnockedOutMessage from './knockedOutMessage';
 import EndGame from './endGame';
 
@@ -188,12 +189,12 @@ class ChatRoom extends Component {
                   There are {this.state.usersLeft} players left in the game.
                 </div>
               </div>
-              <div className={styles.singleNameDiv}>
-                <h3>Fake Names</h3>
+              <div className={nameStyles.container}>
+                <div className={nameStyles.heading}>Fake Names</div>
                 <ShowFakeNames fakeNames={this.state.fakeNames} />
               </div>
-              <div className={styles.singleNameDiv}>
-                <h3>Real Names</h3>
+              <div className={nameStyles.container}>
+                <div className={nameStyles.heading}>Real Names</div>
                 <ShowRealNames realNames={this.state.realNames} />
               </div>
             </div>
