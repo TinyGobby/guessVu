@@ -176,6 +176,16 @@ class Users {
     this.list.push(user);
   }
 
+  winner() {
+    let winner = ''
+    this.list.forEach((user) => {
+      if (!user.discovered && !user.eliminated ) {
+        winner = user;
+      }
+    })
+    return winner;
+  }
+
   left() {
     let total = 0;
     this.list.forEach((user) => {
