@@ -31,7 +31,8 @@ class ChatRoom extends Component {
       realNames: [],
       usersLeft: 0,
       guessResult: null,
-      winner: null
+      winner: null,
+      guessFormHide: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -80,7 +81,8 @@ class ChatRoom extends Component {
         winner: {
           fakeName: data.fakeName,
           realName: data.realName
-        }
+        },
+        guessFormHide: true
       });
     });
 
@@ -163,7 +165,7 @@ class ChatRoom extends Component {
                 {this.props.user.discovered && (
                   <KnockedOutMessage message="You have been discovered" />
                 )}
-                {!this.props.user.eliminated && !this.props.user.discovered && (
+                {!this.props.user.eliminated && !this.props.user.discovered && !this.state.guessFormHide && (
                   <div>
                     <Guess
                       guesser={this.props.user}
