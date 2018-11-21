@@ -150,7 +150,9 @@ class ChatRoom extends Component {
         {this.state.winner && <GameWon winner={this.state.winner} />}
         <div className={styles.rightColumn}>
           <div>
-            <StartGame startGame={this.startGame} />
+            {this.props.gameState.open && (
+              <StartGame startGame={this.startGame} />
+            )}
             <Leave user={this.props.user} />
           </div>
           {this.state.alertVisible && <Alert msg={this.props.errorMsg} />}
