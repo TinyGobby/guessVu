@@ -31,7 +31,7 @@ module.exports = (app, game, io) => {
             reason = "You need at least three players to play."
           } else {
             game.close();
-            maxWrongGuesses = game.calculateMaxWrongGuesses(users.list.length);
+            maxWrongGuesses = game.calculateMaxWrongGuesses(game.users.list.length);
             game.setMaxWrongGuesses(maxWrongGuesses);
           }
           io.emit('startGameClient', {

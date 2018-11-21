@@ -46,9 +46,6 @@ class ChatRoom extends Component {
         alertVisible: true
       })
     }
-    if (this.props.user.discovered !== prevProps.user.discovered) {
-      this.hideGuessing();
-    }
   }
 
   componentDidMount() {
@@ -108,6 +105,7 @@ class ChatRoom extends Component {
   }
 
   hideGuessing() {
+    console.log("Hide guessing")
     this.setState({
       guessVisible: false
     })
@@ -124,6 +122,7 @@ class ChatRoom extends Component {
   }
 
   render() {
+    console.log({"state": this.state});
     return (
       <div className="ChatRoom" id="chatRoom">
         <h1 className="ChatRoom-title" id="chatRoomTitle">Welcome {this.props.user.fakeName}</h1>
@@ -139,7 +138,7 @@ class ChatRoom extends Component {
           {!this.props.gameState.open && (
             <div>
               <div>
-                {this.state.guessVisible &&
+                {this.state.guessVisible && !this.props.user.discovered &&
                   <div>
                     <Guess guesser={this.props.user} hideGuessing={this.hideGuessing} setGuessResult={this.setGuessResult}/>
                     <div className={styles.guessWarning}>Careful: You can only have {this.props.gameState.maxWrongGuesses} wrong guesses.</div>
