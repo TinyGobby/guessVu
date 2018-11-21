@@ -56,6 +56,7 @@ class ChatRoom extends Component {
 
     socket.on('newGameForAll', function() {
       that.props.history.push('/');
+      window.location.reload();
     })
 
     socket.on('listOfMessages', function(data) {
