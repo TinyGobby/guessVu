@@ -31,7 +31,7 @@ class EndGame extends Component {
 
     render(){
         return(
-            <div>
+            <div className={styles.endGameDiv}>
                 <button onClick={this.startNewGame} className={styles.button}>
                     End game
                 </button>

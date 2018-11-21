@@ -60,6 +60,7 @@ class ChatRoom extends Component {
       window.location.reload();
     });
 
+
     socket.on('listOfMessages', function(data) {
       that.setState({
         messages: data
@@ -69,7 +70,9 @@ class ChatRoom extends Component {
     socket.on('listOfUsers', function(data) {
       that.setState({ realNames: data.allRealNames });
       that.setState({ fakeNames: data.allFakeNames });
+
       that.setState({ usersLeft: data.allFakeNames.length });
+
     });
 
     socket.on('winClient', function(data) {
@@ -86,7 +89,10 @@ class ChatRoom extends Component {
         usersLeft: data
       });
     });
+
   }
+
+
 
   handleChange(e) {
     this.setState({ input: e.target.value });
@@ -132,10 +138,13 @@ class ChatRoom extends Component {
   render() {
     console.log({ state: this.state });
     return (
+
       <div className="ChatRoom" id="chatRoom">
         <h1 className="ChatRoom-title" id="chatRoomTitle">
           Welcome {this.props.user.fakeName}
         </h1>
+
+
         <EndGame />
         {this.props.user.discovered && <Discovered />}
         {this.state.winner && <GameWon winner={this.state.winner} />}
@@ -154,6 +163,7 @@ class ChatRoom extends Component {
                       guesser={this.props.user}
                       hideGuessing={this.hideGuessing}
                       setGuessResult={this.setGuessResult}
+
                     />
                     <div className={styles.guessWarning}>
                       <div>
@@ -164,6 +174,7 @@ class ChatRoom extends Component {
                   </div>
                 )}
                 <div className={styles.guessWarning}>
+
                   <ResultOfGuess guessResult={this.state.guessResult} />
                 </div>
                 <div className={styles.guessWarning}>
@@ -183,7 +194,7 @@ class ChatRoom extends Component {
         </div>
         <div className={styles.messagesDiv}>
           <div className={styles.displayMsgsDiv} id="messageDisplay">
-            <DisplayMessages messages={this.state.messages} />
+            <DisplayMessages messages={this.state.messages}/>
           </div>
           <form onSubmit={this.handleSubmit} id="messageInput">
             <input
