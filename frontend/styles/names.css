@@ -1,12 +1,37 @@
-.names {
+.container {
+  height: 20vh;
   color: #E7DFDD;
-  background-color: #A239CA;
-  border-radius: 18px;
-  padding: 8px;
-  list-style-type: none;
+  font-size: large;
+  border: #A239CA solid 2px;
+  border-radius: 12px;
+  margin: 8px 1px;
+  padding: 2px;
+}
+
+.heading {
+  padding: none;
+  text-align: center;
+  margin: none;
+  font-size: 20px;
+}
+
+.list {
   display: inline-block
 }
 
-.namesDiv {
+.names {
+  background-color: #A239CA;
+  border-radius: 18px;
+  color: #E7DFDD;
   display: inline-block;
+  font-size: 16px;
+  list-style-type: none;
+  overflow: scroll;
+  padding: 3px 5px 3px 5px;
+  margin: 3px 7px 3px 7px;
+}
+
+.unorderedList {
+  padding: none;
+  margin: none;
 }
