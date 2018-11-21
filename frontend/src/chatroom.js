@@ -44,7 +44,6 @@ class ChatRoom extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.errorMsg !== prevProps.errorMsg) {
-      console.log('prevProps and current differ');
       this.setState({
         alertVisible: true
       });
@@ -138,7 +137,6 @@ class ChatRoom extends Component {
   }
 
   render() {
-    console.log({ state: this.state });
     return (
 
       <div className="ChatRoom" id="chatRoom">

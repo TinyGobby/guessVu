@@ -32,7 +32,6 @@ class Form extends Component {
         realName: realName
       })
       .then(function (response) {
-        console.log(response)
         if (response.data.success) {
           const user = response.data.user;
           that.props.setUser(user);

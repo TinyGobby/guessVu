@@ -30,7 +30,6 @@ class Guess extends Component {
         }
       })
       .then(function(response) {
-        console.log(response);
         if (response.data.success === true) {
           socket.emit('discoverServer', { fakeName: guessFakeName });
         }
