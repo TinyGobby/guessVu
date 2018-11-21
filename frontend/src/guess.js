@@ -14,8 +14,14 @@ class Guess extends Component {
 
   handleSubmit() {
     var that = this;
-    const guessFakeName = document.getElementById('guessFakeName').value;
-    const guessRealName = document.getElementById('guessRealName').value;
+    const fakeNameSelector = document.getElementById('guessFakeName');
+    const guessFakeName =
+      fakeNameSelector.options[fakeNameSelector.selectedIndex].value;
+    console.log(guessFakeName);
+
+    const realNameSelector = document.getElementById('guessRealName');
+    const guessRealName =
+      realNameSelector.options[realNameSelector.selectedIndex].value;
 
     axios
       .post('/api/user/solve', {
@@ -28,7 +34,7 @@ class Guess extends Component {
       .then(function(response) {
         console.log(response);
         if (response.data.success === true) {
-          socket.emit('discoverServer', {fakeName: guessFakeName})
+          socket.emit('discoverServer', { fakeName: guessFakeName });
         }
         if (response.data.win) {
           socket.emit('winServer', {
@@ -39,7 +45,10 @@ class Guess extends Component {
         if (response.data.eliminated) {
           that.props.hideGuessing();
         }
-        that.props.setGuessResult(response.data.msg)
+        that.props.setGuessResult(response.data.msg);
+
+        socket.emit('usersLeftServer', response.data.usersLeft);
+
       })
       .catch(function(error) {
         console.log(error);
@@ -47,22 +56,23 @@ class Guess extends Component {
   }
 
   render() {
-    console.log({"props in guess": this.props})
+    console.log({ 'props in guess': this.props });
     return (
-      <div className={styles.guesserDiv} id='guessing'>
-        <div className="guessForm" id="guessForm">
-          <input
-            name="guessFakeName"
-            className={styles.guessName}
-            id="guessFakeName"
-            placeholder="Fake Name"
-          />
-          <input
-            name="guessRealName"
-            className={styles.guessName}
-            id="guessRealName"
-            placeholder="Real Name"
-          />
+      <div className={styles.container} id="guessing">
+        <div id="guessForm">
+          <select className={styles.guessName} id={styles.fakeNameSelector}>
+          <option value="" disabled selected>Fake Name</option>
+            {this.props.fakeNames.map(fakeName => (
+              <option className={styles.name} value={fakeName}>{fakeName}</option>
+            ))}
+          </select>
+          <select className={styles.guessName} id={styles.realNameSelector}>
+          <option value="" disabled selected>Real Name</option>
+            {this.props.realNames.map(realName => (
+              <option className={styles.name} value={realName}>{realName}</option>
+            ))}
+          </select>
+
           <button
             className={styles.button}
             type="submit"

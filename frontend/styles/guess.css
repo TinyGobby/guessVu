@@ -17,10 +17,10 @@
   border-radius: 4px;
   color: #E7DFDD;
   background-color: #0E0B16;
-  width: 26%;
-  padding: 12px 32px;
+  width: 40%;
+  padding: 2px 2px 2px 2px;
   font-size: large;
-  display: block;
+  display: inline-block;
   margin: auto;
   margin-bottom: 17px;
   margin-top: 10px;
@@ -29,9 +29,23 @@
   font-family: 'Montserrat', sans-serif;
 }
 
+/* .name {
+  color:  #0E0B16;
+} */
+
 .result {
-  font-size: 20px;
   margin-top: 10px;
   margin-bottom: 10px;
   padding: 3px 3px 3px 3px;
 }
+
+.container {
+  height: 16vh;
+  display: inline-block;
+  width: 90%;
+}
+
+#realNameSelector {
+  float: right;
+}
+
