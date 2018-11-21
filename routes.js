@@ -42,6 +42,7 @@ module.exports = (app, game, io) => {
         let win = false;
         let success = false;
         let eliminated = false;
+        let winner = '';
         let msg = "Sorry, not this time!";
         const realName = req.body.solution.realName;
         const fakeName = req.body.solution.fakeName;
@@ -64,5 +65,7 @@ module.exports = (app, game, io) => {
           }
         }
         res.send({eliminated, msg, success, win});
+
+
     })
 }

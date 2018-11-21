@@ -176,10 +176,10 @@ class Users {
     this.list.push(user);
   }
 
-  undiscoveredUsers() {
+  left() {
     let total = 0;
     this.list.forEach((user) => {
-      if (!user.discovered) {
+      if (!user.discovered && !user.eliminated ) {
         total += 1;
       }
     })

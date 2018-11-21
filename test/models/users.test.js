@@ -156,6 +156,7 @@ describe('Users', () => {
     });
   });
 
+
   describe('incrementWrongGuesses', () => {
     it('incremenets wrongGuesses by 1', () => {
       users.add('unicorn1', 'seb1');
