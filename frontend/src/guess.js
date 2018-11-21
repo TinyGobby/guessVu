@@ -38,8 +38,9 @@ class Guess extends Component {
         }
         if (response.data.eliminated) {
           that.props.hideGuessing();
+        } else {
+          that.props.setGuessResult(response.data.msg);
         }
-        that.props.setGuessResult(response.data.msg);
         socket.emit('usersLeftServer', response.data.usersLeft);
       })
       .catch(function(error) {

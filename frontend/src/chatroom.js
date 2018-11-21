@@ -137,7 +137,6 @@ class ChatRoom extends Component {
           Welcome {this.props.user.fakeName}
         </h1>
         <EndGame />
-        {this.props.user.discovered && <Discovered />}
         {this.state.winner && <GameWon winner={this.state.winner} />}
         <div className={styles.rightColumn}>
           <div>
@@ -148,6 +147,8 @@ class ChatRoom extends Component {
           {!this.props.gameState.open && (
             <div>
               <div>
+                {this.props.user.discovered && <Discovered />}
+
                 {this.state.guessVisible && !this.props.user.discovered && (
                   <div>
                     <Guess
