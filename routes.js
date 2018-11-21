@@ -69,7 +69,7 @@ module.exports = (app, game, io) => {
 
         if (game.users.left() === 1) {
           win = true;
-          winner = game.users.list[0];
+          winner = game.users.winner();
         };
         res.send({
           eliminated,
