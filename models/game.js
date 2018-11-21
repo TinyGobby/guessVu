@@ -27,11 +27,9 @@ class Game {
   }
 
   startNew() {
-    console.log("I am in start new")
     this.users = new this.usersClass();
     this.messages = new this.messagesClass();
     this.isOpen = true;
-    console.log(this.users);
   }
 }
 
