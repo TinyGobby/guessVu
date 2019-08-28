@@ -6,6 +6,8 @@ Engineering project two for Makers Apprencticeships (Weeks 11 & 12). A small  an
 * Hosted at [Guess Vu](https://guessvu.herokuapp.com/) (https://guessvu.herokuapp.com/)
 * [Team Trello board](https://trello.com/b/ZrjQm3jB/guessvu)
 
+Currently has no package-lock.json due to being inactive and receiving vulnerable dependency emails. To reactivate just `npm install` at the root of the project and push the package-lock.json to master`
+
 ## Prerequisites
 
 [NodeJs & npm](https://nodejs.org/en/download/), which can be installed using [Homebrew](https://brew.sh/) on macOS:
